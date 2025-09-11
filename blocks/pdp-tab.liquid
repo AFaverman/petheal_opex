@@ -1,0 +1,62 @@
+{% liquid
+  assign block_scheme = block.settings.color_scheme
+  assign h_padding = block.settings.h-padding
+  assign v_padding = block.settings.v-padding
+%}
+<div class="text-md h3">{{ block.settings.tab_title }}</div> || 
+{%- for block in block.blocks -%}
+  <div class="tabulated-content__item color-{{ block_scheme }}" {{ block.shopify_attributes }}
+    style="padding:{{ v_padding }}px {{ h_padding }}px;">
+    {%- render block -%}
+  </div>
+{%- endfor -%}
+{% schema %}
+{
+  "name": "Tab",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "tab_title",
+      "label": "Tab title",
+      "default": "Tab"
+    },
+    {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Content Color Scheme",
+        "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "h-padding",
+      "label": "Horizontal Padding",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "v-padding",
+      "label": "Vertical Padding",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1
+    }
+  ],
+  "blocks": [
+    { "type": "pdp-icon" }, 
+    { "type": "pdp-table" },
+    { "type": "rich-text" },
+    { "type": "image-with-text" },
+    { "type": "pdp-ingredients" }
+  ],
+  "presets": [
+    {
+      "name": "ProductTab"
+    }
+  ]
+}
+{% endschema %} 

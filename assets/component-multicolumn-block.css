@@ -1,0 +1,15 @@
+.block-multicolumn .block-multicolumn__block-container {
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width: 749px) {
+    .block-multicolumn .block-multicolumn__block-container.wrap {
+        flex-wrap: wrap;
+    }
+}
+
+.block-multicolumn .block-multicolumn__block-container .block-multicolumn__block {
+    padding: 1rem;
+    border-radius: 1.2rem;
+}

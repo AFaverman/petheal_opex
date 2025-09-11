@@ -1,0 +1,532 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "show_title": false,
+        "color_scheme": ""
+      }
+    },
+    "image_banner_MYpj3J": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_DKF6fH": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Our Story</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_GrcwND": {
+          "type": "text",
+          "settings": {
+            "text": "We're PetHeal - A company built for pet owners, by pet owners.",
+            "text_style": "standard",
+            "text_size": "large"
+          }
+        }
+      },
+      "block_order": [
+        "heading_DKF6fH",
+        "text_GrcwND"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_b2a145946ba141ebb0449cbfc08aefdf.jpg",
+        "image_overlay_opacity": 0,
+        "image_height": "small",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-left",
+        "desktop_content_alignment": "left",
+        "show_text_box": true,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_left": 0,
+        "margin_right": 0,
+        "text_box_opacity": 50,
+        "text_box_corner": 12,
+        "text_max_width": 480,
+        "text_box_padding": 16,
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true,
+        "mobile_opacity": 0
+      }
+    },
+    "rich_text_7aWUwa": {
+      "type": "rich-text",
+      "blocks": {
+        "text_rP7GU8": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We provide the best for our best friends... to help give them the richest, healthiest life possible through the power of scientific nutrition, constant love, care, and endless belly rubs.</p>",
+            "text_style": "standard",
+            "text_size": "md"
+          }
+        }
+      },
+      "block_order": [
+        "text_rP7GU8"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664",
+        "full_width": true,
+        "content_full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "rich_text_kYKVxe": {
+      "type": "rich-text",
+      "blocks": {
+        "text_kwj8Vz": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our Story</p>",
+            "text_style": "standard",
+            "text_size": "xxl"
+          }
+        }
+      },
+      "block_order": [
+        "text_kwj8Vz"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "full_width": false,
+        "content_full_width": false,
+        "padding_top": 12,
+        "padding_bottom": 12
+      }
+    },
+    "rich_text_cCgmhi": {
+      "type": "rich-text",
+      "blocks": {
+        "text_XLWn7V": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Have you ever lost a dog?</p><p>It’s painful isn’t it?</p><p>It can be as hard or even harder than losing a relative.</p><p>Because heck, they are basically relatives.</p><p>We’ve lost dogs too. Seeing them gradually losing a step… losing their playfulness and mobility… until they can’t get up the stairs and they’re barely the same dog…</p><p>… that’s painful to live through.</p><p>We’ve all lost dogs at some point in our lives… and it wasn’t until we started digging and asking questions of vets and doing deep research that we learned some really unpleasant facts.</p><p>The fact is that 50% of dogs die of cancer… and the numbers are increasing.</p><p>If your dog lives to be ten years old, there’s a 50% chance they will get cancer or not… and most people don’t realize.</p><p>Modern life is simply not good for dogs… but nobody is doing anything about it.</p><p>That’s where we come in.</p><p>Due to the lifestyle most dogs have (not to mention their food), they’re missing the nutrients that all mammals need in order to stay healthy and cancer free.</p><p>We created Pet Heal to help your dog bridge those gaps so their body can work its magic, and they can stay happy and healthy as long as possible.</p><p>We’re not done yet. We’re going to keep working to create more and more ways for your pet to stay healthy and happy for as long as possible.</p><p>Stay tuned. We’ve got plenty up our sleeves.</p>",
+            "text_style": "standard",
+            "text_size": "md"
+          }
+        },
+        "image_ChDH6h": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_f2a67418437b4c07adadd249704225cd.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "text_XLWn7V",
+        "image_ChDH6h"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "full_width": false,
+        "content_full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 100
+      }
+    },
+    "icon_with_text_y3Xbi8": {
+      "type": "icon-with-text",
+      "name": "Icon with text",
+      "settings": {
+        "icon": "shopify://shop_images/dog-line-standing.svg",
+        "icon_name": "paw-print",
+        "icon_width": 110,
+        "title": "",
+        "text": "<h3>For Fetti</h3>",
+        "orientation": "column",
+        "icon_placement": "second",
+        "icon_alignment": "center",
+        "alignment": "center",
+        "color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664",
+        "padding_top": 36,
+        "padding_bottom": 0
+      }
+    },
+    "multicolumn_pP9VnT": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_bQdMKY": {
+          "type": "column",
+          "settings": {
+            "column_span": 3,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "Our Community",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>Becoming a PetHeal customer means being a part of our incredible community.</p><p>From our thousands of subscribers, our online community, and in-house experts - we all share one thing in common...we love our pets and want the best for them.</p>",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_cjihg6": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "left",
+            "border_display": "border-both",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "1,000,000",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>happy dogs & counting</p>",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_L8rTD8": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "left",
+            "border_display": "border-both",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "100,000+",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>community members</p>",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_kizzHp": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "left",
+            "border_display": "border-both",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "5,000+",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>5 star reviews</p>",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_bQdMKY",
+        "column_cjihg6",
+        "column_L8rTD8",
+        "column_kizzHp"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "heading_alignment": "left",
+        "heading_width": 0,
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "vertical_alignment": "center",
+        "columns_desktop": 6,
+        "column_alignment": "left",
+        "column_h_padding": 8,
+        "column_v_padding": 0,
+        "border_radius": 0,
+        "color_scheme": "scheme-42389180-1830-4cc2-85c9-5038c8e4a0fd",
+        "background_style": "none",
+        "color_scheme_secondary": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "show_slider_controls": true,
+        "mobile_shrink": false,
+        "section_padding_top": 36,
+        "section_padding_bottom": 36,
+        "padding_top": 24,
+        "padding_bottom": 24
+      }
+    },
+    "multicolumn_jGe39A": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_pGTA4t": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_3dacf9f1ad584496a42cb1b209e6ca20.png",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "Improving the Lives of Pets",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>Here at PetHeal, we are driven singularly by one very important goal: to improve the lives of all pets. Period. From providing tasty supplements that support your dog’s joint health, dental health, gut health, adn more... we’ve got you covered</p>",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_k4nifD": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_ed52aaf034e44de4b4bd6a2932f5f071.png",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "Our Commitment to Quality",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>If an ingredient, vitamin, or mineral is not top-quality, then it won’t make it into any of our products! Our dedicated team ensures the research into each supplement is extensive and never-ending so you can have confidence in all our products.</p>",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_4zbb9a": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_3168d09654724231b5a9a4988a22d0a1.png",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "Building Loving Communities",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>Building loving, thriving and active communities around the love of cats, dogs, and all pets (no matter their size or shape), is especially important to all of us here at PetHeal. We are so proud to have thriving communities around the globe.</p>",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_pGTA4t",
+        "column_k4nifD",
+        "column_4zbb9a"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "Our Values",
+        "heading_size": "h0",
+        "heading_alignment": "center",
+        "heading_width": 0,
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "vertical_alignment": "center",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "column_h_padding": 15,
+        "column_v_padding": 10,
+        "border_radius": 0,
+        "color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664",
+        "background_style": "color_scheme",
+        "color_scheme_secondary": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "show_slider_controls": true,
+        "mobile_shrink": false,
+        "section_padding_top": 36,
+        "section_padding_bottom": 36,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_FNJhpD": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_rCnMdg": {
+          "type": "heading",
+          "settings": {
+            "heading": "Backed by Vets",
+            "heading_size": "h1"
+          }
+        },
+        "text_UR3QQ8": {
+          "type": "text",
+          "settings": {
+            "text": "<h3></h3><h3>\"PetHeal provides a supplement that I trust and my patients love to take!\"</h3><h3>Vet Consultant to PetHeal</h3>",
+            "text_style": "standard",
+            "text_size": "lg"
+          }
+        }
+      },
+      "block_order": [
+        "heading_rCnMdg",
+        "text_UR3QQ8"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_8199388699704bd28bc6bdbab75a0634.png",
+        "height": "adapt",
+        "desktop_image_width": "small",
+        "image_max_width": 300,
+        "full_width": true,
+        "layout": "text_first",
+        "mobile_layout": "text_first",
+        "layout_direction": "row",
+        "image_behavior": "none",
+        "image_with_text_gap": 16,
+        "content_full_width": false,
+        "content_max_width": 500,
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "content_padding_top": 0,
+        "content_padding_bottom": 0,
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "full_colors": false,
+        "content_color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+        "color_scheme_application": "content_excluding_header",
+        "padding_top": 36,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_banner_MYpj3J",
+    "rich_text_7aWUwa",
+    "rich_text_kYKVxe",
+    "rich_text_cCgmhi",
+    "icon_with_text_y3Xbi8",
+    "multicolumn_pP9VnT",
+    "multicolumn_jGe39A",
+    "image_with_text_FNJhpD"
+  ]
+}

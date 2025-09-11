@@ -1,0 +1,1092 @@
+{{ 'section-multicolumn.css' | asset_url | stylesheet_tag }}
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  #Slider-{{ section.id }} .multicolumn-card .multicolumn-card__info,
+    #Slider-{{ section.id }} .quote-bubble {
+    border-radius: {{ section.settings.border_radius }}px;
+    padding: {{ section.settings.column_v_padding  | times: 0.75 | round: 0}}px {{ section.settings.column_h_padding  | times: 0.75 | round: 0}}px;
+  }
+
+  #Slider-{{ section.id }} .multicolumn-card {
+    overflow: hidden;
+    border-radius: {{ section.settings.border_radius }}px;
+  }
+
+  .section-{{ section.id }}-padding .multicolumn-list {
+    padding-top: {{ section.settings.section_padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.section_padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  {%- if section.settings.heading_width > 0 -%}
+    .section-{{ section.id }} .title-wrapper-with-link {
+      max-width: {{ section.settings.heading_width }}px !important;
+    }
+  {%- endif -%}
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+
+    .section-{{ section.id }}-padding .multicolumn-list {
+      padding-top: {{ section.settings.section_padding_top }}px;
+      padding-bottom: {{ section.settings.section_padding_bottom }}px;
+    }
+
+    #Slider-{{ section.id }} .multicolumn-card .multicolumn-card__info,
+    #Slider-{{ section.id }} .quote-bubble {
+      padding: {{ section.settings.column_v_padding }}px {{ section.settings.column_h_padding }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign columns_mobile_int = section.settings.columns_mobile | plus: 0
+  assign show_mobile_slider = false
+  if section.settings.swipe_on_mobile and section.blocks.size > columns_mobile_int
+    assign show_mobile_slider = true
+  endif
+-%}
+
+<div class="multicolumn color-{{ section.settings.color_scheme }} gradient{% if section.settings.title == blank %} no-heading{% endif %}">
+  <div
+    class="page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+    {% if settings.animations_reveal_on_scroll %}
+      data-cascade
+    {% endif %}
+  >
+    {%- unless section.settings.title == blank -%}
+      <div class="title-wrapper-with-link title-wrapper--self-padded-mobile title-wrapper--no-top-margin multicolumn__title{% if section.settings.heading_alignment == 'center' %} title-wrapper--center{% endif %}">
+        <h2 class="title inline-richtext text-xxl {{ section.settings.heading_size }}">
+          {%- liquid
+            assign heading_text = section.settings.title
+            assign pipe_count = heading_text | split: '|' | size
+            if pipe_count > 2
+              assign parts = heading_text | split: '|'
+              assign processed_heading = ''
+              for part in parts
+                assign index = forloop.index0
+                if index == 0
+                  assign processed_heading = processed_heading | append: part
+                elsif index != parts.size
+                  assign modulo = index | modulo: 2
+                  if modulo == 1
+                    assign processed_heading = processed_heading | append: '<span class="heading--tag">' | append: part | append: '</span>'
+                  else
+                    assign processed_heading = processed_heading | append: part
+                  endif
+                endif
+              endfor
+              echo processed_heading
+            else
+              echo heading_text
+            endif
+          -%}
+        </h2>
+        {%- if section.settings.button_label != blank and show_mobile_slider -%}
+          <a href="{{ section.settings.button_link }}" class="link underlined-link large-up-hide">
+            {{- section.settings.button_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endunless -%}
+    <slider-component class="slider-mobile-gutter">
+      <ul
+        class="multicolumn-list contains-content-container grid {% if show_mobile_slider %} slider slider--tablet grid--peek {% endif %}grid--{{ section.settings.columns_mobile }}-col-tablet-down {% if section.settings.background_style == 'container_color_scheme' %} color-{{ section.settings.color_scheme_secondary }}{% endif %}"
+        id="Slider-{{ section.id }}"
+        role="list"
+        style="--alignment: {{ section.settings.vertical_alignment }}; --columns: {% if section.settings.columns_desktop %}{{ section.settings.columns_desktop }}{% else %}1{% endif %}; {% if section.settings.columns_mobile %}--columns-mobile: {{ section.settings.columns_mobile }}{% endif %};"
+      >
+        {%- liquid
+          assign highest_ratio = 0
+          for block in section.blocks
+            if block.settings.image.aspect_ratio > highest_ratio
+              assign highest_ratio = block.settings.image.aspect_ratio
+            endif
+          endfor
+        -%}
+        {%- for block in section.blocks -%}
+          {%- assign empty_column = '' -%}
+          {%- if block.settings.image == blank
+            and block.settings.title == blank
+            and block.settings.text == blank
+            and block.settings.link_label == blank
+          -%}
+            {%- assign empty_column = ' multicolumn-list__item--empty' -%}
+          {%- endif -%}
+
+          <li
+            id="Slide-{{ section.id }}-{{ forloop.index }}"
+            class="{% if block.settings.border_style != 'none' %}{{block.settings.border_display}} {% endif %}{%if block.settings.display_view != 'none' %}{{block.settings.display_view}}-hide {% endif %}multicolumn-list__item grid__item{% if block.settings.use_image_as_background %} has-background-image{% endif %}{% if section.settings.swipe_on_mobile %} slider__slide{% endif %} {{ empty_column }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {{ block.shopify_attributes }}
+            data-mobile-compact="{% unless block.settings.mobile_full_width %}true{% endunless %}"
+            {% if settings.animations_reveal_on_scroll %}
+              data-cascade
+              data-style-preserve="--column-span: {{ block.settings.column_span | default: 1 }};"
+              style="--animation-order: {{ forloop.index }}; --column-span: {{ block.settings.column_span | default: 1 }};"
+            {% else %}
+              style="--column-span: {{ block.settings.column_span | default: 1 }};"
+            {% endif %}
+            data-border="{{ block.settings.border_style }}"
+          >
+            {%- if block.settings.enable_quote -%}
+              <!-- Quote Mode Layout -->
+              <div class="multicolumn-quote-card">
+                <div class="quote-bubble{% if section.settings.background_style == 'color_scheme' %} color-{{ section.settings.color_scheme_secondary }}{% endif %}">
+                  {%- if block.settings.quote_rating and block.settings.quote_rating > 0 -%}
+                    <div class="quote-rating">
+                      {%- for i in (1..block.settings.quote_rating) -%}
+                        <span class="star star-filled">{{ 'icon-star-filled.svg' | inline_asset_content }}</span>
+                      {%- endfor -%}
+                    </div>
+                  {%- endif -%}
+                  
+                  {%- if block.settings.quote_text != blank -%}
+                    <div class="flex gap-2 mb-4">
+                      <p>"</p>
+                      <p class="quote-text rte text-{{ block.settings.text_size }}">{{ block.settings.quote_text }}</p>
+                    </div>
+                  {%- endif -%}
+                  
+                  {%- if block.settings.text != blank -%}
+                    <div class="quote-additional-text rte text-{{ block.settings.text_size }}">{{ block.settings.text }}</div>
+                  {%- endif -%}
+                </div>
+                
+                <div class="quote-author">
+                  {%- if block.settings.image != blank -%}
+                    <div class="quote-image">
+                      {{
+                        block.settings.image
+                        | image_url: width: 160
+                        | image_tag:
+                          widths: '80, 160',
+                          sizes: '80px',
+                          class: 'quote-avatar'
+                      }}
+                    </div>
+                  {%- endif -%}
+                  
+                  <div class="quote-author-info text-sm">
+                    {%- if block.settings.title != blank -%}
+                      <p>
+                      {%- liquid
+                        assign heading_text = block.settings.title
+                        assign pipe_count = heading_text | split: '|' | size
+                        if pipe_count > 2
+                          assign parts = heading_text | split: '|'
+                          assign processed_heading = ''
+                          for part in parts
+                            assign index = forloop.index0
+                            if index == 0
+                              assign processed_heading = processed_heading | append: part
+                            elsif index != parts.size
+                              assign modulo = index | modulo: 2
+                              if modulo == 1
+                                assign processed_heading = processed_heading | append: '<span class="heading--tag">' | append: part | append: '</span>'
+                              else
+                                assign processed_heading = processed_heading | append: part
+                              endif
+                            endif
+                          endfor
+                          echo processed_heading
+                        else
+                          echo heading_text
+                        endif
+                      -%}
+                      </p>
+                    {%- endif -%}
+                    
+                    {%- if block.settings.quote_date != blank -%}
+                      <p>{{ block.settings.quote_date }}</p>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+            {%- else -%}
+              <!-- Normal Mode Layout -->
+              <div class="multicolumn-card content-container{% if section.settings.background_style == 'color_scheme' %} color-{{ section.settings.color_scheme_secondary }}{% endif %}{% if block.settings.use_image_as_background %} has-background-image{% endif %}"
+                {%- if block.settings.use_image_as_background and block.settings.image != blank -%}
+                  style="background-image: url({{ block.settings.image | image_url: width: 1500 }}); background-size: cover; background-position: center;"
+                {%- endif -%}
+              >
+                <div class="multicolumn-card__content {% unless block.settings.image != blank and block.settings.text == blank and block.settings.title == blank %} {{ section.settings.column_alignment }} multicolumn-card__fit-width{% endunless %}">
+                  {%- if block.settings.image != blank and block.settings.use_image_as_background != true -%}
+                    {% if section.settings.image_width != 'full' and section.settings.image_ratio == 'adapt' or section.settings.image_ratio == 'circle' %}
+                      {% assign spaced_image = true %}
+                    {% endif %}
+                    {%- assign image_width_setting = section.settings.image_width -%}
+                    {%- if image_width_setting == "full-margin" -%}
+                      {%- assign image_width_setting = "full" -%}
+                    {%- endif -%}
+                    <div class="multicolumn-card__image-wrapper multicolumn-card__image-wrapper--{{ image_width_setting }}-width{% if section.settings.image_width != 'full' or spaced_image %} multicolumn-card-spacing{% endif %}"
+                      {% if block.settings.image_max_width > 0 %}
+                        style="max-width: {{ block.settings.image_max_width }}px;"
+                      {%- endif -%}>
+                      {%- if block.settings.image_overlay_tag != blank -%}
+                        <div class="heading--tag tag--overlay text-md px-1 py-1 color-{{ section.settings.color_scheme }}">
+                          {{ block.settings.image_overlay_tag }}
+                        </div>
+                      {%- endif -%}
+
+                      {%- liquid
+                        assign number_of_columns = section.settings.columns_desktop
+                        assign number_of_columns_mobile = section.settings.columns_mobile
+                        assign grid_space_desktop = number_of_columns | minus: 1 | times: settings.spacing_grid_horizontal | plus: 100 | append: 'px'
+                        assign grid_space_tablet = number_of_columns_mobile | minus: 1 | times: settings.spacing_grid_horizontal | plus: 100 | append: 'px'
+                        assign grid_space_mobile = number_of_columns_mobile | minus: 1 | times: settings.spacing_grid_horizontal | divided_by: 2 | plus: 30 | append: 'px'
+                        if section.settings.image_width == 'half'
+                          assign image_width = 0.5
+                        elsif section.settings.image_width == 'third'
+                          assign image_width = 0.33
+                        else
+                          assign image_width = 1
+                        endif
+                      -%}
+                      {% capture sizes %}
+                        (min-width: {{ settings.page_width }}px) calc(({{ settings.page_width }}px - {{ grid_space_desktop }}) * {{ image_width }} /  {{ number_of_columns }}),
+                        (min-width: 1040px) calc((100vw - {{ grid_space_desktop }}) * {{ image_width }} / {{ number_of_columns }}),
+                        (min-width: 750px) calc((100vw - {{ grid_space_tablet }}) * {{ image_width }} / {{ number_of_columns_mobile }}),
+                        calc((100vw - {{ grid_space_mobile }}) * {{ image_width }} / {{ number_of_columns_mobile }})
+                      {% endcapture %}
+                      
+                      {%- unless block.settings.image_heading_inline -%}
+                        <div
+                          class="media media--transparent media--{{ section.settings.image_ratio }}"
+                          {% if section.settings.image_ratio == 'adapt' %}
+                            style="padding-bottom: {{ 1 | divided_by: highest_ratio | times: 100 }}%;"
+                          {% endif %}
+                        >
+                          {{
+                            block.settings.image
+                            | image_url: width: 3200
+                            | image_tag:
+                              widths: '50, 75, 100, 150, 200, 300, 400, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 3200',
+                              sizes: sizes,
+                              class: 'multicolumn-card__image'
+                          }}
+                        </div>
+                      {%- endunless -%}
+                    </div>
+                    {%- endif -%}
+                    <div class="multicolumn-card__info"
+                    {%  if block.settings.max_width > 0 %}
+                      style="max-width: {{ block.settings.max_width }}px; margin-left: auto; margin-right: auto;"
+                    {% endif %}>
+                      {%  if block.settings.image_heading_inline %}
+                        <div class="flex align-center gap-6">
+                          {{
+                            block.settings.image
+                            | image_url: width: block.settings.image_width
+                            | image_tag
+                          }}
+                      {% endif %}
+                      {%- if block.settings.title != blank -%}
+                        <h3 class="inline-richtext {% if section.settings.mobile_shrink %}text-lg{% endif %} {{ block.settings.title_size }} heading--{{ block.settings.title_style }} {% if block.settings.tag_style == 'overlay' %}tag--overlay{% endif %} {{ block.settings.title_align }} font-semibold"
+                        style="font-family: var(--font-{{ block.settings.font_style }}-family);" >{{ block.settings.title }}</h3>
+                      {%- endif -%}
+                      {%  if block.settings.image_heading_inline %}
+                        </div>
+                      {% endif %}
+                      {%- if block.settings.text != blank -%}
+                        <div class="rte {% if section.settings.mobile_shrink %}text-sm md:{%endif%}text-{{ block.settings.text_size }} {{ block.settings.text_align }}">{{ block.settings.text }}</div>
+                      {%- endif -%}
+                      {%- if block.settings.link_label != blank -%}
+                        <a
+                          class="{% if block.settings.link_style == 'link' %}link animate-arrow{% else %}button uppercase {{ block.settings.link_style }}{% endif %}"
+                          {% if block.settings.link == blank %}
+                            role="link" aria-disabled="true"
+                          {% else %}
+                            href="{{ block.settings.link }}"
+                          {% endif %}
+                        >
+                          {{- block.settings.link_label | escape -}}
+                          {% if block.settings.link_style == 'link' %}
+                            <span class="svg-wrapper"
+                              ><span class="icon-wrap">&nbsp;{{ 'icon-arrow.svg' | inline_asset_content }}</span></span
+                            >
+                          {% endif %}
+                        </a>
+                      {%- endif -%}
+                    </div>
+                  </div>
+              </div>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      {%- if show_mobile_slider and section.settings.show_slider_controls -%}
+        <div class="slider-buttons large-up-hide">
+          <button
+            type="button"
+            class="slider-button slider-button--prev"
+            name="previous"
+            aria-label="{{ 'general.slider.previous_slide' | t }}"
+          >
+            <span class="svg-wrapper">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+          </button>
+          <div class="slider-counter caption">
+            <span class="slider-counter--current">1</span>
+            <span aria-hidden="true"> / </span>
+            <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
+            <span class="slider-counter--total">{{ section.blocks.size }}</span>
+          </div>
+          <button
+            type="button"
+            class="slider-button slider-button--next"
+            name="next"
+            aria-label="{{ 'general.slider.next_slide' | t }}"
+          >
+            <span class="svg-wrapper">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+          </button>
+        </div>
+      {%- endif -%}
+    </slider-component>
+    <div class="center{% if show_mobile_slider %} small-hide medium-hide{% endif %} mx-4">
+      {%- if section.settings.button_label != blank -%}
+        <a
+          class="button button--primary"
+          {% if section.settings.button_link == blank %}
+            role="link" aria-disabled="true"
+          {% else %}
+            href="{{ section.settings.button_link }}"
+          {% endif %}
+        >
+          {{ section.settings.button_label | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.multicolumn.name",
+  "class": "section",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "t:sections.multicolumn.settings.title.default",
+      "label": "t:sections.multicolumn.settings.title.label",
+      "info": "Wrap text in |pipes| to display only a portion of the text as a tag."
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        },
+        {
+          "value": "hxl",
+          "label": "t:sections.all.heading_size.options__4.label"
+        },
+        {
+          "value": "hxxl",
+          "label": "t:sections.all.heading_size.options__5.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "label": "Heading alignment"
+    },
+    {
+      "type": "range",
+      "id": "heading_width",
+      "min":0,
+      "max":1400,
+      "step":50,
+      "unit": "px",
+      "label": "Heading width",
+      "default": 0,
+      "info": "Set to 0 to allow automatic width"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.multicolumn.settings.header_image.content"
+    },    
+    {
+      "type": "select",
+      "id": "image_width",
+      "options": [
+        {
+          "value": "third",
+          "label": "t:sections.multicolumn.settings.image_width.options__1.label"
+        },
+        {
+          "value": "half",
+          "label": "t:sections.multicolumn.settings.image_width.options__2.label"
+        },
+        {
+          "value": "full-margin",
+          "label": "Full width with margin"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.multicolumn.settings.image_width.options__3.label"
+        }
+      ],
+      "default": "full",
+      "label": "t:sections.multicolumn.settings.image_width.label"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.multicolumn.settings.image_ratio.options__1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.multicolumn.settings.image_ratio.options__2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.multicolumn.settings.image_ratio.options__3.label"
+        },
+        {
+          "value": "circle",
+          "label": "t:sections.multicolumn.settings.image_ratio.options__4.label"
+        }
+      ],
+      "default": "adapt",
+      "label": "t:sections.multicolumn.settings.image_ratio.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.multicolumn.settings.header_button.content"
+    },    
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "t:sections.multicolumn.settings.button_label.default",
+      "label": "t:sections.multicolumn.settings.button_label.label", 
+      "info": "t:sections.multicolumn.settings.button_label.info"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:sections.multicolumn.settings.button_link.label"
+    },    
+    {
+      "type": "header",
+      "content": "t:sections.multicolumn.settings.header_layout.content"
+    },     
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "center",
+      "label": "Column vertical alignment"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3,
+      "label": "t:sections.multicolumn.settings.columns_desktop.label"
+    },
+    {
+      "type": "select",
+      "id": "column_alignment",
+      "options": [
+        {
+          "value": "mr-auto",
+          "label": "t:sections.multicolumn.settings.column_alignment.options__1.label"
+        },
+        {
+          "value": "mx-auto",
+          "label": "t:sections.multicolumn.settings.column_alignment.options__2.label"
+        },
+        {
+          "value": "ml-auto",
+          "label": "Right"
+        }
+      ],
+      "default": "mr-auto",
+      "label": "t:sections.multicolumn.settings.column_alignment.label"
+    },
+    {
+      "type": "range",
+      "id": "column_h_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Column Horizontal padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "column_v_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Column vertical padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Color"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "background_style",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.multicolumn.settings.background_style.options__1.label"
+        },
+        {
+          "value": "color_scheme",
+          "label": "Per column"
+        },
+        {
+          "value": "container_color_scheme",
+          "label": "Column Container"
+        }
+      ],
+      "default": "none",
+      "label": "Column color scheme application"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme_secondary",
+      "label": "Per-column color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.multicolumn.settings.header_mobile.content"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "t:sections.multicolumn.settings.columns_mobile.options__1.label"
+        },
+        {
+          "value": "2",
+          "label": "t:sections.multicolumn.settings.columns_mobile.options__2.label"
+        }
+      ],
+      "default": "1",
+      "label": "t:sections.multicolumn.settings.columns_mobile.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "swipe_on_mobile",
+      "default": false,
+      "label": "t:sections.multicolumn.settings.swipe_on_mobile.label"
+    },    
+    {
+      "type": "checkbox",
+      "id": "show_slider_controls",
+      "default": true,
+      "label": "Show slider controls",
+      "visible_if": "{{ section.settings.swipe_on_mobile }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_shrink",
+      "default": false,
+      "label": "Shrink text on mobile views"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Column Container Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Column Container Padding Bottom",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "t:sections.multicolumn.blocks.column.name",
+      "settings": [
+        {
+          "type": "range",
+          "id": "column_span",
+          "min": 1,
+          "max": 6,
+          "step": 1,
+          "default": 1,
+          "label": "Column width",
+          "info": "Number of columns this block should span"
+        },
+        {
+          "type": "select",
+          "id": "display_view",
+          "options": [
+            {
+              "value": "small",
+              "label": "Desktop only"
+            },
+            {
+              "value": "large-up",
+              "label": "Mobile only"
+            },
+            {
+              "value": "none",
+              "label": "Desktop and mobile"
+            }
+          ],
+          "default": "none",
+          "label": "Display column on:"
+        },
+        {
+          "type": "checkbox",
+          "id": "mobile_full_width",
+          "default": true,
+          "label": "Mobile full width",
+          "info": "If enabled, the column will be full width on mobile views."
+        },
+        {
+          "type": "select",
+          "id": "border_style",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "left",
+              "label": "Left border"
+            },
+            {
+              "value": "right",
+              "label": "Right border"
+            }
+          ],
+          "default": "none",
+          "label": "Border style"
+        },
+        {
+          "type": "select",
+          "id": "border_display",
+          "options": [
+            {
+              "value": "border-desktop-only",
+              "label": "Desktop Only"
+            },
+            {
+              "value": "border-mobile-only",
+              "label": "Mobile Only"
+            },
+            {
+              "value": "border-both",
+              "label": "Desktop and Mobile"
+            }
+          ],
+          "default": "border-both",
+          "label": "Display borders on:",
+          "visible_if": "{{ block.settings.border_style != 'none' }}"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.multicolumn.blocks.column.settings.image.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_image_as_background",
+          "default": false,
+          "label": "Use image as background"
+        },
+        {
+          "type": "text",
+          "id": "image_overlay_tag",
+          "label": "Image overlay tag text"
+        },
+        {
+          "type": "range",
+          "id": "image_max_width",
+          "min": 0,
+          "max": 400,
+          "step": 4,
+          "unit": "px",
+          "label": "Image max width override",
+          "default": 0,
+          "info": "Set to 0 to use the section-level image width setting."
+        },
+        {
+          "type": "range",
+          "id": "max_width",
+          "min": 0,
+          "max": 400,
+          "step": 4,
+          "unit": "px",
+          "label": "Column content Max Width",
+          "default": 0,
+          "info": "Set to 0 to allow full width."
+        },
+        {
+          "type": "checkbox",
+          "id": "image_heading_inline",
+          "default": false,
+          "label": "Image inline with Heading"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "default": "t:sections.multicolumn.blocks.column.settings.title.default",
+          "label": "t:sections.multicolumn.blocks.column.settings.title.label",
+          "info": "Wrap text in |pipes| to display the text as a tag."
+        },
+        {
+          "type": "select",
+          "id": "title_size",
+          "options": [
+            {
+              "value": "text-md",
+              "label": "Extra small"
+            },
+            {
+              "value": "h2",
+              "label": "t:sections.all.heading_size.options__1.label"
+            },
+            {
+              "value": "h1-5",
+              "label": "t:sections.all.heading_size.options__2.label"
+            },
+            {
+              "value": "h1",
+              "label": "t:sections.all.heading_size.options__3.label"
+            },
+            {
+              "value": "h0",
+              "label": "t:sections.all.heading_size.options__4.label"
+            },
+            {
+              "value": "hxl",
+              "label": "t:sections.all.heading_size.options__5.label"
+            }
+          ],
+          "default": "h1-5",
+          "label": "t:sections.all.heading_size.label"
+        },
+        {
+          "type": "select",
+          "id": "font_style",
+          "options": [
+            {
+              "value": "heading",
+              "label": "Heading"
+            },
+            {
+              "value": "body",
+              "label": "Paragraph"
+            }
+          ],
+          "default": "heading",
+          "label": "Font style"
+        },
+        {
+          "type": "select",
+          "id": "title_style",
+          "options": [
+            {
+              "value": "standard",
+              "label": "Standard"
+            },
+            {
+              "value": "tag",
+              "label": "Tag"
+            }
+          ],
+          "default": "standard",
+          "label": "Title style"
+        },
+        {
+          "type": "select",
+          "id": "tag_style",
+          "options": [
+            {
+              "value": "standard",
+              "label": "Standard"
+            },
+            {
+              "value": "overlay",
+              "label": "Overlay"
+            }
+          ],
+          "default": "standard",
+          "label": "Tag style",
+          "visible_if": "{{ block.settings.title_style == 'tag' }}"
+        },
+        {
+          "type": "select",
+          "id": "title_align",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left",
+          "label": "Heading-specific alignment"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "t:sections.multicolumn.blocks.column.settings.text.default",
+          "label": "Column content"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "options": [
+            {
+              "value": "sm",
+              "label": "t:sections.image-with-text.blocks.caption.settings.caption_size.options__1.label"
+            },
+            {
+              "value": "md",
+              "label": "t:sections.image-with-text.blocks.caption.settings.caption_size.options__2.label"
+            },
+            {
+              "value": "lg",
+              "label": "t:sections.image-with-text.blocks.caption.settings.caption_size.options__3.label"
+            },
+            {
+              "value": "xl",
+              "label": "Extra Large"
+            },
+            {
+              "value": "xxl",
+              "label": "2X Large"
+            }
+          ],
+          "default": "md",
+          "label": "t:sections.image-with-text.blocks.caption.settings.caption_size.label"
+        },
+        {
+          "type": "select",
+          "id": "text_align",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left",
+          "label": "Content-specific alignment"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "t:sections.multicolumn.blocks.column.settings.link_label.label",
+          "info": "t:sections.multicolumn.blocks.column.settings.link_label.info"
+        },
+        {
+          "type": "select",
+          "id": "link_style",
+          "label": "Link style",
+          "options": [
+            {
+              "value": "button--primary",
+              "label": "Primary button"
+            },
+            {
+              "value": "button--secondary",
+              "label": "Secondary button"
+            },
+            {
+              "value": "link",
+              "label": "Link"
+            }
+          ],
+          "default": "link"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.multicolumn.blocks.column.settings.link.label"
+        },
+        {
+          "type": "header",
+          "content": "Quote Settings"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_quote",
+          "default": false,
+          "label": "Enable quote mode",
+          "info": "Transform this column into a testimonial quote with speech bubble design",
+        },
+        {
+          "type": "range",
+          "id": "quote_rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5,
+          "label": "Star rating",
+          "info": "Number of stars to display for this quote",
+          "visible_if": "{{ block.settings.enable_quote }}"
+        },
+        {
+          "type": "richtext",
+          "id": "quote_text",
+          "label": "Quote text",
+          "info": "The testimonial quote content",
+          "visible_if": "{{ block.settings.enable_quote }}"
+        },
+        {
+          "type": "text",
+          "id": "quote_date",
+          "label": "Quote date",
+          "info": "Date for the testimonial",
+          "visible_if": "{{ block.settings.enable_quote }}"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.multicolumn.presets.name",
+      "blocks": [
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

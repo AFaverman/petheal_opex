@@ -1,0 +1,681 @@
+{{ 'section-multicolumn.css' | asset_url | stylesheet_tag }}
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+{{ 'component-modal-video.css' | asset_url | stylesheet_tag }}
+{{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'component-video-popup.js' | asset_url }}" defer></script>
+
+{%- style -%}
+
+  .multicolumn .page-width.section-{{ section.id }}-padding,
+  .multicolumn .section-{{ section.id }}-padding {
+    padding: 0
+  }
+
+  .multicolumn-video-wrapper {
+    padding: 1.25rem 1.5rem;
+  }
+  @media screen and (min-width: 1040px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+      padding-left: {{ section.settings.padding_left }}px;
+      padding-right: {{ section.settings.padding_right }}px;
+    }
+    
+    .multicolumn-video-wrapper {
+      display: grid;
+      gap: 2rem;
+      align-items: center;
+      padding: 2.5rem;
+    }
+    
+    .multicolumn-video-wrapper.has-title {
+      grid-template-columns: 1fr 3fr;
+    }
+    
+    .multicolumn-video-wrapper.no-title {
+      grid-template-columns: 1fr;
+    }
+
+  }
+  
+  @media screen and (max-width: 1039px) {
+    .multicolumn-video__title {
+      display: none;
+    }
+  }
+  .video-thumbnail {
+    position: relative;
+    cursor: pointer;
+    display: block;
+    flex-shrink: 0;
+    margin: 0 auto;
+  }
+  
+  /* Fix grid spacing for small circular items */
+  .multicolumn-video .multicolumn-list.slider .grid__item {
+    display: flex;
+    justify-content: flex-start;
+    padding: 0 0.5rem;
+  }
+  
+  .video-thumbnail__wrapper {
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+  }
+  
+  .video-thumbnail:hover .video-thumbnail__wrapper {
+    border-color: rgba(var(--color-foreground), 0.4);
+  }
+  
+  .video-thumbnail__poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .video-thumbnail__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgb(var(--play-button-background));
+    width: var(--play-button-width);
+    opacity: var(--play-button-opacity);
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+  }
+  
+  .video-thumbnail__play svg {
+    width: 100%;
+    height: 100%;
+    color: rgb(var(--play-button-color));
+  }
+  
+  .video-thumbnail__play .svg-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 50%;
+  }
+  
+  .video-thumbnail:hover .video-thumbnail__play {
+    opacity: var(--play-button-hover-opacity);
+  }
+  
+  .multicolumn-video__title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .multicolumn-video__title-arrow {
+    width: 20px;
+    height: 20px;
+    opacity: 0.6;
+  }
+  
+  .multicolumn-video__slider-container {
+    width: 100%;
+    overflow: visible;
+  }
+
+  .multicolumn-video__slider-container .slider {
+    justify-content: flex-start;
+  }
+  .multicolumn-video__slider-container .multicolumn-list__item.grid__item {
+    flex-grow: 1;
+    width: auto;
+  }
+  @media screen and (max-width: 749px) {
+    .multicolumn-video__slider-container .multicolumn-list__item.grid__item {
+      width: {{100 | divided_by: section.settings.columns_mobile | minus: 2.5}}%;
+    }
+  }
+  @media screen and (max-width: 1039px) {
+    .multicolumn-video__slider-container .multicolumn-list {
+      display: flex;
+    }
+  }
+  .modal-video__overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    overflow: hidden;
+    border-radius: 0.8rem;
+    z-index: 999;
+    margin: 2.5rem auto;
+    max-width: calc(100% - 3.5rem);
+  }
+  .modal-video__overlay-content,
+  .modal-video__product {
+    padding: 1.5rem;
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign columns_mobile_int = section.settings.columns_mobile | plus: 0
+  assign show_mobile_slider = false
+  if section.settings.swipe_on_mobile and section.blocks.size > columns_mobile_int
+    assign show_mobile_slider = true
+  endif
+-%}
+
+<div class="multicolumn color-{{ section.settings.color_scheme }} gradient{% if section.settings.title == blank %} no-heading{% endif %}">
+  <div
+    class="{% unless section.settings.full_width %}page-width {% endunless %}section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+    {% if settings.animations_reveal_on_scroll %}
+      data-cascade
+    {% endif %}
+  >
+    <div class="multicolumn-video-wrapper color-{{ section.settings.color_scheme_secondary }} {% if section.settings.show_title and section.settings.title != blank %}has-title{% else %}no-title{% endif %}">
+             {%- if section.settings.show_title and section.settings.title != blank -%}
+         <div class="multicolumn-video__title">
+           <div class="multicolumn-video__title-wrapper">
+             <div class="title inline-richtext {{ section.settings.heading_alignment }} {{ section.settings.heading_size }}">
+               {{ section.settings.title }}
+             </div>
+             <div class="multicolumn-video__title-arrow">
+               {{ 'right-arrow.svg' | inline_asset_content }}
+             </div>
+           </div>
+         </div>
+       {%- endif -%}
+      
+      <div class="multicolumn-video__content">
+        <div class="multicolumn-video__slider-container">
+          <slider-component class="{% if show_mobile_slider %}slider-mobile-gutter{% endif %}">
+            <ul
+              class="multicolumn-list contains-content-container grid{% if show_mobile_slider %} slider slider--tablet grid--peek{% endif %}"
+              id="Slider-{{ section.id }}"
+              role="list"
+              style="--alignment: start; --columns: {% if section.settings.columns_desktop %}{{ section.settings.columns_desktop }}{% else %}1{% endif %}; {% if section.settings.columns_mobile %}--columns-mobile: {{ section.settings.columns_mobile }}{% endif %};"
+            >
+        {%- liquid
+          assign highest_ratio = 0
+          for block in section.blocks
+            if block.settings.image.aspect_ratio > highest_ratio
+              assign highest_ratio = block.settings.image.aspect_ratio
+            endif
+          endfor
+        -%}
+                {%- for block in section.blocks -%}
+          {%- assign empty_column = '' -%}
+          {%- if block.settings.video == blank -%}
+            {%- assign empty_column = ' multicolumn-list__item--empty' -%}
+          {%- endif -%}
+
+          <li
+            id="Slide-{{ section.id }}-{{ forloop.index }}"
+            class="multicolumn-list__item center grid__item{% if section.settings.swipe_on_mobile %} slider__slide{% endif %}{% if section.settings.column_alignment == 'center' %} center{% endif %}{{ empty_column }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {{ block.shopify_attributes }}
+            {% if settings.animations_reveal_on_scroll %}
+              data-cascade
+              style="--animation-order: {{ forloop.index }};"
+            {% endif %}
+          >
+            <div class="multicolumn-card content-container{% unless section.settings.background_style == 'none' %} color-{{ section.settings.color_scheme_secondary }}{% endunless %}">
+              {%- if block.settings.video != blank -%}
+                {%- liquid
+                  assign video_alt = 'Play video'
+                  assign poster = block.settings.image | default: block.settings.video.preview_image
+                -%}
+                
+                {%- liquid
+                  assign thumb_width = block.settings.thumbnail_width
+                  assign thumb_height = block.settings.thumbnail_height
+                  if thumb_width == 0
+                    assign thumb_width = 65
+                  endif
+                  if thumb_height == 0
+                    assign thumb_height = 65
+                  endif
+                  assign border_radius = '50%'
+                  assign wrapper_border = ''
+                  if block.settings.thumbnail_circular == false
+                    assign border_radius = '0'
+                  endif
+                  if block.settings.thumbnail_outline
+                    assign wrapper_border = 'border: 2px solid rgb(var(--color-foreground));'
+                  endif
+                -%}
+                
+                <video-popup class="video-thumbnail" data-block-id="{{ block.id }}" style="width: {{ thumb_width }}px; height: {{ thumb_height }}px;">
+                  <div class="video-thumbnail__wrapper" style="max-width: {{ thumb_width }}px; height: {{ thumb_height }}px; border-radius: {{ border_radius }}; {{ wrapper_border }}">
+                    {%- if poster != blank -%}
+                      {{
+                        poster
+                        | image_url: width: 800
+                        | image_tag:
+                          class: 'video-thumbnail__poster',
+                          alt: video_alt
+                      }}
+                    {%- else -%}
+                      <div class="video-thumbnail__poster" style="background: #f3f3f3; display: flex; align-items: center; justify-content: center; border-radius: {{ border_radius }};">
+                        {{ 'icon-play.svg' | inline_asset_content }}
+                      </div>
+                    {%- endif -%}
+                    
+                    <div class="video-thumbnail__play" style="
+                      {% if block.settings.thumbnail_circular %}
+                        --play-button-width: 100%;
+                        --play-button-opacity: 0;
+                        --play-button-background: 0, 0, 0;
+                        --play-button-color: 255, 255, 255;
+                        --play-button-hover-opacity: 0.7;
+                      {% else %}
+                        --play-button-width: 50%;
+                        --play-button-opacity: 0.75;
+                        --play-button-background: var(--color-background);
+                        --play-button-color: var(--color-foreground);
+                        --play-button-hover-opacity: 1;
+                      {% endif %}
+                      ">
+                      <span class="svg-wrapper">
+                        {{- 'icon-play.svg' | inline_asset_content -}}
+                      </span>
+                    </div>
+                  </div>
+                </video-popup>
+              {%- endif -%}
+              {%- if block.settings.name != blank or block.settings.message != blank -%}
+                <div class="multicolumn-card__info">
+                  {%- if block.settings.name != blank -%}
+                    <div class="inline-richtext text-{{ block.settings.text_size }} text-body font-semibold">{{ block.settings.name }}</div>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+            </ul>
+          </slider-component>
+        </div>
+      </div>
+    </div>
+    
+    {%- comment -%} Video Modals {%- endcomment -%}
+    {%- for block in section.blocks -%}
+      {%- if block.settings.video != blank -%}
+        {%- liquid
+          assign video_alt = block.settings.name | default: 'Video'
+        -%}
+        
+        <modal-dialog id="VideoModal-{{ block.id }}" class="modal-video media-modal color-{{ section.settings.color_scheme_secondary }}">
+          <div
+            class="modal-video__content"
+            role="dialog"
+            aria-label="{{ video_alt | escape }}"
+            aria-modal="true"
+            tabindex="-1"
+          >
+            
+            <div class="modal-video__content-info {{ block.settings.video.aspect_ratio }} {% if block.settings.video.aspect_ratio > 1 %} modal-video__media--landscape{% endif %}">
+              <deferred-media class="modal-video__video template-popup">
+                <button
+                  id="ModalClose-{{ block.id }}"
+                  type="button"
+                  class="modal-video__toggle"
+                  aria-label="{{ 'accessibility.close' | t }}"
+                >
+                  <span class="svg-wrapper">
+                    {{- 'icon-close.svg' | inline_asset_content -}}
+                  </span>
+                </button>
+                <template>
+                  {{
+                    block.settings.video
+                    | video_tag:
+                      image_size: '1100x',
+                      autoplay: true,
+                      loop: false,
+                      controls: false,
+                      muted: false
+                  }}
+                </template>
+                
+                <!-- Custom video controls -->
+                <button
+                  type="button"
+                  class="modal-video__play-toggle"
+                  aria-label="Play/Pause video"
+                  onclick="toggleVideoPlayback(this)"
+                >
+                  <span class="svg-wrapper play-icon">
+                    {{- 'icon-play.svg' | inline_asset_content -}}
+                  </span>
+                  <span class="svg-wrapper pause-icon" style="display: none;">
+                    {{- 'icon-pause.svg' | inline_asset_content -}}
+                  </span>
+                </button>
+                
+                <button
+                  type="button"
+                  class="modal-video__mute-toggle"
+                  aria-label="Mute/Unmute video"
+                  onclick="toggleVideoMute(this)"
+                >
+                  <span class="mute-text volume-on-text">
+                    <img src="{{ 'vol-on-circle-green.svg' | asset_url }}" alt="Volume On" width="32" height="32">
+                  </span>
+                  <span class="mute-text volume-off-text" style="display: none;">
+                    <img src="{{ 'vol-off-circle-green.svg' | asset_url }}" alt="Volume Off" width="32" height="32">
+                  </span>
+                </button>
+                {%- if block.settings.message != blank or block.settings.product != blank -%}
+                  <div class="modal-video__overlay">
+                    <div class="modal-video__overlay-content">
+                      {%- if block.settings.name != blank -%}
+                        <h3 class="h3" style="margin: 0 0 0.5rem 0; color: white;">{{ block.settings.name }}</h3>
+                      {%- endif -%}
+                      
+                      {%- if block.settings.message != blank -%}
+                        <p style="margin: 0 0 1rem 0; color: rgba(255,255,255,0.9);">{{ block.settings.message }}</p>
+                      {%- endif -%}
+                    </div>
+                    {%- if block.settings.product != blank -%}
+                      <div class="modal-video__product color-{{ section.settings.color_scheme_secondary }}">
+                        <a href="{{ block.settings.product.url }}" class="link animate-arrow" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                          <img src="{{ block.settings.product.featured_image | image_url: width: 100 }}" alt="{{ block.settings.product.title }}" width="100" height="auto">
+                          {{ block.settings.product.title | split: ' — ' | first }}
+                          {{- 'icon-arrow.svg' | inline_asset_content -}}
+                        </a>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+              </deferred-media>
+            </div>
+          </div>
+        </modal-dialog>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Video Multicolumn",
+  "class": "section",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "Video Collection",
+      "label": "Section title"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+         {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "label": "Heading alignment"
+    },
+    {
+       "type": "select",
+       "id": "heading_size",
+       "options": [
+         {
+           "value": "text-sm",
+           "label": "Small"
+         },
+         {
+           "value": "text-base",
+           "label": "Medium"
+         },
+         {
+           "value": "text-lg",
+           "label": "Large"
+         },
+         {
+           "value": "text-xl",
+           "label": "Extra Large"
+         },
+         {
+           "value": "text-xxl",
+           "label": "XX Large"
+         }
+       ],
+       "default": "text-lg",
+       "label": "Title size"
+     },
+     {
+       "type": "checkbox",
+       "id": "show_title",
+       "default": true,
+       "label": "Show section title"
+     },
+         {
+       "type": "header",
+       "content": "Layout"
+     },
+     {
+       "type": "checkbox",
+       "id": "full_width",
+       "default": false,
+       "label": "Full width section",
+       "info": "Remove page width constraints on desktop"
+     },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Desktop columns",
+      "info": "Will show 3 columns with peek effect on mobile"
+    },
+    {
+      "type": "select",
+      "id": "column_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "left",
+      "label": "Column alignment"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Section color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme_secondary",
+      "label": "Video modal color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Mobile Settings"
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2,
+      "label": "Mobile columns"
+    },
+    {
+      "type": "checkbox",
+      "id": "swipe_on_mobile",
+      "default": true,
+      "label": "Enable swipe on mobile"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Left padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Right padding",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video file"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom thumbnail (optional)",
+          "info": "If not provided, video's preview image will be used"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "User name",
+          "placeholder": "Enter user name"
+        },
+        {
+          "type": "textarea",
+          "id": "message",
+          "label": "User message",
+          "placeholder": "Enter user testimonial or message"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Featured product",
+          "info": "Product to showcase with this video"
+        },
+        {
+          "type": "header",
+          "content": "Thumbnail Settings"
+        },
+        {
+          "type": "range",
+          "id": "thumbnail_width",
+          "min": 0,
+          "max": 400,
+          "step": 4,
+          "unit": "px",
+          "label": "Thumbnail width",
+          "default": 64,
+          "info": "Set to 0 to use original size"
+        },
+        {
+          "type": "range",
+          "id": "thumbnail_height",
+          "min": 0,
+          "max": 400,
+          "step": 4,
+          "unit": "px",
+          "label": "Thumbnail height",
+          "default": 64,
+          "info": "Set to 0 to use original size"
+        },
+        {
+          "type": "checkbox",
+          "id": "thumbnail_circular",
+          "default": true,
+          "label": "Circular thumbnail",
+          "info": "Uncheck for square/rectangular thumbnail"
+        },
+        {
+          "type": "checkbox",
+          "id": "thumbnail_outline",
+          "default": true,
+          "label": "Show thumbnail outline",
+          "info": "Display border around thumbnail"
+        }
+      ]
+    }
+  ],
+     "presets": [
+     {
+       "name": "Video Multicolumn",
+       "blocks": [
+         {
+           "type": "video"
+         }
+       ]
+     }
+   ]
+}
+{% endschema %}

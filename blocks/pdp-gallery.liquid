@@ -1,0 +1,37 @@
+{% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
+<div class="product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }}" {{ block.shopify_attributes }}>
+    <div class="product__media-wrapper">
+        {% render 'product-media-gallery', 
+            variant_images: variant_images, 
+            thumbnail_position: section.settings.thumbnail_position, 
+            thumbnail_scheme_show: block.settings.thumbnail_scheme_show, 
+            thumbnail_scheme: block.settings.thumbnail_scheme 
+        %}
+    </div>
+</div>
+{%- schema -%}
+{
+    "name": "PDP Gallery",
+    "tag": null,
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "show_thumbnail_scheme",
+            "label": "Show Thumbnail Color Scheme",
+            "default": false
+        },
+        {
+            "type": "color_scheme",
+            "id": "thumbnail_scheme",
+            "label": "Thumbnail Color Scheme",
+            "default": "scheme-1",
+            "visible_if": "{{ block.settings.show_thumbnail_scheme }}"
+        }
+    ],
+    "presets": [
+        {
+            "name": "PDP Gallery"
+        }
+    ]
+}
+{%- endschema -%}

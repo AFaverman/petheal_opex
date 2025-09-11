@@ -1,0 +1,13 @@
+.order-tracking-container {
+    max-width: 630px;
+}
+
+.order-tracking-container form,
+.order-tracking-container input,
+.order-tracking-container button {
+    width: 100%;
+}
+
+.order-tracking-container .field__input {
+    background-color: #fff;
+}

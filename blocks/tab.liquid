@@ -1,0 +1,26 @@
+<div class="text-lg font-semibold text-body">{{ block.settings.tab_title }}</div> || 
+{%- for child_block in block.blocks -%}
+  <div class="tabulated-content__item" {{ child_block.shopify_attributes }}>
+    {%- render child_block -%}
+  </div>
+{%- endfor -%}
+{% schema %}
+{
+  "name": "Tab",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "tab_title",
+      "label": "Tab title",
+      "default": "Tab"
+    }
+  ],
+  "blocks": [{ "type": "accordion" }, { "type": "contact_us" }],
+  "presets": [
+    {
+      "name": "Tab"
+    }
+  ]
+}
+{% endschema %} 

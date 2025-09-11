@@ -1,0 +1,236 @@
+<div class="ingredients-list">
+    {% if block.settings.text != blank %}
+        <div class="ingredients-list__title text-{{ block.settings.text_size }} {{ block.settings.text_style }} {%if block.settings.row_style == 'bottom-border--bar' %} bottom-border--bar{% endif %}">
+            {{ block.settings.text }}
+        </div>
+    {% endif %}
+    <div class="flex flex-col" style="gap: {{ block.settings.row_gap| divided_by: 2 }}px; {%if block.settings.text != blank %}margin-top: {{ block.settings.row_gap }}px;{% endif %}">
+        {% for ingredient in block.settings.ingredients %}
+            <div class="{%if block.settings.show_amount %}flex justify-between{% endif %} {%if block.settings.row_style == 'bottom-border--bar' %}{% unless forloop.last%} bottom-border--bar{% endunless %}{% endif %}"
+            style="padding-bottom: {{ block.settings.row_gap| divided_by: 2 }}px;">
+                <div class="flex gap-6">
+                    {% if block.settings.show_icon and ingredient.ingredient_icon.value != blank %}
+                        {{ ingredient.ingredient_icon.value | image_url: width: block.settings.icon_size | image_tag }}
+                    {% endif %}
+                    <div>
+                        <p class="{{block.settings.ingredient_style }} text-{{ block.settings.name_size }} mt-0 mb-0">{{ ingredient.ingredient.value }}</p>
+                        {% if block.settings.show_blurb and ingredient.ingredient_description.value != blank %}
+                            <p class="text-{{ block.settings.blurb_size }} mt-0 mb-0">{{ ingredient.ingredient_description.value }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if block.settings.show_amount %}
+                    <div class="text-{{ block.settings.amount_size }}">{{ ingredient.amount.value }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{%- schema -%}
+{
+    "name": "Ingredients List",
+    "tag": null,
+    "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Ingredients Header</p>",
+          "label": "t:sections.image-with-text.blocks.text.settings.text.label"
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "standard",
+              "label": "Standard"
+            },
+            {
+              "value": "uppercase",
+              "label": "Uppercase"
+            },
+            {
+              "value": "text-heading",
+              "label": "Heading"
+            }
+          ],
+          "default": "standard",
+          "label": "t:sections.rich-text.blocks.caption.settings.text_style.label"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "options": [
+            {
+              "value": "sm",
+              "label": "t:sections.image-with-text.blocks.caption.settings.caption_size.options__1.label"
+            },
+            {
+              "value": "md",
+              "label": "t:sections.image-with-text.blocks.caption.settings.caption_size.options__2.label"
+            },
+            {
+              "value": "lg",
+              "label": "t:sections.image-with-text.blocks.caption.settings.caption_size.options__3.label"
+            },
+            {
+              "value": "xl",
+              "label": "Extra Large"
+            },
+            {
+              "value": "xxl",
+              "label": "2X Large"
+            }
+          ],
+          "default": "md",
+          "label": "t:sections.image-with-text.blocks.caption.settings.caption_size.label"
+        },
+        {
+            "type": "header",
+            "content": "Ingredient Settings"
+        },
+        {
+            "type": "metaobject_list",
+            "id": "ingredients",
+            "label": "Ingredients",
+            "metaobject_type": "ingredients_table"
+        },
+        {
+            "type": "select",
+            "id": "name_size",
+            "options": [
+              {
+                "value": "sm",
+                "label": "t:sections.image-with-text.blocks.caption.settings.caption_size.options__1.label"
+              },
+              {
+                "value": "md",
+                "label": "t:sections.image-with-text.blocks.caption.settings.caption_size.options__2.label"
+              },
+              {
+                "value": "lg",
+                "label": "t:sections.image-with-text.blocks.caption.settings.caption_size.options__3.label"
+              },
+              {
+                "value": "xl",
+                "label": "Extra Large"
+              },
+              {
+                "value": "xxl",
+                "label": "2X Large"
+              }
+            ],
+            "default": "md",
+            "label": "Ingredient Name Size"
+          },
+        {
+            "type": "select",
+            "id": "ingredient_style",
+            "options": [
+              {
+                "value": "standard",
+                "label": "Standard"
+              },
+              {
+                "value": "uppercase",
+                "label": "Uppercase"
+              },
+              {
+                "value": "text-heading",
+                "label": "Heading"
+              }
+            ],
+            "default": "standard",
+            "label": "Ingredient Name Style"
+        },
+        {
+            "type": "select",
+            "id": "row_style",
+            "label": "Row Style",
+            "options": [
+                {
+                    "value": "standard",
+                    "label": "Standard"
+                },
+                {
+                    "value": "bottom-border--bar",
+                    "label": "Table"
+                }
+            ],
+            "default": "standard"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_icon",
+            "label": "Show Icon",
+            "default": true
+        },
+        {
+            "type": "range",
+            "id": "icon_size",
+            "label": "Icon Size",
+            "default": 48,
+            "min": 16,
+            "max": 64,
+            "step": 1,
+            "visible_if": "{{ block.settings.show_icon }}"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_amount",
+            "label": "Show Ingredient Amount",
+            "default": false
+        },
+        {
+            "type": "checkbox",
+            "id": "show_blurb",
+            "label": "Show Ingredient description",
+            "default": true
+        },
+        {
+            "type": "select",
+            "id": "blurb_size",
+            "options": [
+              {
+                "value": "sm",
+                "label": "t:sections.image-with-text.blocks.caption.settings.caption_size.options__1.label"
+              },
+              {
+                "value": "md",
+                "label": "t:sections.image-with-text.blocks.caption.settings.caption_size.options__2.label"
+              },
+              {
+                "value": "lg",
+                "label": "t:sections.image-with-text.blocks.caption.settings.caption_size.options__3.label"
+              },
+              {
+                "value": "xl",
+                "label": "Extra Large"
+              },
+              {
+                "value": "xxl",
+                "label": "2X Large"
+              }
+            ],
+            "default": "md",
+            "label": "Ingredient Description Size",
+            "visible_if": "{{ block.settings.show_blurb }}"
+        },
+        {
+            "type": "range",
+            "id": "row_gap",
+            "label": "Row Gap",
+            "default": 16,
+            "min": 0,
+            "max": 100,
+            "step": 1
+        }
+    ],
+    "presets": [
+        {
+            "name": "Ingredients List"
+        }
+    ]
+}
+{%- endschema -%}

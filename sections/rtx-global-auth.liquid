@@ -1,0 +1,134 @@
+<script>
+  const subId = new URLSearchParams(window.location.search).get('subscription_id');
+  const custId = new URLSearchParams(window.location.search).get('customer_id');
+  const appName = "retextion";
+  function subCustomerLogin(customerId) {
+    // Construct an HTTP request to authenticate the customer
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/apps/" + appName + "/login", true);
+    xhr.setRequestHeader("Accept", "application/json; charset=utf-8");
+    xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+
+    // Send the collected data as JSON
+    const data = {
+      customerId
+    };
+    xhr.send(JSON.stringify(data));
+    
+    xhr.onloadend = function(response) {
+      if (response.target.status === 200) {
+        const data = JSON.parse(xhr.responseText);
+        if (data.token) {
+          let subLoc = "/apps/" + appName + "/#/shop/subscriptions";
+          if(subId) {
+            subLoc += "/" + subId;
+          } 
+          const oneHour = 60 * 60 * 1000;
+          localStorage.setItem('customer-portal-token', data.token);
+          localStorage.setItem('customer-portal-token-expiration', new Date().getTime() + oneHour);
+          window.location.replace(subLoc);
+        }
+      }
+    };
+  }
+</script>
+{% assign hasSubscriptionOrders = false %}
+{% for order in customer.orders %}
+  {% for line_item in order.line_items %}
+    {% if line_item.selling_plan_allocation %}
+      {% assign hasSubscriptionOrders = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+  {% if hasSubscriptionOrders %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% if hasSubscriptionOrders %}
+
+<script>
+  window.addEventListener("load", function() {
+    const customerId = {% if customer.id %}
+      {{ customer.id }}
+    {% else %}
+      null
+    {% endif %};
+    if (customerId) { 
+      subCustomerLogin(customerId)
+    } else {
+      window.location.replace("/apps/" + appName + "/#/login");
+    }
+  });
+</script>
+
+{% else %}
+<script>
+  if (custId){
+    subCustomerLogin(custId);
+  } else {
+    window.location.replace("/apps/retextion");
+  }
+</script>
+{% endif %}
+
+{{ 'section-main-page.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  .content-for-layout {
+    background: #ffffff;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="page-width page-width--narrow section-{{ section.id }}-padding">
+<div style=" text-align: center; margin-top: 150px; ">
+   <p style=" margin-bottom: 0px; font-weight: 600; font-size: 18px; ">Please wait...</p>
+   <p style="margin-top: 4px;">We’re verifying your account.</p>
+</div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-page.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}

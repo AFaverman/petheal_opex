@@ -1,0 +1,24 @@
+{%- liquid
+    assign upsell_heading = upsell.metafields.custom.upsell_heading.value
+    assign upsell_percent = upsell.compare_at_price | minus: upsell.price | times: 100 | divided_by: upsell.compare_at_price
+-%}
+<div class="px-6 py-6 my-6 color-{{ color_scheme }}">
+    <div class="flex align-center">
+        <div class="upsell--product-image">
+            <span class="heading--tag text-sm">{{ upsell_percent }}% off</span>
+            <img src="{{ upsell.featured_image | image_url: width: 87 }}" alt="{{ upsell.title | split: ' — ' | first }}" width="87" height="auto">
+        </div>
+        <div class="upsell--product-info text-sm">
+            <div class="font-semibold medium-hide small-hide">{{ upsell_heading }}</div>
+            <div class="text-heading">{{ upsell.title | split: ' — ' | first }}</div>
+            <div class="upsell--product__description text-xs md:text-sm">{{ upsell.description }}</div>
+        </div>
+    </div>
+    <div class="flex justify-between text-sm">
+        <div>
+            <div class="line-through text-xs">{{ upsell.compare_at_price | money }}</div>
+            <div class="text-cta">{{ upsell.price | money }}</div>
+        </div>
+        <div id="upsell-add-to-cart" data-variant-id="{{ upsell.selected_or_first_available_variant.id }}">Add</div>
+    </div>
+</div>

@@ -1,0 +1,117 @@
+{%-  unless customer or request.design_mode -%}
+  <script>
+    window.location.href = "{{ shop.url }}/customer_identity/login?return_to=%2Fpages%2Forder-tracking";
+  </script>
+{%- endunless -%}
+
+{{ 'component-tracking-form.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }} gradient color-{{ section.settings.color_scheme }}">
+    <div class="order-tracking-container page-width">
+        <div class="order-tracking-form">
+            <p class="text-lg center">{{ section.settings.heading }}</p>
+            <form id="tracking-form-{{ section.id }}">
+                <div class="field">
+                <input type="text" name="order" class="field__input"
+                    aria-invalid="true"
+                    aria-describedby="order-tracking--results"
+                    placeholder="Order number"
+                    required
+                >
+                    <label class="field__label" for="order">Order number</label>
+                </div>
+                
+                <button type="submit" class="button button--primary mt-4 uppercase">Track</button>
+            </form>
+        </div>
+        <div id="order-tracking--results"></div>
+    </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.querySelector('#tracking-form-{{ section.id }}');
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const orderNumber = form.querySelector('input[name="order"]').value.replaceAll('#','');
+    lookupOrder(orderNumber);
+  });
+});
+
+function lookupOrder(orderNumber) {
+  const contextUrl = `${shopUrl}/pages/order-tracking-results?order=${orderNumber}`;
+  fetch(`${contextUrl}&sections=order-lookup`)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Page not found');
+    }
+    return response.json();
+  })
+  .then(data => {
+    document.getElementById('order-tracking--results').innerHTML = data['order-lookup'];
+  })
+  .catch(error => {
+    console.error('Fetch failed:', error);
+  });
+}
+</script>
+{% schema %}
+{
+  "name": "Order Tracking Form",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Track your order"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Order Tracking Form"
+    }
+  ]
+}
+{% endschema %}

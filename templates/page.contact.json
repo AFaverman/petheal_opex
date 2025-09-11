@@ -1,0 +1,290 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_title": true,
+        "color_scheme": ""
+      }
+    },
+    "rich_text_CeDU3p": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_gAkHWx": {
+          "type": "heading",
+          "settings": {
+            "heading": "Don’t Forget: You Can Save Up To 30% On All Orders If You Set Up A Subscription Plan.",
+            "heading_size": "h1"
+          }
+        },
+        "text_9TbV6n": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We’ll ship whatever your dog needs on the same day each month like clockwork… and we’ll even pay for the shipping!</p>",
+            "text_style": "standard",
+            "text_size": "md"
+          }
+        }
+      },
+      "block_order": [
+        "heading_gAkHWx",
+        "text_9TbV6n"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-42389180-1830-4cc2-85c9-5038c8e4a0fd",
+        "full_width": true,
+        "content_full_width": false,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "tabulated_content_YqUDT4": {
+      "type": "tabulated-content",
+      "blocks": {
+        "tab_9bC6an": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Subscription & Account"
+          },
+          "blocks": {
+            "accordion_EH3rNB": {
+              "type": "accordion",
+              "name": "Accordion Item",
+              "settings": {
+                "title": "I need to update, pause, or cancel my subscription",
+                "content": "<p>If you'd like to manage your subscription, you can do so by viewing your active Subscriptions. Select the subscription you would like to manage, then click the <strong>Manage Subscriptions </strong>button. This will send you an email with a link you can use to manage your subscription. If prompted to log in, use the email you used when you made your purchase.</p>",
+                "text_style": "standard",
+                "text_size": "md"
+              },
+              "blocks": {}
+            },
+            "accordion_YURg8x": {
+              "type": "accordion",
+              "name": "Accordion Item",
+              "settings": {
+                "title": "I need to update my billing or shipping address",
+                "content": "<p>You can update your address or add new addresses in your account profile.</p>",
+                "text_style": "standard",
+                "text_size": "md"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "accordion_EH3rNB",
+            "accordion_YURg8x"
+          ]
+        },
+        "tab_Xarbjh": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Order & Shipping"
+          },
+          "blocks": {
+            "accordion_8TaYNg": {
+              "type": "accordion",
+              "name": "Accordion Item",
+              "settings": {
+                "title": "How can I track my shipment?",
+                "content": "<p>You can see details and updates on your orders within the subscriptions page of our membership site. Please login and access via the dashboard links.</p>",
+                "text_style": "standard",
+                "text_size": "md"
+              },
+              "blocks": {}
+            },
+            "accordion_y8a8qb": {
+              "type": "accordion",
+              "name": "Accordion Item",
+              "settings": {
+                "title": "Where do I go to access my orders?",
+                "content": "<p>Your orders and subscriptions will be visible within your account pages once you login.</p>",
+                "text_style": "standard",
+                "text_size": "md"
+              },
+              "blocks": {}
+            },
+            "accordion_yxtFJ3": {
+              "type": "accordion",
+              "name": "Accordion Item",
+              "settings": {
+                "title": "I need to edit a recent order",
+                "content": "<p>As long as the item has not already shipped, you can edit orders through your account in the membership section of our site.</p>",
+                "text_style": "standard",
+                "text_size": "md"
+              },
+              "blocks": {}
+            },
+            "accordion_WrYYhK": {
+              "type": "accordion",
+              "name": "Accordion Item",
+              "settings": {
+                "title": "I need to add special instructions to a shipment",
+                "content": "<p>You can add notes on your order when you place it, or by updating the order in your account pages.</p><p>Alternatively, you can contact our customer support for additional assistance.</p>",
+                "text_style": "standard",
+                "text_size": "md"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "accordion_8TaYNg",
+            "accordion_y8a8qb",
+            "accordion_yxtFJ3",
+            "accordion_WrYYhK"
+          ]
+        },
+        "tab_cDgGjC": {
+          "type": "tab",
+          "name": "Tab",
+          "settings": {
+            "tab_title": "Our Products"
+          },
+          "blocks": {
+            "accordion_FanFU7": {
+              "type": "accordion",
+              "name": "Accordion Item",
+              "settings": {
+                "title": "Where can I read product reviews?",
+                "content": "<p>Some of our favorite reviews have been posted throughout the site, and can be seen on each product's page.</p><p>All reviews come from Yotpo, where you can access them as well.</p>",
+                "text_style": "standard",
+                "text_size": "md"
+              },
+              "blocks": {}
+            },
+            "accordion_VRiVLD": {
+              "type": "accordion",
+              "name": "Accordion Item",
+              "settings": {
+                "title": "Does Petheal have social media?",
+                "content": "<p>Yes, you can use the social media icons in the footer of the website to access our various social media channels.</p>",
+                "text_style": "standard",
+                "text_size": "md"
+              },
+              "blocks": {}
+            },
+            "accordion_3MHQt4": {
+              "type": "accordion",
+              "name": "Accordion Item",
+              "settings": {
+                "title": "Do you have samples of your products?",
+                "content": "<p>Not at this time, but you can order a one-time purchase (OTP) if you are considering a subscription to ensure your pet like's it before committing to a reoccurring subscription.</p>",
+                "text_style": "standard",
+                "text_size": "md"
+              },
+              "blocks": {}
+            },
+            "accordion_CQN9UM": {
+              "type": "accordion",
+              "name": "Accordion Item",
+              "settings": {
+                "title": "There is a problem with my order",
+                "content": "<p>We’re so sorry to hear that your order didn’t arrive just as expected. You can contact us via the link in the footer to speak with one of our Customer Care agents.</p>",
+                "text_style": "standard",
+                "text_size": "md"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "accordion_FanFU7",
+            "accordion_VRiVLD",
+            "accordion_3MHQt4",
+            "accordion_CQN9UM"
+          ]
+        },
+        "tab_CLdtAU": {
+          "type": "tab",
+          "name": "Tab",
+          "settings": {
+            "tab_title": "Returns & Exchange"
+          },
+          "blocks": {
+            "accordion_NCR9qE": {
+              "type": "accordion",
+              "name": "Accordion Item",
+              "settings": {
+                "title": "What is Petheal's return policy?",
+                "content": "<p>Products may be returned for a full refund within 30 days. Your return must be unopened and in the same condition that you received it. To start a return, please contact us via the link in the footer.</p>",
+                "text_style": "standard",
+                "text_size": "md"
+              },
+              "blocks": {}
+            },
+            "accordion_ptHx9p": {
+              "type": "accordion",
+              "name": "Accordion Item",
+              "settings": {
+                "title": "Can I exchange products?",
+                "content": "<p>If your product is defective, please contact us with a picture of the product that you received. If your product is not defective, please submit a return request by contacting us and place a separate order for the product you’d prefer.</p><p>Please use the Contact Us form in the tab below to reach out.</p>",
+                "text_style": "standard",
+                "text_size": "md"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "accordion_NCR9qE",
+            "accordion_ptHx9p"
+          ]
+        },
+        "tab_mWhCJy": {
+          "type": "tab",
+          "name": "Tab",
+          "settings": {
+            "tab_title": "Contact us"
+          },
+          "blocks": {
+            "contact_us_GQDmbg": {
+              "type": "contact_us",
+              "name": "Contact Us Form",
+              "settings": {
+                "heading": "Contact Us",
+                "heading_size": "xl"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "contact_us_GQDmbg"
+          ]
+        }
+      },
+      "block_order": [
+        "tab_9bC6an",
+        "tab_Xarbjh",
+        "tab_cDgGjC",
+        "tab_CLdtAU",
+        "tab_mWhCJy"
+      ],
+      "name": "Tabulated Content",
+      "settings": {
+        "heading": "Browse by FAQ Topic",
+        "heading_size": "h2",
+        "single_open_only": false,
+        "color_scheme": "scheme-ac2270cc-3926-4304-a7ec-d2d1494a5c63",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_CeDU3p",
+    "tabulated_content_YqUDT4"
+  ]
+}

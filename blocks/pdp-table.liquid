@@ -1,0 +1,30 @@
+<div class="pdp-table color-{{ block.settings.color_scheme }} gradient" {{ block.shopify_attributes }}>
+  {%- for block in block.blocks -%}
+    <div class="pb-4{% unless forloop.last %} bottom-border--bar{% endunless %}">
+      {% render block %}
+    </div>
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "PDP Table",
+  "tag": null,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "blocks": [
+    {"type": "pdp-table-row"}
+  ],
+  "presets": [
+    {
+      "name": "PDP Table"
+    }                                                    
+  ]
+}
+{% endschema %}

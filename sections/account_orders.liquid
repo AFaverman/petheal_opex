@@ -1,0 +1,471 @@
+{{ 'section-multicolumn.css' | asset_url | stylesheet_tag }}
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+{{ 'component-tab-content.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'component-tab-content.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign columns_mobile_int = 2
+  assign show_mobile_slider = false
+  if customer.orders.size > columns_mobile_int
+    assign show_mobile_slider = true
+  endif
+-%}
+
+{% style %}
+    .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+    
+    .order-status svg {
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+        margin-right: 4px;
+        vertical-align: middle;
+    }
+    
+    .order-status {
+        border-radius: 4px;
+        border: 1px solid rgb(var(--color-foreground));
+    }
+    
+    /* Slider container wrapper */
+    .order-slider-container {
+        width: 100%;
+        overflow: visible;
+    }
+    
+    .order-slider-container .slider {
+        justify-content: flex-start;
+    }
+    
+    .order-slider-container .multicolumn-list__item.grid__item {
+        flex-grow: 0;
+        width: auto;
+    }
+    
+    /* Mobile view - calculate width based on columns */
+    @media screen and (max-width: 749px) {
+        .order-slider-container .multicolumn-list__item.grid__item {
+            width: {{ 100 | divided_by: 3 | times: 2 | minus: 2.5 }}%;
+        }
+    }
+    
+    /* Tablet view - force flex display for slider */
+    @media screen and (max-width: 1039px) {
+        .order-slider-container .multicolumn-list {
+            display: flex;
+        }
+    }
+    
+    /* Tablet specific width */
+    @media screen and (min-width: 750px) and (max-width: 1039px) {
+        .order-slider-container .multicolumn-list__item.grid__item {
+            width: {{ 100 | divided_by: 2 | minus: 2.5 }}%;
+        }
+    }
+    .order-card img {
+        max-width: 100%;
+        height: auto;
+    }
+{% endstyle %}
+
+<div class="color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+    <div class="page-width">
+        <div class="multicolumn">
+            <h1 class="text-lg font-semibold bottom-border--bar-bold">{{ section.settings.title }}</h1>
+            <div class="order-slider-container">
+                <slider-component class="{% if show_mobile_slider %}slider-mobile-gutter{% endif %}">
+                    <ul
+                        class="multicolumn-list contains-content-container grid{% if show_mobile_slider %} slider slider--tablet grid--peek{% endif %}"
+                        id="Slider-{{ section.id }}"
+                        role="list"
+                        style="--alignment: start; --columns: {%if section.settings.order_limit > 5%}5{%else%}{{section.settings.order_limit}}{%endif%}; --columns-mobile: 2;"
+                    >
+                        {% for order in customer.orders limit: section.settings.order_limit %}
+                            <li
+                                id="Slide-{{ section.id }}-{{ forloop.index }}"
+                                class="multicolumn-list__item center grid__item{% if show_mobile_slider %} slider__slide{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                                {% if settings.animations_reveal_on_scroll %}
+                                data-cascade
+                                style="--animation-order: {{ forloop.index }};"
+                                {% endif %}
+                            >
+                                <div class="order-card color-{{ section.settings.color_scheme_2 }} px-4 py-4">
+                                    <div class="flex justify-between">
+                                        <div>{{ order.created_at | date: '%B %d, %Y' }}</div>
+                                        <div class="text-cta">{{ order.total_price | money }}</div>
+                                    </div>
+                                    {% assign featured_product = order.line_items.first.product %}
+                                    <img src="{{ featured_product.featured_image | image_url: width: 280 }}" alt="{{ featured_product.featured_image.alt }}" width="280" height="auto" />
+                                    <div class="mb-6">
+                                        {% if order.line_items.size > 1 %}
+                                            <div>+ {{ order.line_items.size | minus: 1 }} additional items</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="flex gap-2 order-status text-sm px-4 py-2 align-center text-xs fit-content mx-auto mb-4">
+                                        {{ 'circle-check.svg' | inline_asset_content }}
+                                    <div>
+                                        {% if order.cancelled %}
+                                        Cancelled <span class="small-hide">on {{ order.cancelled_at | date: "%B %d, %Y" }}</span>
+                                        {% else %}
+                                        {{ order.fulfillment_status_label }}
+                                        {% endif %}
+                                    </div>
+                                    </div>
+                                    <a href="{{ order.order_status_url }}" target="_blank" class="link animate-arrow caption-letter-spacing uppercase font-bold">View Order</a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </slider-component>
+            </div>
+        </div>
+    </div>
+    {% unless request.design_mode %}
+    {%- liquid
+        assign unfulfilled_orders  = customer.orders | where: 'fulfillment_status', 'unfulfilled'
+        assign partial_orders      = customer.orders | where: 'fulfillment_status', 'partial'
+        assign on_hold_orders      = customer.orders | where: 'fulfillment_status', 'on_hold'
+        assign scheduled_orders    = customer.orders | where: 'fulfillment_status', 'scheduled'
+
+        assign cancelled_orders    = customer.orders | where: 'cancelled', true
+        assign restocked_orders    = customer.orders | where: 'fulfillment_status', 'restocked'
+        assign completed_orders    = customer.orders | where: 'fulfillment_status', 'fulfilled'
+
+        assign refunded_full       = customer.orders | where: 'financial_status', 'refunded'
+        assign refunded_partial    = customer.orders | where: 'financial_status', 'partially_refunded'
+        assign refunded_orders     = refunded_full | concat: refunded_partial | uniq
+
+        assign open_orders         = unfulfilled_orders | concat: partial_orders | concat: on_hold_orders | concat: scheduled_orders | uniq
+        assign in_progress_orders  = open_orders | where: 'cancelled', false
+    -%}
+    <div class="page-width mt-8">
+        <div class="page-tabulated-content scroll-trigger animate--slide-in">
+            <div class="flex my-6 color-{{ section.settings.color_scheme_tab }}">
+                <button
+                    class="tabulated-content__tab button button--primary active flex-grow text-xs md:text-lg text-heading"
+                    data-tab-id="order-tabs-1"
+                    data-tab-index="0"
+                    aria-selected="true"
+                  >
+                    All Orders
+                  </button>
+                  <button
+                    class="tabulated-content__tab button button--primary flex-grow text-xs md:text-lg text-heading"
+                    data-tab-id="order-tabs-2"
+                    data-tab-index="1"
+                  >
+                    In Progress
+                  </button>
+                  <button
+                    class="tabulated-content__tab button button--primary flex-grow text-xs md:text-lg text-heading"
+                    data-tab-id="order-tabs-3"
+                    data-tab-index="2"
+                  >
+                    Cancelled
+                  </button>
+                  <button
+                    class="tabulated-content__tab button button--primary flex-grow text-xs md:text-lg text-header"
+                    data-tab-id="order-tabs-4"
+                    data-tab-index="3"
+                  >
+                    Refunded
+                  </button>
+            </div>
+
+            <div class="tabulated-content__panels top-border--bar-bold">
+                <div
+                    class="tabulated-content__panel"
+                    data-panel-id="order-tabs-1"
+                    data-panel-index="0"
+                  >
+                    <div class="tabulated-content__panel-content my-6 mt-0">
+                        {% if customer.orders.size == 0 %}
+                            <div class="center">
+                                <p>You have no orders that match this filter!</p>
+                            </div>
+                        {% else %}
+                            {% paginate customer.orders by section.settings.order_limit %}
+                                {% for order in customer.orders %}
+                                    <div class="flex flex-col md:flex-row align-stretch md:align-center gap-6 py-6 px-6 mt-6 color-{{section.settings.color_scheme_2}}">
+                                        <div class="flex justify-around gap-8 md:gap-0 align-center flex-grow sm:bottom-border--bar mx-8">
+                                            <img src="{{ order.line_items.first.product.featured_image | image_url: width: 128 }}" alt="{{ order.line_items.first.product.featured_image.alt }}" width="128" height="auto" />
+                                            <div class="md:flex-grow center"> 
+                                                <div class="font-semibold uppercase caption-letter-spacing">Order ID</div>
+                                                <div>{{ order.name }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-grow">
+                                            <div class="flex flex-col md:flex-row justify-around gap-8 md:gap-0 align-center flex-grow">
+                                                <div class="md:flex-grow center">
+                                                    <div class="font-semibold uppercase caption-letter-spacing">Date</div>
+                                                    <div>{{ order.created_at | date: '%B %d, %Y' }}</div>
+                                                </div>
+                                                <div class="center">
+                                                    <div class="font-semibold uppercase caption-letter-spacing">Amount</div>
+                                                    <div>{{ order.total_price | money }}</div>
+                                                </div>
+                                            </div>
+                                            <div class="flex flex-col md:flex-row  justify-around gap-8 md:gap-0 align-center flex-grow">
+                                                <div class="md:flex-grow center">
+                                                    <div class="font-semibold uppercase caption-letter-spacing">Status</div>
+                                                    <div {% if order.cancelled %}class="text-error"{% endif %}>{%if order.cancelled%}Cancelled{%else%}{{ order.fulfillment_status_label }}{%endif%}</div>
+                                                </div>
+                                                <div class="center">
+                                                    <a href="{{ order.order_status_url }}" target="_blank" class="button button--primary caption-letter-spacing">View</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                
+                                {%- if paginate.pages > 1 -%}
+                                <nav class="pagination mt-4">
+                                    {%- if paginate.previous -%}
+                                    <a href="{{ paginate.previous.url }}" data-ajax>Previous</a>
+                                    {%- endif -%}
+                                    <span>Page {{ paginate.current_page }} of {{ paginate.pages }}</span>
+                                    {%- if paginate.next -%}
+                                    <a href="{{ paginate.next.url }}" data-ajax>Next</a>
+                                    {%- endif -%}
+                                </nav>
+                                {%- else -%}
+                                    <div class="center">
+                                        <p>Showing {{ customer.orders.size }} orders</p>
+                                    </div>
+                                {%- endif -%}
+                            {% endpaginate %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div
+                    class="tabulated-content__panel"
+                    data-panel-id="order-tabs-2"
+                    data-panel-index="1"
+                    style="display: none;"
+                  >
+                    <div class="tabulated-content__panel-content my-6 mt-0">
+                        {% if in_progress_orders.size == 0 %}
+                            <div class="center">
+                                <p>You have no orders that match this filter!</p>
+                            </div>
+                        {% else %}
+                            {% for order in in_progress_orders %}
+                                <div class="flex flex-col md:flex-row align-stretch md:align-center gap-6 py-6 px-6 mt-6 color-{{section.settings.color_scheme_2}}">
+                                    <div class="flex justify-around gap-8 md:gap-0 align-center flex-grow sm:bottom-border--bar mx-8">
+                                        <img src="{{ order.line_items.first.product.featured_image | image_url: width: 128 }}" alt="{{ order.line_items.first.product.featured_image.alt }}" width="128" height="auto" />
+                                        <div class="md:flex-grow center"> 
+                                            <div class="font-semibold uppercase caption-letter-spacing">Order ID</div>
+                                            <div>{{ order.name }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-grow">
+                                        <div class="flex flex-col md:flex-row justify-around gap-8 md:gap-0 align-center flex-grow">
+                                            <div class="md:flex-grow center">
+                                                <div class="font-semibold uppercase caption-letter-spacing">Date</div>
+                                                <div>{{ order.created_at | date: '%B %d, %Y' }}</div>
+                                            </div>
+                                            <div class="center">
+                                                <div class="font-semibold uppercase caption-letter-spacing">Amount</div>
+                                                <div>{{ order.total_price | money }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col md:flex-row  justify-around gap-8 md:gap-0 align-center flex-grow">
+                                            <div class="md:flex-grow center">
+                                                <div class="font-semibold uppercase caption-letter-spacing">Status</div>
+                                                <div {% if order.cancelled %}class="text-error"{% endif %}>{%if order.cancelled%}Cancelled{%else%}{{ order.fulfillment_status_label }}{%endif%}</div>
+                                            </div>
+                                            <div class="center">
+                                                <a href="{{ order.order_status_url }}" target="_blank" class="button button--primary caption-letter-spacing">View</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="center">
+                                <p>Showing {{ in_progress_orders.size }} orders</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div
+                    class="tabulated-content__panel"
+                    data-panel-id="order-tabs-3"
+                    data-panel-index="2"
+                    style="display: none;"
+                  >
+                    <div class="tabulated-content__panel-content my-6 mt-0">
+                        {% if cancelled_orders.size == 0 %}
+                            <div class="center">
+                                <p>You have no orders that match this filter!</p>
+                            </div>
+                        {% else %}
+                            {% for order in cancelled_orders %}
+                                <div class="flex flex-col md:flex-row align-stretch md:align-center gap-6 py-6 px-6 mt-6 color-{{section.settings.color_scheme_2}}">
+                                    <div class="flex justify-around gap-8 md:gap-0 align-center flex-grow sm:bottom-border--bar mx-8">
+                                        <img src="{{ order.line_items.first.product.featured_image | image_url: width: 128 }}" alt="{{ order.line_items.first.product.featured_image.alt }}" width="128" height="auto" />
+                                        <div class="md:flex-grow center"> 
+                                            <div class="font-semibold uppercase caption-letter-spacing">Order ID</div>
+                                            <div>{{ order.name }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-grow">
+                                        <div class="flex flex-col md:flex-row justify-around gap-8 md:gap-0 align-center flex-grow">
+                                            <div class="md:flex-grow center">
+                                                <div class="font-semibold uppercase caption-letter-spacing">Date</div>
+                                                <div>{{ order.created_at | date: '%B %d, %Y' }}</div>
+                                            </div>
+                                            <div class="center">
+                                                <div class="font-semibold uppercase caption-letter-spacing">Amount</div>
+                                                <div>{{ order.total_price | money }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col md:flex-row  justify-around gap-8 md:gap-0 align-center flex-grow">
+                                            <div class="md:flex-grow center">
+                                                <div class="font-semibold uppercase caption-letter-spacing">Status</div>
+                                                <div {% if order.cancelled %}class="text-error"{% endif %}>{%if order.cancelled%}Cancelled{%else%}{{ order.fulfillment_status_label }}{%endif%}</div>
+                                            </div>
+                                            <div class="center">
+                                                <a href="{{ order.order_status_url }}" target="_blank" class="button button--primary caption-letter-spacing">View</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="center">
+                                <p>Showing {{ cancelled_orders.size }} orders</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div
+                    class="tabulated-content__panel"
+                    data-panel-id="order-tabs-4"
+                    data-panel-index="3"
+                    style="display: none;"
+                  >
+                    <div class="tabulated-content__panel-content my-6 mt-0">
+                        {% if refunded_orders.size == 0 %}
+                            <div class="center">
+                                <p>You have no orders that match this filter!</p>
+                            </div>
+                        {% else %}
+                            {% for order in refunded_orders %}
+                                <div class="flex flex-col md:flex-row align-stretch md:align-center gap-6 py-6 px-6 mt-6 color-{{section.settings.color_scheme_2}}">
+                                    <div class="flex justify-around gap-8 md:gap-0 align-center flex-grow sm:bottom-border--bar mx-8">
+                                        <img src="{{ order.line_items.first.product.featured_image | image_url: width: 128 }}" alt="{{ order.line_items.first.product.featured_image.alt }}" width="128" height="auto" />
+                                        <div class="md:flex-grow center"> 
+                                            <div class="font-semibold uppercase caption-letter-spacing">Order ID</div>
+                                            <div>{{ order.name }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-grow">
+                                        <div class="flex flex-col md:flex-row justify-around gap-8 md:gap-0 align-center flex-grow">
+                                            <div class="md:flex-grow center">
+                                                <div class="font-semibold uppercase caption-letter-spacing">Date</div>
+                                                <div>{{ order.created_at | date: '%B %d, %Y' }}</div>
+                                            </div>
+                                            <div class="center">
+                                                <div class="font-semibold uppercase caption-letter-spacing">Amount</div>
+                                                <div>{{ order.total_price | money }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col md:flex-row  justify-around gap-8 md:gap-0 align-center flex-grow">
+                                            <div class="md:flex-grow center">
+                                                <div class="font-semibold uppercase caption-letter-spacing">Status</div>
+                                                <div {% if order.cancelled %}class="text-error"{% endif %}>{%if order.cancelled%}Cancelled{%else%}{{ order.fulfillment_status_label }}{%endif%}</div>
+                                            </div>
+                                            <div class="center">
+                                                <a href="{{ order.order_status_url }}" target="_blank" class="button button--primary caption-letter-spacing">View</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="center">
+                                <p>Showing {{ refunded_orders.size }} orders</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('[data-ajax]').forEach(e => {
+                e.addEventListener('click', e => {
+                    e.preventDefault();
+                    const panel = e.target.closest('.tabulated-content__panel-content');
+                    fetch(e.target.href)
+                    .then(r => r.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        const newContent = doc.querySelector('.tabulated-content__panel-content');
+                        if (newContent) panel.innerHTML = newContent.innerHTML;
+                    });
+                });
+            });
+        });
+    </script>
+    {% else %}  
+    <div class="page-width color-{{ section.settings.color_scheme_2 }}">
+        <div class="center px-4 py-4">
+            Design mode - Preview theme to view dynamic account-based content
+        </div>
+    </div>
+    {% endunless %}
+</div>
+
+{%- schema -%}
+{
+    "name": "Account Orders",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Most Recent Orders"
+        },
+        {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "label": "Color Scheme",
+            "default": "scheme-1"
+        },
+        {
+            "type": "range",
+            "id": "order_limit",
+            "label": "Orders to display",
+            "default": 4,
+            "min": 1,
+            "max": 5
+        },
+        {
+            "type": "color_scheme",
+            "id": "color_scheme_tab",
+            "label": "Order Tab Button Color Scheme",
+            "default": "scheme-1"
+        },
+        {
+            "type": "color_scheme",
+            "id": "color_scheme_2",
+            "label": "Order Card Color Scheme",
+            "default": "scheme-1"
+        },
+    ],
+    "presets": [
+        {
+            "name": "Account Orders"
+        }
+    ]
+}
+{%- endschema -%}

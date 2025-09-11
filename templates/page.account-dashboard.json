@@ -1,0 +1,182 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "account_menu_bar_ebGyUD": {
+      "type": "account_menu-bar",
+      "name": "Account Menu Bar",
+      "settings": {
+        "color_scheme": "scheme-a399dfb4-4362-4681-9b1d-8582639001d5",
+        "color_scheme_2": "scheme-6771aba1-bac3-4092-abad-c90c9e92177a",
+        "menu": "shopify-account-menu-bar",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "image_with_text_kapAJR": {
+      "type": "image-with-text",
+      "blocks": {
+        "customer_greeting_Vexpzj": {
+          "type": "customer_greeting",
+          "settings": {
+            "caption": "Hello, [customer]!",
+            "text_style": "uppercase",
+            "text_size": "lg"
+          }
+        },
+        "heading_LERmyN": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Stay Consistent For The Best Results.</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_cRiawp": {
+          "type": "text",
+          "settings": {
+            "text": "<p>85% of our customers report best results after 90 days of use.</p>",
+            "text_style": "subtitle",
+            "text_size": "md"
+          }
+        }
+      },
+      "block_order": [
+        "customer_greeting_Vexpzj",
+        "heading_LERmyN",
+        "text_cRiawp"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_ee2aa44f80e44ae08d4e04d0d8b3db5c.png",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "image_max_width": 350,
+        "full_width": false,
+        "layout": "image_first",
+        "mobile_layout": "text_first",
+        "layout_direction": "row",
+        "image_behavior": "none",
+        "image_with_text_gap": 16,
+        "content_full_width": false,
+        "content_max_width": 0,
+        "content_layout": "no-overlap",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "center",
+        "content_padding_top": 0,
+        "content_padding_bottom": 0,
+        "color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664",
+        "full_colors": false,
+        "content_color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664",
+        "color_scheme_application": "content",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "account_dashboard_grid_XxDDX6": {
+      "type": "account_dashboard-grid",
+      "blocks": {
+        "my_pets_mQfGtJ": {
+          "type": "my_pets",
+          "settings": {
+            "device_display": "desktop-only",
+            "width": 40,
+            "title": "My Pets",
+            "title_link": "View All",
+            "link": "shopify://pages/account-pets",
+            "no_pets": "You haven't saved any pets yet!",
+            "add_pet": "Add Pets"
+          }
+        },
+        "my_subscriptions_YGKRCx": {
+          "type": "my_subscriptions",
+          "settings": {
+            "device_display": "standard",
+            "width": 60,
+            "title": "My Subscriptions",
+            "title_link": "View All",
+            "link": "shopify://pages/my-subscriptions",
+            "benefits_title": "Benefits included in your subscription:",
+            "benefits": "<ul><li>Free Delivery</li><li>Welcome Gift</li><li>PetHeal Private Facebook Group</li></ul>",
+            "no_subs": "No active subscriptions!",
+            "add_sub": "Browse Products",
+            "add_sub_link": "shopify://collections/all-products"
+          }
+        },
+        "try_again_dGWcP7": {
+          "type": "try_again",
+          "settings": {
+            "device_display": "standard",
+            "width": 40,
+            "title": "Try Again",
+            "slides": 3
+          }
+        },
+        "my_orders_mKt7xW": {
+          "type": "my_orders",
+          "settings": {
+            "device_display": "standard",
+            "width": 60,
+            "title": "My Orders",
+            "title_link": "View All",
+            "link": "#",
+            "orders": 2
+          }
+        },
+        "my_pets_h3Maqp": {
+          "type": "my_pets",
+          "settings": {
+            "device_display": "mobile-only",
+            "width": 50,
+            "title": "My Pets",
+            "title_link": "View All",
+            "link": "",
+            "no_pets": "You haven't saved any pets yet!",
+            "add_pet": "Add Pets"
+          }
+        }
+      },
+      "block_order": [
+        "my_pets_mQfGtJ",
+        "my_subscriptions_YGKRCx",
+        "try_again_dGWcP7",
+        "my_orders_mKt7xW",
+        "my_pets_h3Maqp"
+      ],
+      "name": "Account Dashboard Grid",
+      "settings": {
+        "color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664",
+        "show_delivery_notice": true,
+        "delivery_notice_header": "Your Next Deliveries",
+        "delivery_notice_color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+        "notice_scheme_alt": true,
+        "delivery_notice_color_scheme_alt": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664",
+        "color_scheme_2": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "include_header": false
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "show_title": true,
+        "color_scheme": ""
+      }
+    }
+  },
+  "order": [
+    "account_menu_bar_ebGyUD",
+    "image_with_text_kapAJR",
+    "account_dashboard_grid_XxDDX6",
+    "main"
+  ]
+}

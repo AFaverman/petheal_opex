@@ -1,0 +1,256 @@
+{% style %}
+  .account-menu-bar {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+  .account-menu-bar__container {
+    max-width: 108rem;
+  }
+  .account-menu-bar__container > div {
+    border-radius: 0.6rem;
+  }
+  .account-menu-bar__link {
+    color: rgb(var(--color-button));
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    border-radius: 0.6rem;
+    text-decoration: none;
+  }
+  .account-menu-bar__link:hover {
+    background-color: rgba(var(--color-button), 0.75);
+    color: rgb(var(--color-button-text));
+  }
+  .account-menu-bar__link--active {
+    background-color: rgb(var(--color-button));
+    color: rgb(var(--color-button-text));
+  }
+  .account-menu-bar__link--logout {
+    color: rgb(var(--color-button));
+    background-color: rgba(255, 255, 255, 0.75);
+    transition: background-color 0.2s ease-in-out;
+  }
+  .account-menu-bar__link--logout:hover {
+    color: rgb(var(--color-button));
+    background-color: rgba(255, 255, 255, 1);
+  }
+  .account-menu-bar__select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.6rem;
+    background-color: transparent;
+    color: inherit;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    text-align: left;
+    min-height: 44px;
+  }
+  .account-menu-bar .account-menu-bar__select:focus,
+  .account-menu-bar .account-menu-bar__select:focus-visible {
+    outline: none;
+    border: none;
+    box-shadow: none;
+  }
+
+  .account-menu-bar__dropdown {
+    position: relative;
+    width: 100%;
+  }
+  
+  .account-menu-bar__dropdown svg {
+    fill: rgb(var(--color-foreground));
+  }
+
+  .account-menu-bar__checkbox {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+  }
+
+  .account-menu-bar__dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    min-width: 200px;
+    border-radius: 0.6rem;
+    margin-top: 0.25rem;
+    padding: 0.5rem 0;
+    z-index: 10;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+  }
+
+  .account-menu-bar__checkbox:checked ~ .account-menu-bar__dropdown-list {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .account-menu-bar__dropdown-item {
+    list-style: none;
+  }
+
+  .account-menu-bar__dropdown-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: inherit;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    border-radius: 0.6rem;
+  }
+
+  .account-menu-bar__dropdown-link:hover,
+  .account-menu-bar__dropdown-link:focus {
+    background-color: rgb(var(--color-button));
+    color: rgb(var(--color-button-text));
+  }
+
+  .account-menu-bar__dropdown-link--active {
+    background-color: rgb(var(--color-button));
+    color: rgb(var(--color-button-text));
+    font-weight: 600;
+  }
+
+  .icon-caret {
+    width: 1rem;
+    height: 1rem;
+    transition: transform 0.2s ease;
+  }
+
+  .account-menu-bar__checkbox:checked ~ .account-menu-bar__select .icon-caret {
+    transform: rotate(180deg);
+  }
+  @media (max-width: 749px) {
+    .account-menu-bar__container {
+      padding: 0;
+      margin: 0 2rem;
+    }
+  }
+{% endstyle %}
+ <div class="account-menu-bar color-{{ section.settings.color_scheme }}">
+  <div class="account-menu-bar__container flex mx-auto justify-center small-hide medium-hide">
+    <div class="flex align-center gap-4 page-width color-{{ section.settings.color_scheme_2 }}">
+      <div class="flex align-center justify-center gap-4">
+        {% for link in section.settings.menu.links %}
+          {% if link.handle contains "subscription" and page.handle contains "cancel" %}
+            {% assign cancel_sub = true %}
+          {% else %}
+            {% assign cancel_sub = false %}
+          {% endif %}
+          <a href="{{ link.url }}" class="account-menu-bar__link text-heading {{ section.settings.text_classes }} py-4 px-5 {% if link.active or link.url contains page.handle or cancel_sub %}account-menu-bar__link--active{% endif %}">{{ link.title }}</a>
+        {% endfor %}
+      </div>
+      <a href="{{ routes.account_logout_url }}" class="account-menu-bar__link account-menu-bar__link--logout text-heading py-1 px-4 mr-2 ml-6">Sign Out</a>
+
+    </div>
+  </div>
+  <div class="account-menu-bar__container mx-auto large-up-hide">
+    <div class="px-2 color-{{ section.settings.color_scheme_2 }}">
+      <div class="py-2 pr-4">
+        <div class="account-menu-bar__dropdown">
+          <input type="checkbox" id="AccountMenuToggle" class="account-menu-bar__checkbox" hidden>
+          <label for="AccountMenuToggle" class="account-menu-bar__select text-md text-heading">
+            <span class="account-menu-bar__selected-text">
+              {%-  liquid  
+                for link in section.settings.menu.links
+                  if link.handle contains "subscription" and page.handle contains "cancel"
+                    assign cancel_sub = true
+                  else
+                    assign cancel_sub = false
+                  endif
+                  if link.active or link.url contains page.handle  or cancel_sub
+                    assign link_title = link.title
+                    break
+                  else
+                    assign link_title = "Select a page"
+                  endif
+                endfor
+              -%}
+              {{ link_title }}
+            </span>
+            <svg class="icon icon-caret" aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z"/>
+            </svg>
+          </label>
+          <ul class="account-menu-bar__dropdown-list color-{{ section.settings.color_scheme }}">
+            {% for link in section.settings.menu.links %}
+              <li class="account-menu-bar__dropdown-item">
+                <a href="{{ link.url }}" class="account-menu-bar__dropdown-link {% if link.active or link.url contains page.handle %}account-menu-bar__dropdown-link--active{% endif %}">
+                  {{ link.title }}
+                </a>
+              </li>
+            {% endfor %}
+            <li class="account-menu-bar__dropdown-item">
+              <a href="{{ routes.account_logout_url }}" class="account-menu-bar__dropdown-link">Sign Out</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Account Menu Bar",
+  "settings": [
+    {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Section color scheme",
+        "default": "scheme-1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme_2",
+      "label": "Internal menu bar color scheme",
+      "default": "scheme-1"
+  },
+    {
+        "type": "link_list",
+        "id": "menu",
+        "label": "Account Menu"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Account Menu Bar"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["page"]
+  }
+}
+{% endschema %}

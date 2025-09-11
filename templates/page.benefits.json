@@ -1,0 +1,451 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "show_title": false,
+        "color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664"
+      }
+    },
+    "image_banner_zXRCar": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_qWraMN": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Subscribe & Save</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_9tFUUJ": {
+          "type": "text",
+          "settings": {
+            "text": "<strong>Why Smart Pet Owners Are Joining Our Subscription Pack In Record Numbers</strong>",
+            "text_style": "standard",
+            "text_size": "xlarge"
+          }
+        }
+      },
+      "block_order": [
+        "heading_qWraMN",
+        "text_9tFUUJ"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_e73eb486d8ea47898bb5da1158b4c8aa.jpg",
+        "image_overlay_opacity": 30,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-left",
+        "desktop_content_alignment": "left",
+        "show_text_box": true,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_left": 0,
+        "margin_right": 0,
+        "text_box_opacity": 0,
+        "text_box_corner": 0,
+        "text_max_width": 300,
+        "text_box_padding": 0,
+        "color_scheme": "scheme-1e06d4bd-f7f0-468b-b68c-fd3254845cc5",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": false,
+        "mobile_opacity": 33
+      }
+    },
+    "image_with_text_dLYXrj": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_9peDwB": {
+          "type": "heading",
+          "settings": {
+            "heading": "Join Our Pack Today",
+            "heading_size": "h1"
+          }
+        },
+        "text_T6qYy7": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our mission is simple. We want your dog to live as long as possible… but we also want them to be HEALTHY for as long as possible.</p><p>Our products can support your dog with joint issues, cancer, dental problems and bad breath… basically everything a dog needs to be at their best.</p>",
+            "text_style": "standard",
+            "text_size": "sm"
+          }
+        }
+      },
+      "block_order": [
+        "heading_9peDwB",
+        "text_T6qYy7"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_d1b4fd4e2d9d4989b60e2939af4e14e8.jpg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "image_max_width": 0,
+        "full_width": false,
+        "layout": "image_first",
+        "layout_direction": "row",
+        "image_behavior": "none",
+        "image_with_text_gap": 16,
+        "content_full_width": true,
+        "content_max_width": 0,
+        "content_layout": "no-overlap",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "content_padding_top": 0,
+        "content_padding_bottom": 0,
+        "color_scheme": "",
+        "full_colors": false,
+        "content_color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664",
+        "color_scheme_application": "content",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "multicolumn_gawPFQ": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_KUMFx6": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_d44babaad0a140a6bcc1b2e775e1a120.svg",
+            "use_image_as_background": false,
+            "image_max_width": 96,
+            "max_width": 0,
+            "title": "Ongoing Health Improvement For Your Dog",
+            "title_size": "h2",
+            "font_style": "body",
+            "title_style": "standard",
+            "title_align": "center",
+            "text": "<p>Consistent use gives consistent improvement</p>",
+            "text_size": "md",
+            "text_align": "center",
+            "link_label": "",
+            "link_style": "button--primary",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_4nrFyb": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_9f82acd75ed04948b3ac1185c088b28c.svg",
+            "use_image_as_background": false,
+            "image_max_width": 96,
+            "max_width": 0,
+            "title": "Save Up To 30% On Your Regular Order",
+            "title_size": "h2",
+            "font_style": "body",
+            "title_style": "standard",
+            "title_align": "center",
+            "text": "<p>We’ll even pay for the shipping!</p>",
+            "text_size": "md",
+            "text_align": "center",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_m6Ug4T": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_fdbc010345324e15b369c8b1c437ad11.svg",
+            "use_image_as_background": false,
+            "image_max_width": 96,
+            "max_width": 0,
+            "title": "You’re In Control",
+            "title_size": "h2",
+            "font_style": "body",
+            "title_style": "standard",
+            "title_align": "center",
+            "text": "<p>Adjust order volume or cancel completely at any time with one click</p>",
+            "text_size": "md",
+            "text_align": "center",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_xjpWei": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_c4f746c5d43f4fbdac7e02985c8dba75.svg",
+            "use_image_as_background": false,
+            "image_max_width": 96,
+            "max_width": 0,
+            "title": "Free Gifts For Subscribers-Only",
+            "title_size": "h2",
+            "font_style": "body",
+            "title_style": "standard",
+            "title_align": "center",
+            "text": "<p>We send regular, exclusive subscriber gifts</p>",
+            "text_size": "md",
+            "text_align": "center",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_LzFQ7J": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_7d5ead46510c4c5cbba47606ec51c787.svg",
+            "use_image_as_background": false,
+            "image_max_width": 96,
+            "max_width": 0,
+            "title": "Access To Free Expert Advice",
+            "title_size": "h2",
+            "font_style": "body",
+            "title_style": "standard",
+            "title_align": "center",
+            "text": "<p>Our subscribers get exclusive content and pet health advice</p>",
+            "text_size": "md",
+            "text_align": "center",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_HHWhzf": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_3cd79fb3afc34a1480c3b6960ab050e9.svg",
+            "use_image_as_background": false,
+            "image_max_width": 96,
+            "max_width": 0,
+            "title": "Never Run Out",
+            "title_size": "h2",
+            "font_style": "body",
+            "title_style": "standard",
+            "title_align": "center",
+            "text": "<p>Subscribers get priority in situations where we run low on stock</p>",
+            "text_size": "md",
+            "text_align": "center",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_KUMFx6",
+        "column_4nrFyb",
+        "column_m6Ug4T",
+        "column_xjpWei",
+        "column_LzFQ7J",
+        "column_HHWhzf"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "Save Time, Save Money, And Most Important Of All, Save Your Dog’s Health",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_width": 0,
+        "image_width": "half",
+        "image_ratio": "square",
+        "button_label": "explore our subscription deals",
+        "button_link": "shopify://collections/all-products",
+        "vertical_alignment": "top",
+        "columns_desktop": 3,
+        "column_alignment": "center",
+        "column_h_padding": 40,
+        "column_v_padding": 0,
+        "border_radius": 0,
+        "color_scheme": "scheme-1e06d4bd-f7f0-468b-b68c-fd3254845cc5",
+        "background_style": "none",
+        "color_scheme_secondary": "",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "show_slider_controls": true,
+        "mobile_shrink": true,
+        "section_padding_top": 36,
+        "section_padding_bottom": 36,
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    },
+    "collapsible_content_4pAxJ3": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_BYAVUm": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How do your subscriptions work?",
+            "icon": "none",
+            "row_content": "<p>We<br/> offer a subscription service designed to provide pet owners with <br/>regular deliveries of our holistic pet wellness products. The key <br/>features of our subscription model include:</p><ul><li><strong>Discounted Products</strong>: Subscribers can save up to 20% on products each month, making it a cost-effective option for ongoing pet care.</li><li><strong>Free Shipping</strong>: All subscription orders come with free delivery, adding further value to the service.</li><li><strong>Flexible Management</strong>: Subscribers have the ability to manage their subscriptions, allowing for adjustments or cancellations as needed.</li><li><strong>Exclusive Promotions</strong>: Subscribers receive early access to VIP promotions, ensuring they are among the first to know about special offers.</li></ul><p>This subscription model is designed to provide convenience and savings for pet owners seeking regular supplies of our products.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_7gDRpx": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can I change my subscription order or cancel online?",
+            "icon": "none",
+            "row_content": "<p>Yes, you can manage your subscriptions through our membership portal.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_EEHx7E": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can I change the delivery frequency?",
+            "icon": "none",
+            "row_content": "<p>Yes, you can edit your subscription from the subscription management portion of our membership site.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_cCKxNe": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What if my dog needs more or less than suggested?",
+            "icon": "none",
+            "row_content": "<p>If your pet need's more, or less - you can adjust the amount being delivered, or the frequency of the delivery. This should allow you to adjust up or down according to your needs.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_tNKxQ8": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "When do I get charged?",
+            "icon": "none",
+            "row_content": "<p>You'll get charged when your items ships. This will occur at the interval you have your subscription delivery set at.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_BYAVUm",
+        "collapsible_row_7gDRpx",
+        "collapsible_row_EEHx7E",
+        "collapsible_row_cCKxNe",
+        "collapsible_row_tNKxQ8"
+      ],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "caption": "",
+        "heading": "FAQ",
+        "heading_size": "h1",
+        "heading_alignment": "left",
+        "content_alignment": "center",
+        "gap": 20,
+        "layout": "none",
+        "container_color_scheme": "scheme-a7a957a4-0b83-465a-9d5d-8e574fa84367",
+        "color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664",
+        "single_open_only": true,
+        "open_first_collapsible_row": false,
+        "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_f96b4d401e9c4a3e922df46984985b0c.jpg",
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection_mpPP3P": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "collection": "all-products",
+        "products_to_show": 4,
+        "title": "Best Sellers",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_text": "SHOP ALL",
+        "view_all_style": "link",
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "button_style": "button--primary",
+        "buy_button": "VIEW PRODUCT",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_banner_zXRCar",
+    "image_with_text_dLYXrj",
+    "multicolumn_gawPFQ",
+    "collapsible_content_4pAxJ3",
+    "featured_collection_mpPP3P"
+  ]
+}

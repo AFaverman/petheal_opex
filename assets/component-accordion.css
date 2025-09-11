@@ -1,0 +1,105 @@
+.accordion summary {
+  display: flex;
+  position: relative;
+  line-height: 1;
+  padding: 1.5rem 0;
+  align-items: center;
+  gap: 2rem;
+}
+
+.accordion .summary__title {
+  display: flex;
+  flex: 1;
+}
+
+.accordion .summary__title + .icon-caret {
+  height: calc(var(--font-heading-scale) * 0.6rem);
+}
+
+.accordion + .accordion {
+  margin-top: 0;
+  border-top: none;
+}
+
+.accordion {
+  margin-top: 2.5rem;
+}
+
+.accordion-wrapper:not(.accordion-col) .accordion details {
+  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.75);
+  padding-bottom: 1rem
+}
+
+@media screen and (min-width: 750px) {
+  .accordion-wrapper.accordion-col .accordion summary {
+    border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.75);
+    margin-bottom: 1rem
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .accordion-wrapper .accordion details {
+    border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.75);
+    padding-bottom: 1rem
+  }
+}
+
+.accordion__title {
+  display: inline-block;
+  max-width: calc(100% - 3rem);
+  min-height: 1.6rem;
+  margin: 0;
+  word-break: break-word;
+  width: 100%;
+}
+
+.accordion .svg-wrapper {
+  align-self: center;
+  fill: rgb(var(--color-foreground));
+  height: calc(var(--font-heading-scale) * 2rem);
+  margin-right: calc(var(--font-heading-scale) * 1rem);
+  width: calc(var(--font-heading-scale) * 2rem);
+}
+
+.accordion details.closing > summary .icon-caret,
+.accordion details:not([open]) > summary .icon-caret {
+  transform: rotate(180deg);
+}
+
+.accordion .icon-caret {
+  transition: transform 0.3s ease-in-out;
+}
+
+.accordion__content img {
+  max-width: 100%;
+}
+
+.accordion__content {
+  word-break: break-word;
+  overflow-x: auto;
+  padding: 0 0.6rem;
+  opacity: 0;
+  transform: translateY(-1rem);
+  overflow: hidden;
+  max-height: 0px;
+  transition: all 0.3s ease;
+}
+
+.accordion__content.animate {
+  transform: translateY(0);
+  opacity: 1;
+  max-height: var(--accordion-content-height, 0);
+}
+
+.product .accordion {
+  margin-top: 0;
+  border-bottom: 2px solid rgba(var(--color-foreground), 0.25);
+}
+
+.product .mb-4:has(> .accordion) {
+  border-top: 2px solid rgba(var(--color-foreground), 0.25);
+}
+
+.product .mb-4:has(> .accordion) + .mb-4:has(> .accordion) {
+  border-top: 0;
+}

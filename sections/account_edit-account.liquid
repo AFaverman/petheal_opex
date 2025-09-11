@@ -1,0 +1,579 @@
+{% style %}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  #edit-name-form,
+  #edit-email-form {
+    input {
+      border: 1px solid rgb(var(--color-foreground));
+      background-color: transparent;
+      border-radius: 0.4rem;
+      padding: 0.8rem;
+      color: rgb(var(--color-foreground));
+    }
+    fieldset {
+      border: none;
+      padding-left: 0;
+      padding-right: 0;
+      width: 100%;
+    }
+  }
+
+  .address-details input[type="radio"]{
+    margin-left: 0;
+  }
+
+  #address-form {
+    input, select {
+      border-radius: 0.5rem;
+      border: 1px rgb(var(--color-foreground)) solid;
+      padding: 0.5rem 1rem;
+      font-size: 1.6rem;
+      width: 100%;
+      margin: .25rem 0 .5rem 0;
+    }
+    
+    label {
+      font-size: 1.4rem;
+      font-weight: 500;
+    }
+
+    .loading__spinner {
+      height: 2.4rem;
+      width: 2.4rem;
+      margin: 0;
+    }
+
+    .loading__spinner svg{
+      display: block;
+    }
+
+    .loading__spinner svg .path {
+      stroke: rgb(var(--color-button-text));
+    }
+  }  
+
+  @media screen and (max-width: 749px) {
+    .customer-details .form-activate {
+      width: 100%;
+    }
+
+   #add-pet-form .button--primary{
+    width: 100%;
+    margin: 10px 0 0 0;
+   }
+  }
+{% endstyle %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    //open address form
+    window.addressForm = (type, id = null) => {
+      const form = document.querySelector('#address-form');
+      if (type === 'edit' && id) {
+        form.dataset.type = 'edit';
+        form.dataset.id = `gid://shopify/MailingAddress/${id}?model_name=CustomerAddress`;
+        const address = document.querySelector(`[data-address-id="${id}"]`);
+        form.querySelector('[name="firstName"]').value = address.querySelector('[data-address="firstName"]').innerHTML;
+        form.querySelector('[name="lastName"]').value = address.querySelector('[data-address="lastName"]').innerHTML;
+        form.querySelector('[name="company"]').value = address.querySelector('[data-address="company"]')?.innerHTML ?? '';
+        form.querySelector('[name="address1"]').value = address.querySelector('[data-address="address1"]').innerHTML;
+        form.querySelector('[name="address2"]').value = address.querySelector('[data-address="address2"]')?.innerHTML ?? '';
+        form.querySelector('[name="city"]').value = address.querySelector('[data-address="city"]').innerHTML;
+        form.querySelector('[name="province"]').value = address.querySelector('[data-address="state"]').dataset.state;
+        form.querySelector('[name="zip"]').value = address.querySelector('[data-address="zip"]').innerHTML;
+        form.querySelector('[name="phone"]').value = address.querySelector('[data-address="phone"]')?.innerHTML ?? '';
+        document.querySelector('.form-type').innerHTML = 'Edit';
+      } else {
+        form.dataset.type = 'add';
+        form.dataset.id = null;
+        form.reset();
+        document.querySelector('.form-type').innerHTML = 'Add a New';
+      }
+      document.querySelector('#address-modal').classList.add('active');
+    }
+
+    //Activate forms
+    document.querySelectorAll('.form-activate').forEach((e) => {
+      e.addEventListener('click', () => {
+        const form = `#${e.getAttribute('data-form')}`;
+        const container = e.closest('.customer-details__container');
+        container.querySelector(form).classList.remove('hidden');
+        container.querySelector('.customer-details').classList.add('hidden');
+        container.querySelector('.customer-details__title').innerHTML = e.getAttribute('data-title');
+      });
+    });
+    document.querySelectorAll('.cancel-edit').forEach((e) => {
+      e.addEventListener('click', () => {
+        const form = e.closest('form');
+        const container = e.closest('.customer-details__container');
+        form.classList.add('hidden');
+        container.querySelector('.customer-details').classList.remove('hidden');
+        container.querySelector('.customer-details__title').innerHTML = e.getAttribute('data-title');
+      });
+    });
+
+    // Initialize API and get customer ID
+    const customerAPI = new ShopifyCustomerAPI();
+    const customerId = 'gid://shopify/Customer/{{ customer.id }}';
+
+    // Name form handler
+    document.querySelector('#edit-name-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const firstName = form.querySelector('[name="firstName"]').value.trim();
+      const lastName = form.querySelector('[name="lastName"]').value.trim();
+      const container = form.closest('.customer-details__container');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Saving...';
+      
+      try {
+        await customerAPI.updateCustomer(customerId, { firstName, lastName });
+        container.querySelector('.customer-details__name').textContent = `${firstName} ${lastName}`;
+
+        form.classList.add('hidden');
+        container.querySelector('.customer-details').classList.remove('hidden');
+        submitBtn.textContent = 'Save';
+      } catch (error) {
+        alert('Failed to update name. Please try again.');
+        submitBtn.textContent = 'Save';
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+
+    // Email form handler with validation
+    document.querySelector('#edit-email-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const email = form.querySelector('[name="email"]').value.trim();
+      const confirmEmail = form.querySelector('[name="confirmEmail"]').value.trim();
+      const container = form.closest('.customer-details__container');
+
+      container.querySelector('.product-form__error-message-wrapper').classList.add('hidden');
+      if (email !== confirmEmail) {
+        container.querySelector('.product-form__error-message').textContent = 'Email addresses do not match';
+        container.querySelector('.product-form__error-message-wrapper').classList.remove('hidden');
+        return;
+      }
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Saving...';
+      try {
+        await customerAPI.updateCustomer(customerId, { email });
+        container.querySelector('.customer-details__email').textContent = email;
+        form.classList.add('hidden');
+        container.querySelector('.customer-details').classList.remove('hidden');
+        form.querySelector('[name="confirmEmail"]').value = '';
+        submitBtn.textContent = 'Save';
+      } catch (error) {
+        alert('Failed to update email. Please try again.');
+        submitBtn.textContent = 'Save';
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+
+    //address form submit handler
+    document.querySelector('#address-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const addressConfirm = document.querySelector('#address-confirm');
+      addressConfirm.querySelector('.form-submit-text').classList.add('visibility-hidden');
+      addressConfirm.querySelector('.loading__spinner').classList.remove('hidden');
+
+      const type = form.dataset.type;
+      const id = form.dataset.id;
+
+      const formData = new FormData(form);
+      const fields = Object.fromEntries(formData);
+
+      if (type == 'add' || id == null) {
+        await customerAPI.addAddress(customerId, fields).then(()=>{
+          location.reload();
+        }).catch((error)=>{
+          console.log(error);
+        });
+      } else {
+        await customerAPI.updateAddress(customerId, id, fields).then(()=>{
+          location.reload();
+        }).catch((error)=>{
+          console.log(error);
+        });
+      }
+    });
+
+    //delete address
+    document.querySelectorAll('.delete-address').forEach((e)=>{
+      e.addEventListener('click', ()=>{
+        const addressId = e.getAttribute('data-address-id');
+        document.querySelector('#remove-address-modal').classList.add('active');
+        document.querySelector('#remove-address-confirm').dataset.addressId = addressId;
+      });
+    });
+
+    document.querySelector('#remove-address-confirm').addEventListener('click', ()=>{
+      const addressId = `gid://shopify/MailingAddress/${document.querySelector('#remove-address-confirm').dataset.addressId}?model_name=CustomerAddress`;
+      customerAPI.deleteAddress(customerId, addressId).then(()=>{
+        location.reload();
+      }).catch((error)=>{
+        console.log(error);
+      });
+    });
+
+    //set default address
+    document.querySelectorAll('input[name="default-address"]').forEach((e)=>{
+      e.addEventListener('change', ()=>{
+        const addressId = `gid://shopify/MailingAddress/${e.value}?model_name=CustomerAddress`;
+        if (e.checked) {
+          customerAPI.setDefaultAddress(customerId, addressId).then(()=>{
+            location.reload();
+          }).catch((error)=>{
+            console.log(error);
+          });
+        }
+      });
+    });
+
+    //Close modals
+    window.closeModals = () => {
+      document.querySelectorAll('.popup-modal').forEach(modal => {
+        modal.classList.remove('active');
+        document.querySelector('#address-confirm .form-submit-text').classList.remove('visibility-hidden');
+        document.querySelector('#address-confirm .loading__spinner').classList.add('hidden');
+      });
+    }
+
+    document.querySelector("#address-modal").addEventListener('click', (e) => {
+      if (!e.target.closest('.popup-modal__content')) {
+        closeModals();
+      }
+    });
+
+    document.querySelectorAll('.popup-modal__close').forEach((e)=> {
+      e.addEventListener('click', closeModals); 
+    });
+  });
+</script>
+
+<div class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
+  <div class="page-width">
+    <h1 class="text-xl mb-3 pb-3 bottom-border--bar-bold">{{ section.settings.title }}</h1>
+    <div class="flex flex-col md:flex-row justify-between align-stretch gap-8">
+        <div class="md:flex-50 customer-details__container px-6 py-6 color-{{ section.settings.color_scheme-2 }}">
+            <h2 class="customer-details__title text-lg mb-3 pb-3 bottom-border--bar-bold">Name</h2>
+            {% if request.design_mode %}
+              <div class="center text-lg">
+                  <p>Design mode - please preview the theme to view dynamic account content</p>
+              </div>
+            {% else %}
+              <div class="py-4 flex flex-col md:flex-row justify-between align-start gap-8 customer-details">
+                  <div class="text-lg font-semibold customer-details__name">{{customer.name }}</div>
+                  <button class="button button--secondary caption-letter-spacing form-activate" data-form="edit-name-form" data-title="Edit Name">Edit</button>
+              </div>
+              <form class="py-4 hidden" id="edit-name-form">
+                  <fieldset class="flex flex-col lg:flex-row gap-6 align-center mb-4">
+                    <input type="text" id="first-name" name="firstName" aria-label="First Name" placeholder="{{customer.first_name}}" required class="flex-100 lg:flex-50 text-body">
+                    <input type="text" id="last-name" name="lastName" aria-label="Last Name" placeholder="{{customer.last_name}}" required class="flex-100 lg:flex-50 text-body">
+                  </fieldset>
+                  <div class="flex gap-6 justify-center md:justify-right mt-4">
+                      <div class="button button--primary caption-letter-spacing cancel-edit" type="button" id="cancel-name-edit" data-title="Name">Cancel</div>
+                      <button class="button button--primary caption-letter-spacing" type="submit">Save</button>
+                  </div>
+              </form>
+            {% endif %}
+        </div>
+        <div class="md:flex-50 customer-details__container py-6 px-6 color-{{ section.settings.color_scheme-2 }}">
+          <h2 class="customer-details__title text-lg mb-3 pb-3 bottom-border--bar-bold">Email</h2>
+          {% if request.design_mode %}
+            <div class="center text-lg">
+                <p>Design mode - please preview the theme to view dynamic account content</p>
+            </div>
+          {% else %}
+            <div class="py-4 flex flex-col md:flex-row justify-between align-center customer-details gap-8">
+              <div class="customer-details__email">{{customer.email }}</div>
+              <button class="button button--secondary caption-letter-spacing form-activate" data-form="edit-email-form" data-title="Edit Email">Edit</button>
+            </div>
+            <form class="py-4 hidden" id="edit-email-form">
+              <fieldset class="flex flex-col gap-6 align-center mb-4">
+                <input type="email" class="text-body flex-100" id="email" name="email" aria-label="Email" value="{{customer.email}}" required>
+                <input type="email" class="text-body flex-100" id="confirm-email" name="confirmEmail" aria-label="Confirm Email" placeholder="Confirm new email address" required>
+              </fieldset>
+              <div class="flex gap-6 justify-center md:justify-right mt-4">
+                  <div class="button button--primary caption-letter-spacing cancel-edit" type="button" id="cancel-email-edit" data-title="Email">Cancel</div>
+                  <button class="button button--primary caption-letter-spacing" type="submit">Save</button>
+                  <div class="product-form__error-message-wrapper hidden" role="alert">
+                    <span class="svg-wrapper">
+                      {{- 'icon-error.svg' | inline_asset_content -}}
+                    </span>
+                    <span class="product-form__error-message"></span>
+                  </div>
+              </div>
+            </form>
+          {% endif %}
+        </div>
+    </div>
+    <div class="flex justify-between align-center bottom-border--bar-bold">
+        <h1 class="text-xl mb-3 pb-3">Addresses</h1>
+        {% unless request.design_mode %}
+          <button class="link animate-arrow font-semibold uppercase" onClick="addressForm('add')">
+            <div class="flex justify-center align-center">
+              <div class="mr-4" style="width: 1.8rem; height: 1.8rem;">{{'icon-plus.svg' | inline_asset_content }}</div>
+              <span>Add Address</span>
+            </div>
+          </button>
+        {% endunless %}
+    </div>
+    {% if request.design_mode %}
+      <div class="center text-lg px-6 py-6 color-{{ section.settings.color_scheme-2 }}">
+        <p>Design mode - please preview the theme to view dynamic account content</p>
+      </div>
+    {% else %}
+      {% assign sorted_addresses = '' | split: '' %}
+      {% for address in customer.addresses %}
+        {% if address.id == customer.default_address.id %}
+          {% assign sorted_addresses = sorted_addresses | concat: customer.addresses | where: 'id', address.id %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+      {% for address in customer.addresses %}
+        {% unless address.id == customer.default_address.id %}
+          {% assign temp_array = '' | split: '' | concat: customer.addresses | where: 'id', address.id %}
+          {% assign sorted_addresses = sorted_addresses | concat: temp_array %}
+        {% endunless %}
+      {% endfor %}
+      {% if sorted_addresses.size > 0 %}
+        {% for address in sorted_addresses %}
+          <div class="flex justify-between align-start gap-8 px-6 py-6 mb-8 mt-5 color-{{ section.settings.color_scheme-2 }}">
+              <div class="address-details" data-address-id="{{address.id}}">
+                  <input type="radio" name="default-address" id="address-{{forloop.index }}" value="{{address.id}}" {% if address.id == customer.default_address.id %}checked{% endif %}> <label for="address-{{forloop.index }}">Default Address</label>
+                  <div class="font-bold"><span data-address="firstName">{{ address.first_name }}</span> <span data-address="lastName">{{ address.last_name }}</span></div>
+                  {% if address.company != blank %}
+                      <div data-address="company">{{ address.company }}</div>
+                  {% endif %}
+                  <div data-address="address1">{{ address.address1 }}</div>
+                  {% if address.address2 != blank %}
+                      <div data-address="address2">{{ address.address2 }}</div>
+                  {% endif %}
+                  <div><span data-address="city">{{ address.city }}</span>, <span data-address="state" data-state="{{ address.province_code }}">{{ address.province }}</span> <span data-address="zip">{{ address.zip }}</span></div>
+                  <div data-address="country">{{ address.country_code }}</div>
+                  {% if address.phone != blank %}
+                      <div data-address="phone">{{ address.phone }}</div>
+                  {% endif %}
+              </div>
+              <div class="flex justify-right gap-8">
+                  <div class="link mr-4" onClick="addressForm('edit', '{{address.id}}')">Edit</div>
+                  {% if address.id != customer.default_address.id %}<div class="link mr-4 delete-address" data-address-id="{{address.id}}">Delete</div>{% endif %}
+              </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="px-6 py-6 color-{{ section.settings.color_scheme-2 }}">
+          <p>No addresses found</p>
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+
+
+<div id="remove-address-modal" class="popup-modal color-{{ section.settings.color_scheme }}">
+  <div class="popup-modal__content">
+    <div class="popup-modal__close popup-modal__icon-close">
+        {{- 'icon-close.svg' | inline_asset_content -}}
+    </div>
+    <div class="popup-modal-overlay__content__header">
+      <div class="text-lg font-semibold">Remove Address</div>
+    </div>
+    <div class="popup-modal-overlay__content__body">
+      <p>Are you sure you want to remove this address? This action cannot be undone.</p>
+    </div>
+    <div class="right">
+      <button class="button button--primary button--cancel popup-modal__close">Cancel</button>
+      <button id="remove-address-confirm" class="button button--primary">Remove</button>
+    </div>
+  </div>
+</div>
+
+<div id="address-modal" class="popup-modal color-{{ section.settings.color_scheme }}">
+  <div class="popup-modal__content">
+      <div class="popup-modal__close popup-modal__icon-close">
+          {{- 'icon-close.svg' | inline_asset_content -}}
+      </div>
+      <div class="popup-modal-overlay__content__header">
+        <div class="text-lg font-semibold"><span class="form-type">Add a New</span> Address</div>
+      </div>
+      <form id="address-form">
+        <div class="flex align-center gap-6">
+          <div class="flex-50">
+            <label class="mb-4" for="addressForm-fname">First Name</label>
+            <input
+              aria-required="true"
+              autocomplete="name"
+              type="text"
+              id="addressForm-fname"
+              name="firstName"
+              required
+            >
+          </div>
+          <div class="flex-50">
+            <label class="mb-4" for="addressForm-lname">Last Name</label>
+            <input
+              aria-required="true"
+              autocomplete="name"
+              type="text"
+              id="addressForm-lname"
+              name="lastName"
+              required
+            >
+          </div>
+        </div>
+        <div >
+          <label class="mb-4" for="addressForm-company">Company</label>
+          <input
+            autocomplete="name"
+            type="text"
+            id="addressForm-company"
+            name="company"
+          >
+        </div>
+        <div >
+          <label class="mb-4" for="addressForm-address-1">Address Line 1</label>
+          <input
+            aria-required="true"
+            autocomplete="name"
+            type="text"
+            id="addressForm-address-1"
+            name="address1"
+            required
+          >
+        </div>
+        <div>
+          <label class="mb-4" for="addressForm-address-2">Address 2</label>
+          <input
+            autocomplete="name"
+            type="text"
+            id="addressForm-address-2"
+            name="address2"
+          >
+        </div>
+        <div class="flex align-center gap-6">
+          <div class="flex-50">
+            <label class="mb-4" for="addressForm-city">City</label>
+            <input
+              aria-required="true"
+              autocomplete="name"
+              type="text"
+              id="addressForm-city"
+              name="city"
+              required
+            >
+          </div>
+          <div class="flex-50">
+            <label class="mb-4" for="addressForm-state">State</label>
+            <select id="addressForm-state" required="" name="province" aria-required="true">
+              {% render 'state-select' %}
+            </select>
+          </div>
+        </div>
+        <div class="flex align-center gap-6">
+          <div class="flex-50">
+            <label class="mb-4" for="addressForm-zip">Zip Code</label>
+            <input
+              aria-required="true"
+              autocomplete="name"
+              type="number"
+              id="addressForm-zip"
+              name="zip"
+              required
+            >
+          </div>
+          <div class="flex-50">
+            <label class="mb-4" for="addressForm-country">Country</label>
+            <input
+              autocomplete="name"
+              type="text"
+              id="addressForm-country"
+              name="country"
+              readonly
+              value="US"
+            >
+          </div>
+        </div>
+        <div>
+          <label class="mb-4" for="addressForm-phone">Phone</label>
+          <input
+            aria-required="true"
+            autocomplete="name"
+            type="tel"
+            id="addressForm-phone"
+            name="phone"
+          >
+        </div>
+        <div class="flex flex-col-reverse md:flex-row justify-right align-center ">
+            <div class="button button--primary button--cancel popup-modal__close mr-4 mt-6">Cancel</div>
+            <button id="address-confirm" class="button button--primary mt-6">
+              <span class="form-submit-text">Confirm Address</span>
+              <div class="loading__spinner center hidden">
+              {{- 'loading-spinner.svg' | inline_asset_content -}}
+              </div>
+          </button>
+        </div>
+      </form>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Edit Account",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Personal Details"
+    },
+    {
+        "type": "color_scheme",
+        "id": "color_scheme-2",
+        "label": "Form Color Scheme",
+        "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "default": 16,
+      "min": 0,
+      "max": 100,
+      "step": 1
+    }
+  ],
+  "presets": [
+    {
+      "name": "Edit Account"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["page"]
+  }
+}
+{% endschema %}

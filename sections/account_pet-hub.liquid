@@ -1,0 +1,622 @@
+{% style %}
+  @media only screen and (min-width: 750px) {
+    .account-pet-hub__pets-container {
+      max-width: calc(70% - 20px);
+      width: 100%;
+    }
+    .account-pet-hub__add {
+      max-width: calc(30% - 20px);
+      width: 100%;
+    }
+    .account-pet-hub_pets:not(.loading) {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.6rem;
+    }
+  }
+
+  .pet__img {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 100%;
+  }
+
+  .loading__spinner {
+    width: 4rem;
+    height: 4rem;
+    z-index: 1;
+    position: relative;
+    margin: 4rem auto;
+  }
+
+  .petType {
+    text-transform: capitalize;
+  }
+
+  .pet__img-label {
+    border-color: rgb(209 213 219);
+    border-radius: 100%;
+    border-width: 2px;
+    border-style: dashed;
+    cursor: pointer;
+    width: 12.8rem;
+    height: 12.8rem;
+  }
+
+  .pet__img-label:hover {
+    border-color: rgb(var(--color-button));
+  }
+
+  .pet__img-label label {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    cursor: pointer;
+  }
+
+  .pet__img-label img {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .pet-photo-remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    cursor: pointer;
+    background-color: rgb(var(--color-button));
+    border-radius: 100%;
+    padding: 0.2rem
+  }
+
+  .pet-photo-remove svg {
+    width: 1.6rem;
+    height: 1.6rem;
+    stroke: rgb(var(--color-button-text));
+    display: block;
+    padding: 0.3rem;
+  }
+
+  .conditions-field{
+    --gap: 1.5rem;
+    gap: var(--gap);
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  #add-pet-form {
+    input, select {
+      border-radius: 0.5rem;
+      border: 1px rgb(var(--color-foreground)) solid;
+      padding: 0.5rem 1rem;
+      font-size: 1.6rem;
+      width: 100%;
+      margin: .25rem 0 .5rem 0;
+    }
+    
+    label {
+      font-size: 1.4rem;
+      font-weight: 500;
+    }
+
+    .pet-check {
+      width: auto;
+    }
+
+    .loading__spinner {
+      height: 2.4rem;
+      width: 2.4rem;
+      margin: 0;
+    }
+
+    .loading__spinner svg{
+      display: block;
+    }
+
+    .loading__spinner svg .path {
+      stroke: rgb(var(--color-button-text));
+    }
+  }  
+
+  @media screen and (max-width: 749px) {
+   #add-pet-form .button--primary{
+    width: 100%;
+    margin: 10px 0 0 0;
+   }
+  }
+{% endstyle %}
+
+{% unless request.design_mode %}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const metaAPI = new ShopifyMetaobjectAPI();
+    window.buildPets = () => {
+      metaAPI.queryMetaobjects('pet', 'customer', 'gid://shopify/Customer/{{ customer.id }}').then(data => {
+        //Build pets
+        const pets = data.metaobjects;
+        const petContainer = document.querySelector(".account-pet-hub_pets");
+        if (pets.length == 0) {
+          petContainer.classList.remove('loading');
+          petContainer.querySelector('.hidden')?.classList.remove('hidden');
+          petContainer.querySelector('.loading__spinner')?.classList.add('hidden');
+          petContainer.innerHTML= `<p>{{ section.settings.no_pets }}</p>`
+          return;
+        } 
+
+        const colorScheme = petContainer.dataset.colorScheme;
+        petContainer.classList.remove(colorScheme, "px-4", "py-4", "center");
+
+        let html='';
+        pets.forEach(pet => {
+          html += `
+          <div class="${colorScheme} px-4 py-4 mb-4">
+            <div class="flex justify-between pb-4 bottom-border--bar-bold align-start mb-4">
+              <div class="flex">
+                <div class="mr-4">
+                  <img class="pet__img" src="${pet.fields?.find(f=>f.key==='image')?.reference?.image?.url || "{{ 'empty.svg' | asset_url }}"}&width=112" alt="icon for ${pet.fields?.find(f=>f.key==='name').value || "Your pet"}" width="56" height="56" />
+                </div>
+                <div>
+                  <div class="mb-1 font-semibold">
+                    ${pet.fields?.find(f=>f.key==='name')?.value || "No name added"}
+                  </div>
+                  <div class="text-sm">
+                    ${((x) => x ? x + ' years old' : 'No age added')(pet.fields?.find(f => f.key === 'age')?.value)}
+                  </div>
+                  <div class="text-sm">
+                    ${((x) => x ? x + ' lbs' : 'No weight added')(pet.fields?.find(f => f.key === 'weight')?.value)}
+                  </div>
+                </div>
+              </div>
+              <img src="${pet.fields?.find(f => f.key === 'sex')?.value == "male"? "{{ 'male.svg' | asset_url }}": "{{ 'female.svg' | asset_url }}"}"/>
+            </div>
+            <a href="/pages/pet?pet=${pet.handle}" class="button button--secondary button--full-width uppercase mb-4 mt-8">See Full Profile</a>
+            <div class="flex justify-center pt-4">
+              <div onClick="removePet('${pet.id}', '${pet.fields?.find(f=>f.key==='name')?.value || 'them'}')" class="text-sm link animate-arrow">Remove Pet</div>
+            </div>
+          </div>
+        `
+        })
+        petContainer.innerHTML = html;
+        petContainer.classList.remove('loading');
+      }).catch(error => {
+        console.error("Error:", error);
+      });
+    }
+
+    //Delete pets
+    window.removePet = (id, name) => {
+      const removePetModal = document.querySelector('#remove-pet-modal');
+      removePetModal.querySelector('.petName').textContent = name;
+      removePetModal.querySelector('#remove-pet-confirm').setAttribute('onClick', `deletePetData('${id}')`);
+      removePetModal.classList.add('active');
+    }
+    window.deletePetData = (id) => {
+      metaAPI.deleteMetaobject(id).then(() => {
+        buildPets();
+        closeModals();
+      });
+    }
+
+    //Add pet
+    window.addPet = (petType) => {
+      const addPetModal = document.querySelector('#add-pet-modal');
+      addPetModal.querySelector('.petType').textContent = petType;
+      addPetModal.classList.add('active');
+      addPetModal.querySelector('#add-pet-form').dataset.petType = petType;
+    }
+
+    //Submit pet form
+    document.querySelector('#add-pet-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const addPetConfirm = document.querySelector('#add-pet-confirm');
+      addPetConfirm.querySelector('.form-submit-text').classList.add('visibility-hidden');
+      addPetConfirm.querySelector('.loading__spinner').classList.remove('hidden');
+
+      const form = document.querySelector('#add-pet-form');
+      const formData = new FormData(form);
+      const formObject = Object.fromEntries(formData);
+
+
+      formObject.conditions = JSON.stringify(Array.from(
+        form.querySelectorAll('input[name="conditions"]:checked'),
+        checkbox => checkbox.value
+      ));
+
+      let fields = Object.entries(formObject)
+      .filter(([key, value]) => {
+        const input = form.querySelector(`[name="${key}"]`);
+        return input && input.type !== 'file' && value !== '';
+      })
+      .map(([key, value]) => ({
+        key: key,
+        value: value
+      }));
+        
+      fields.push({
+        key: 'type',
+        value: form.dataset.petType
+      },{
+        key: 'customer',
+        value: 'gid://shopify/Customer/{{ customer.id }}'
+      });
+
+      const [file] = document.querySelector('#pet-photo').files
+      if (file) {
+        metaAPI.uploadImage(file).then(result => {
+          fields.push({
+            key: 'image',
+            value: result.fileId
+          });
+          metaAPI.createMetaobject("pet", `pet-${Date.now()}`,fields).then(() => {
+            setTimeout(() => {
+            buildPets();
+            closeModals();
+            }, 750);
+          })
+        });
+      } else {
+        metaAPI.createMetaobject("pet", `pet-${Date.now()}`, fields).then(() => {
+          buildPets();
+          closeModals();
+        });
+      }
+    });
+    
+    //pet photo preview
+    document.querySelector('#pet-photo').onchange = evt => {
+      const [preview] = document.querySelector('#pet-photo').files
+      if (preview) {
+        document.querySelector('.pet-photo-preview img').src = URL.createObjectURL(preview);
+        document.querySelector('.pet-photo-preview').classList.remove('hidden');
+        document.querySelector('.pet-photo-remove').classList.remove('hidden');
+        document.querySelector('.pet-photo-icon').classList.add('hidden');
+      }
+    }
+
+    //Remove pet photo
+    document.querySelector('.pet-photo-remove').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelector('.pet-photo-preview').classList.add('hidden');
+      document.querySelector('.pet-photo-remove').classList.add('hidden');
+      document.querySelector('.pet-photo-icon').classList.remove('hidden');
+      document.querySelector('#pet-photo').value = '';
+    });
+
+    //Close modals
+
+    window.closeModals = () => {
+      document.querySelectorAll('.popup-modal').forEach(modal => {
+        modal.classList.remove('active');
+        document.querySelector('#add-pet-confirm .form-submit-text').classList.remove('visibility-hidden');
+        document.querySelector('#add-pet-confirm .loading__spinner').classList.add('hidden');
+      });
+    }
+
+    document.querySelector("#remove-pet-modal").addEventListener('click', (e) => {
+      if (!e.target.closest('.popup-modal__content')) {
+        closeModals();
+      }
+    });
+
+    document.querySelector("#add-pet-modal").addEventListener('click', (e) => {
+      if (!e.target.closest('.popup-modal__content')) {
+        closeModals();
+      }
+    });
+
+    document.querySelectorAll('.popup-modal__close').forEach((e)=> {
+      e.addEventListener('click', closeModals); 
+    });
+
+    //run
+    buildPets();
+  });
+</script>
+{% endunless %}
+
+<div class="account-pet-hub color-{{ section.settings.color_scheme }}">
+    <div class="page-width">
+        <div class="md:flex justify-center md:mx-8 lg:mx-auto gap-8 flex-wrap">
+            <div class="account-pet-hub__pets-container {% if section.settings.include_header %}px-4 py-4 color-{{ section.settings.color_scheme_2 }}{% endif %} mb-4">
+                <div class="flex justify-between align-center block_header bottom-border--bar-bold mb-4">
+                    <div class="text-heading text-lg">
+                      {{ section.settings.pets_title }}
+                    </div>
+                </div>
+                <div class="mt-2">
+                    {% if request.design_mode %}
+                    <div class="text-body color-{{ section.settings.color_scheme_2 }} px-4 py-4">
+                        Design mode - Preview theme to view dynamic account-based content
+                    </div>
+                    {% else %}
+                    <div class="account-pet-hub_pets loading isolate center color-{{ section.settings.color_scheme_2 }} px-4 py-4" data-color-scheme="color-{{ section.settings.color_scheme_2 }}">
+                        <div class="loading__spinner center">
+                        {{- 'loading-spinner.svg' | inline_asset_content -}}
+                        </div>
+                        <div class="hidden">
+                            <p>{{ section.settings.no_pets }}</p>
+                        </div>
+                    </div>                        
+                    {% endif %}
+                </div>
+            </div>
+            <div class="account-pet-hub__add">
+                <div class="flex justify-between align-center block_header bottom-border--bar-bold mb-4">
+                    <div class="text-heading text-lg">
+                      {{ section.settings.add_pet_title }}
+                    </div>
+                </div>
+                <div class="flex md:flex-col gap-6 justify-center align-stretch">
+                    {% for block in section.blocks %}
+                        <div class="color-{{ section.settings.color_scheme_2 }} flex flex-col align-stretch md:align-center justify-between px-6 py-6 flex-50 md:flex-100">
+                          {% if block.settings.icon_image != blank %}
+                            <img src="{{ block.settings.icon_image | image_url }}" alt="Add a {{ block.settings.pet_type }}" class="mb-4" />
+                          {% endif %}
+                            <button class="button button--primary caption-letter-spacing uppercase button--full-width add-pet" onclick="addPet('{{ block.settings.pet_type }}')">
+                                {{ block.settings.add_pet_text }}
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="remove-pet-modal" class="popup-modal color-{{ section.settings.color_scheme }}">
+    <div class="popup-modal__content">
+      <div class="popup-modal__close popup-modal__icon-close">
+          {{- 'icon-close.svg' | inline_asset_content -}}
+      </div>
+      <div class="popup-modal-overlay__content__header">
+        <div class="text-lg font-semibold">Remove Pet</div>
+      </div>
+      <div class="popup-modal-overlay__content__body">
+        <p>Are you sure you want to remove <span class="petName">this pet</span>? This action cannot be undone.</p>
+      </div>
+      <div class="right">
+        <button class="button button--primary button--cancel popup-modal__close">Cancel</button>
+        <button id="remove-pet-confirm" class="button button--primary">Remove</button>
+      </div>
+    </div>
+ </div>
+
+ <div id="add-pet-modal" class="popup-modal color-{{ section.settings.color_scheme }}">
+    <div class="popup-modal__content">
+        <div class="popup-modal__close popup-modal__icon-close">
+            {{- 'icon-close.svg' | inline_asset_content -}}
+        </div>
+        <div class="popup-modal-overlay__content__header">
+          <div class="text-lg font-semibold">Add a New <span class="petType">Pet</span></div>
+          <p class="text-sm">Please fill out the details for your new pet.</p>
+        </div>
+        <form id="add-pet-form">
+          <div class="filed__file">
+            <div class="text-sm font-semibold mb-2">Pet Photo</div>
+            <div class="pet__img-label mb-4 flex mx-auto align-center justify-center isolate">
+              <div class="pet-photo-remove px-1 py-1 hidden">{{- 'icon-close.svg' | inline_asset_content -}}</div>
+              <label class="flex align-center justify-center" for="pet-photo">
+                <div class="flex flex-col align-center justify-center pet-photo-icon">
+                    {{- 'icon-camera.svg' | inline_asset_content -}}
+                  <span class="text-sm mt-3">Add photo</span>
+                </div>
+                <div class="pet-photo-preview hidden">
+                  <img src="" alt="Pet Photo" width="auto" height="auto" />
+                </div>
+                <input type="file" id="pet-photo" name="pet-photo" accept="image/*" class="hidden" />
+              </label>
+            </div>
+          </div>
+
+          <div class="flex align-center gap-6">
+            <div class="flex-50">
+              <label class="mb-4" for="petForm-name">Pet Name</label>
+              <input
+                aria-required="true"
+                autocomplete="name"
+                type="text"
+                id="petForm-name"
+                name="name"
+                required
+              >
+            </div>
+            <div class="flex-50">
+              <label class="mb-4" for="petForm-age">Age (years)</label>
+              <input
+                aria-required="true"
+                autocomplete="name"
+                type="number"
+                id="petForm-age"
+                name="age"
+                max="40"
+                required
+              >
+            </div>
+          </div>
+          <div class="flex align-center gap-6">
+            <div class="flex-50">
+              <label class="mb-4" for="petForm-weight">Weight (lbs)</label>
+              <input
+                aria-required="true"
+                autocomplete="name"
+                type="number"
+                id="petForm-weight"
+                name="weight"
+                max="500"
+                required
+              >
+              
+            </div>
+            <div class="flex-50">
+              <label class="mb-4" for="petForm-breed">Breed</label>
+              <input
+                aria-required="true"
+                autocomplete="name"
+                type="text"
+                id="petForm-breed"
+                name="breed"
+                required
+              >
+            </div>
+          </div>
+          <div>
+            <label class="mb-4" for="petForm-sex">Sex</label>
+            <select id="petForm-sex" required="" name="sex" aria-required="true">
+              <option value="" disabled="" selected="">Select sex</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+          <div class="flex align-center conditions-field mt-4">
+            <div class="flex-100">
+              Pet Conditions
+            </div>
+            <div class="flex align-center flex-50">
+              <input type="checkbox" id="condition-itching" name="conditions" class="pet-check" value="itching">
+              <label for="condition-itching" class="ml-2 text-xs">Itching</label>
+            </div>
+            <div class="flex align-center flex-50">
+              <input type="checkbox" id="condition-allergies" name="conditions" class="pet-check" value="allergies">
+              <label for="condition-allergies" class="ml-2 text-xs">Allergies</label>
+            </div>
+            <div class="flex align-center flex-50">
+              <input type="checkbox" id="condition-badBreath" name="conditions" class="pet-check" value="bad breath">
+              <label for="condition-badBreath" class="ml-2 text-xs">Bad breath</label>
+            </div>
+            <div class="flex align-center flex-50">
+              <input type="checkbox" id="condition-immuneSystem" name="conditions" class="pet-check" value="immune system">
+              <label for="condition-immuneSystem" class="ml-2 text-xs">Immune system</label>
+            </div>
+            <div class="flex align-center flex-50">
+              <input type="checkbox" id="condition-gutHealth" name="conditions" class="pet-check" value="gut health">
+              <label for="condition-gutHealth" class="ml-2 text-xs">Gut health</label>
+            </div>
+            <div class="flex align-center flex-50">
+              <input type="checkbox" id="condition-gumHealth" name="conditions" class="pet-check" value="gum health">
+              <label for="condition-gumHealth" class="ml-2 text-xs">Gum health</label>
+            </div>
+            <div class="flex align-center flex-50">
+              <input type="checkbox" id="condition-pawLicking" name="conditions" class="pet-check" value="paw licking">
+              <label for="condition-pawLicking" class="ml-2 text-xs">Paw Licking</label>
+            </div>
+            <div class="flex align-center flex-50">
+              <input type="checkbox" id="condition-weakness" name="conditions" class="pet-check" value="weakness">
+              <label for="condition-weakness" class="ml-2 text-xs">Weakness</label>
+            </div>
+            <div class="flex align-center flex-50">
+              <input type="checkbox" id="condition-lowEnergy" name="conditions" class="pet-check" value="low energy">
+              <label for="condition-lowEnergy" class="ml-2 text-xs">Low Energy</label>
+            </div>
+
+          </div>
+            <div class="flex flex-col-reverse md:flex-row justify-right align-center">
+                <div class="button button--primary button--cancel popup-modal__close mr-4">Cancel</div>
+                <button id="add-pet-confirm" class="button button--primary">
+                  <span class="form-submit-text">Add Pet</span>
+                  <div class="loading__spinner center hidden">
+                  {{- 'loading-spinner.svg' | inline_asset_content -}}
+                  </div>
+              </button>
+            </div>
+        </form>
+    </div>
+ </div>
+{% schema %}
+{
+    "name": "Account Pet Hub",
+    "settings": [
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Section color scheme",
+        "default": "scheme-1"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme_2",
+        "label": "Grid item color scheme",
+        "default": "scheme-1"    
+      },
+      {
+        "type": "checkbox",
+        "id": "include_header",
+        "label": "Include grid header in color scheme",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "My Pets"
+      },
+      {
+        "type": "text",
+        "id": "pets_title",
+        "label": "My Pets Title",
+        "default": "My Pets"
+      },
+      {
+          "type": "text",
+          "id": "no_pets",
+          "label": "No Pets Text",
+          "default": "You haven't saved any pets yet!"
+      },
+      {
+        "type": "header",
+        "content": "Add a Pet"
+      },
+      {
+        "type": "text",
+        "id": "add_pet_title",
+        "label": "Add a Pet Title",
+        "default": "Add A New Pet"
+      }
+   ],
+   "blocks": [
+    {
+      "type": "add_pet",
+      "name": "Add a Pet",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "icon_image",
+            "label": "Icon Image"
+          },
+          {
+            "type": "text",
+            "id": "add_pet_text",
+            "label": "Add Pet button text",
+            "default": "Add A Dog"
+          },
+          {
+            "type": "select",
+            "id": "pet_type",
+            "label": "Pet Type",
+            "default": "dog",
+            "options": [
+              {
+                "value": "dog",
+                "label": "Dog"
+              },
+              {
+                "value": "cat",
+                "label": "Cat"
+              }
+            ]
+          }
+        ]
+    }
+   ],
+   "presets": [
+    {
+        "name": "Account Pet Hub"
+    }
+   ],
+   "enabled_on": {
+    "templates": ["page"]
+  }
+}
+{% endschema %}

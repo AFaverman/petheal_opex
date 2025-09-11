@@ -1,0 +1,50 @@
+{%- assign page_url = content_for_header | split:'"pageurl":"' | last | split:'"' | first | split: request.host | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&' -%}
+{%- assign page_query = page_url | split: "order=" | last | split: "&" | first -%}
+
+
+    <div class="order-details">
+        {% if customer %}
+        {% for order in customer.orders %}
+            {% if order.name contains page_query %}
+                <p class="text-lg">Order {{ order.name }} found</p>
+                <p>Status: {{ order.fulfillment_status }}</p>
+                {%-  if order.cancelled -%}
+                    <p>This order was cancelled on {{ order.cancelled_at | date: "%B %d, %Y" }}. <a href="/pages/help-center?tab=contactUs" class="link">Please contact us</a> if you if you have any questions regarding this cancellation.</p>
+                {%- endif -%}
+                {% for line_item in order.line_items %}
+                    {% if line_item.fulfillment.tracking_url %}
+                        {%- liquid
+                            if tracking_links contains line_item.fulfillment.tracking_url 
+                             continue
+                            else
+                                assign tracking_links = tracking_links | append: line_item.fulfillment.tracking_url | append: " "
+                            endif 
+                        -%}
+                    <a href="{{ line_item.fulfillment.tracking_url }}" target="_blank">Tracking link for {{ line_item.title }}</a>
+                    {% endif %}
+                {% endfor %}
+                <a href="{{ order.customer_order_url }}" class="link" target="_blank">View order status page here</a>
+                {%- assign order_found = true -%}
+                {%- break -%}
+            {% endif %}
+        {% endfor %}
+        {%- unless order_found -%}
+            <p>Order {{ order.name }} not found. Please check your order number and try again. <a href="/pages/help-center?tab=contactUs" class="link">Please contact us</a> if you're still having trouble.</p>
+        {%- endunless -%}
+        {% else %}
+            <p>Please login to view your order details.</p>
+        {% endif %}
+    </div>
+
+{% schema %}
+{
+  "name": "Order Lookup",
+  "settings": [
+  ],
+  "presets": [
+    {
+      "name": "Order Lookup"
+    }
+  ]
+}
+{% endschema %}

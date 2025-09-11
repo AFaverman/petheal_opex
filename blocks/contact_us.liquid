@@ -1,0 +1,51 @@
+<div class="contact-us__container contact" {{ block.shopify_attributes }}>
+  {%- render 'contact-form', contact_settings: block.settings -%}
+</div>
+
+{% schema %}
+{
+  "name": "Contact Us Form",
+  "tag": null,
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Contact Us"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "sm",
+          "label": "t:sections.rich-text.blocks.caption.settings.caption_size.options__1.label"
+        },
+        {
+          "value": "md",
+          "label": "t:sections.rich-text.blocks.caption.settings.caption_size.options__2.label"
+        },
+        {
+          "value": "lg",
+          "label": "t:sections.rich-text.blocks.caption.settings.caption_size.options__3.label"
+        },
+        {
+          "value": "xl",
+          "label": "Extra Large"
+        },
+        {
+          "value": "xxl",
+          "label": "2X Large"
+        }
+      ],
+      "default": "md",
+      "label": "t:sections.rich-text.blocks.caption.settings.caption_size.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Us Form"
+    }
+  ]
+}
+{% endschema %} 

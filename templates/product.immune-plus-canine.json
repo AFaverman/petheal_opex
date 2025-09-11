@@ -1,0 +1,2358 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "vendor": {
+          "type": "text",
+          "name": "Product Details",
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "subtitle"
+          }
+        },
+        "yotpo_product_reviews_star_rating_bFTkCd": {
+          "type": "shopify://apps/yotpo-product-reviews/blocks/star-rating/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
+          "settings": {
+            "product": "{{product}}"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "disabled": true,
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": false
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "collapsible-row-0": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Materials",
+            "icon": "leather",
+            "content": "",
+            "page": ""
+          }
+        },
+        "collapsible-row-1": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping & Returns",
+            "icon": "truck",
+            "content": "",
+            "page": ""
+          }
+        },
+        "collapsible-row-2": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Dimensions",
+            "icon": "ruler",
+            "content": "",
+            "page": ""
+          }
+        },
+        "collapsible-row-3": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Care Instructions",
+            "icon": "heart",
+            "content": "",
+            "page": ""
+          }
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "vendor",
+        "yotpo_product_reviews_star_rating_bFTkCd",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "description",
+        "collapsible-row-0",
+        "collapsible-row-1",
+        "collapsible-row-2",
+        "collapsible-row-3",
+        "share"
+      ],
+      "disabled": true,
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "",
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail_slider",
+        "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "disabled": true,
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "button_style": "button--primary",
+        "buy_button": "",
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    },
+    "main_product_v2_k3KHnw": {
+      "type": "main-product-v2",
+      "blocks": {
+        "pdp_column_z9wbAV": {
+          "type": "pdp-column",
+          "name": "Gallery",
+          "settings": {
+            "width": "50",
+            "border-radius": 14
+          },
+          "blocks": {
+            "pdp_gallery_dQrDwc": {
+              "type": "pdp-gallery",
+              "name": "PDP Gallery",
+              "settings": {
+                "show_thumbnail_scheme": false,
+                "thumbnail_scheme": ""
+              },
+              "blocks": {}
+            },
+            "pdp_multicolumn_rwdzbA": {
+              "type": "pdp-multicolumn",
+              "name": "Multicolumn",
+              "settings": {
+                "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+                "gap": 15,
+                "alternate_block_scheme": true,
+                "block_color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+                "mobile_full_width": true
+              },
+              "blocks": {
+                "pdp_icon_CeebJn": {
+                  "type": "pdp-icon",
+                  "name": "Icon with text",
+                  "settings": {
+                    "icon": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_e5e2a5f728ea43268949bf6a6e079987.svg",
+                    "icon_name": "paw-print",
+                    "icon_bullet": false,
+                    "icon_width": 35,
+                    "title": "",
+                    "title_size": "md",
+                    "text": "<p>Manufactured in the USA</p>",
+                    "text_style": "standard",
+                    "text_size": "md",
+                    "orientation": "column",
+                    "mobile_orientation": "row",
+                    "icon_placement": "first",
+                    "icon_alignment": "center",
+                    "alignment": "center",
+                    "full_width": true
+                  },
+                  "blocks": {}
+                },
+                "pdp_icon_XcwcLw": {
+                  "type": "pdp-icon",
+                  "name": "Icon with text",
+                  "settings": {
+                    "icon": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_518195ccc759464b82eed40b9d2e6cf0_c1143fe7-2937-4bb4-bfd8-3b861be83380.svg",
+                    "icon_name": "paw-print",
+                    "icon_bullet": false,
+                    "icon_width": 35,
+                    "title": "",
+                    "title_size": "md",
+                    "text": "<p>Free Shipping</p>",
+                    "text_style": "standard",
+                    "text_size": "md",
+                    "orientation": "column",
+                    "mobile_orientation": "row",
+                    "icon_placement": "first",
+                    "icon_alignment": "center",
+                    "alignment": "center",
+                    "full_width": false
+                  },
+                  "blocks": {}
+                },
+                "pdp_icon_hBywch": {
+                  "type": "pdp-icon",
+                  "name": "Icon with text",
+                  "settings": {
+                    "icon": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_03b093c511b74885b33fbc9c1e79a6b9.svg",
+                    "icon_name": "paw-print",
+                    "icon_bullet": false,
+                    "icon_width": 35,
+                    "title": "",
+                    "title_size": "md",
+                    "text": "<p>Money-Back Guarantee</p>",
+                    "text_style": "standard",
+                    "text_size": "md",
+                    "orientation": "column",
+                    "mobile_orientation": "row",
+                    "icon_placement": "first",
+                    "icon_alignment": "center",
+                    "alignment": "center",
+                    "full_width": false
+                  },
+                  "blocks": {}
+                },
+                "pdp_icon_rV6Cn7": {
+                  "type": "pdp-icon",
+                  "name": "Icon with text",
+                  "settings": {
+                    "icon": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_36eeefd34a7c4bd0b411b33fbc7d9eb6.svg",
+                    "icon_name": "paw-print",
+                    "icon_bullet": false,
+                    "icon_width": 35,
+                    "title": "",
+                    "title_size": "md",
+                    "text": "<p>Safe Checkout</p>",
+                    "text_style": "standard",
+                    "text_size": "md",
+                    "orientation": "column",
+                    "mobile_orientation": "row",
+                    "icon_placement": "first",
+                    "icon_alignment": "center",
+                    "alignment": "center",
+                    "full_width": false
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "pdp_icon_CeebJn",
+                "pdp_icon_XcwcLw",
+                "pdp_icon_hBywch",
+                "pdp_icon_rV6Cn7"
+              ]
+            }
+          },
+          "block_order": [
+            "pdp_gallery_dQrDwc",
+            "pdp_multicolumn_rwdzbA"
+          ]
+        },
+        "pdp_column_iz9zmc": {
+          "type": "pdp-column",
+          "name": "Product Info",
+          "settings": {
+            "width": "50",
+            "border-radius": 14
+          },
+          "blocks": {
+            "pdp_multicolumn_yWkKzx": {
+              "type": "pdp-multicolumn",
+              "name": "Multicolumn",
+              "settings": {
+                "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+                "gap": 5,
+                "alternate_block_scheme": false,
+                "block_color_scheme": "",
+                "mobile_full_width": false
+              },
+              "blocks": {
+                "pdp_icon_izCMkY": {
+                  "type": "pdp-icon",
+                  "name": "Icon with text",
+                  "settings": {
+                    "icon": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_15ac4bc8dc7e49f59055e8652231cdfa.svg",
+                    "icon_name": "paw-print",
+                    "icon_bullet": false,
+                    "icon_width": 65,
+                    "title": "",
+                    "title_size": "md",
+                    "text": "<p>Fights abnormal cell growth</p>",
+                    "text_style": "standard",
+                    "text_size": "sm",
+                    "orientation": "column",
+                    "mobile_orientation": "column",
+                    "icon_placement": "first",
+                    "icon_alignment": "center",
+                    "alignment": "center",
+                    "full_width": false
+                  },
+                  "blocks": {}
+                },
+                "pdp_icon_Pa8Dpb": {
+                  "type": "pdp-icon",
+                  "name": "Icon with text",
+                  "settings": {
+                    "icon": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_22fd62e220df4d4086b27179292069af.svg",
+                    "icon_name": "paw-print",
+                    "icon_bullet": false,
+                    "icon_width": 65,
+                    "title": "",
+                    "title_size": "md",
+                    "text": "<p>Supports energy levels</p>",
+                    "text_style": "standard",
+                    "text_size": "sm",
+                    "orientation": "column",
+                    "mobile_orientation": "column",
+                    "icon_placement": "first",
+                    "icon_alignment": "center",
+                    "alignment": "center",
+                    "full_width": false
+                  },
+                  "blocks": {}
+                },
+                "pdp_icon_cckNVn": {
+                  "type": "pdp-icon",
+                  "name": "Icon with text",
+                  "settings": {
+                    "icon": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_07156b7c39664a37acada7743cf4d768.svg",
+                    "icon_name": "paw-print",
+                    "icon_bullet": false,
+                    "icon_width": 65,
+                    "title": "",
+                    "title_size": "md",
+                    "text": "<p>Promotes overall wellness</p>",
+                    "text_style": "standard",
+                    "text_size": "sm",
+                    "orientation": "column",
+                    "mobile_orientation": "column",
+                    "icon_placement": "first",
+                    "icon_alignment": "center",
+                    "alignment": "center",
+                    "full_width": false
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "pdp_icon_izCMkY",
+                "pdp_icon_Pa8Dpb",
+                "pdp_icon_cckNVn"
+              ]
+            },
+            "pdp_tabulated_content_fpRtRd": {
+              "type": "pdp-tabulated-content",
+              "name": "PDP Tabulated Content",
+              "settings": {
+                "heading": "Tell me about:",
+                "color_scheme": "scheme-6771aba1-bac3-4092-abad-c90c9e92177a"
+              },
+              "blocks": {
+                "pdp_tab_z8FJCL": {
+                  "type": "pdp-tab",
+                  "name": "ProductTab",
+                  "settings": {
+                    "tab_title": "Vet Reviewed",
+                    "color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664",
+                    "h-padding": 0,
+                    "v-padding": 0
+                  },
+                  "blocks": {
+                    "image_with_text_x7WpUq": {
+                      "type": "image-with-text",
+                      "name": "t:sections.image-with-text.presets.name",
+                      "settings": {
+                        "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_15c27bb696f84ed78c8982f1f55f0d66.png",
+                        "height": "adapt",
+                        "desktop_image_width": "medium",
+                        "image_max_width": 200,
+                        "full_width": true,
+                        "layout": "image_first",
+                        "mobile_layout": "text_first",
+                        "layout_direction": "row",
+                        "image_behavior": "none",
+                        "image_with_text_gap": 16,
+                        "content_full_width": true,
+                        "content_max_width": 0,
+                        "content_layout": "no-overlap",
+                        "desktop_content_position": "top",
+                        "desktop_content_alignment": "left",
+                        "mobile_content_alignment": "center",
+                        "color_scheme": "scheme-ac2270cc-3926-4304-a7ec-d2d1494a5c63",
+                        "content_color_scheme": "",
+                        "color_scheme_application": "none",
+                        "padding_top": 36,
+                        "padding_bottom": 36,
+                        "heading": "",
+                        "caption": "<strong>\"Very promising in supporting a healthy immune system and maintaining overall cellular health.\"</strong>",
+                        "text": "<p>Vet Consultant to PetHeal<br/><br/></p>",
+                        "text_style": "standard",
+                        "text_size": "sm",
+                        "button_label": "",
+                        "button_link": "",
+                        "button_style_secondary": false
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "image_with_text_x7WpUq"
+                  ]
+                },
+                "pdp_tab_GRdhCe": {
+                  "type": "pdp-tab",
+                  "name": "ProductTab",
+                  "settings": {
+                    "tab_title": "Ingredients",
+                    "color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664",
+                    "h-padding": 15,
+                    "v-padding": 5
+                  },
+                  "blocks": {
+                    "pdp_ingredients_iqNHX7": {
+                      "type": "pdp-ingredients",
+                      "name": "Ingredients List",
+                      "settings": {
+                        "text": "",
+                        "text_style": "standard",
+                        "text_size": "md",
+                        "ingredients": [
+                          "turkey-tail",
+                          "reishi",
+                          "milk-thistle",
+                          "maitake",
+                          "ginger-root"
+                        ],
+                        "name_size": "lg",
+                        "ingredient_style": "text-heading",
+                        "row_style": "standard",
+                        "show_icon": true,
+                        "icon_size": 40,
+                        "show_amount": false,
+                        "show_blurb": true,
+                        "blurb_size": "sm",
+                        "row_gap": 16
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "pdp_ingredients_iqNHX7"
+                  ]
+                },
+                "pdp_tab_MPUMDJ": {
+                  "type": "pdp-tab",
+                  "name": "ProductTab",
+                  "settings": {
+                    "tab_title": "Feeding Guide",
+                    "color_scheme": "",
+                    "h-padding": 15,
+                    "v-padding": 10
+                  },
+                  "blocks": {
+                    "pdp_table_NywiDm": {
+                      "type": "pdp-table",
+                      "name": "PDP Table",
+                      "settings": {
+                        "color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664"
+                      },
+                      "blocks": {
+                        "pdp_table_row_UVhxrY": {
+                          "type": "pdp-table-row",
+                          "name": "PDP Table Row",
+                          "settings": {
+                            "columns_count": 2,
+                            "c1_content": "<p>Dog's Weight</p>",
+                            "c1_text_alignment": "left",
+                            "c1_tag": false,
+                            "c1_text_style": "text-heading",
+                            "c1_text_size": "lg",
+                            "c2_type": "rich_text",
+                            "c2_content": "<p>Daily</p>",
+                            "c2_text_alignment": "right",
+                            "c2_tag": false,
+                            "c2_text_style": "text-heading",
+                            "c2_text_size": "lg",
+                            "c3_type": "rich_text",
+                            "c3_content": "",
+                            "c3_text_alignment": "left",
+                            "c3_tag": false,
+                            "c3_text_style": "standard",
+                            "c3_text_size": "md",
+                            "c4_type": "rich_text",
+                            "c4_content": "",
+                            "c4_text_alignment": "left",
+                            "c4_tag": false,
+                            "c4_text_style": "standard",
+                            "c4_text_size": "md"
+                          },
+                          "blocks": {}
+                        },
+                        "pdp_table_row_yhKpYB": {
+                          "type": "pdp-table-row",
+                          "name": "PDP Table Row",
+                          "settings": {
+                            "columns_count": 2,
+                            "c1_content": "<p>under 25 lbs</p>",
+                            "c1_text_alignment": "left",
+                            "c1_tag": false,
+                            "c1_text_style": "standard",
+                            "c1_text_size": "md",
+                            "c2_type": "rich_text",
+                            "c2_content": "<p>1/2 Soft Chew (Per Day)</p>",
+                            "c2_text_alignment": "right",
+                            "c2_tag": false,
+                            "c2_text_style": "standard",
+                            "c2_text_size": "md",
+                            "c3_type": "rich_text",
+                            "c3_content": "",
+                            "c3_text_alignment": "left",
+                            "c3_tag": false,
+                            "c3_text_style": "standard",
+                            "c3_text_size": "md",
+                            "c4_type": "rich_text",
+                            "c4_content": "",
+                            "c4_text_alignment": "left",
+                            "c4_tag": false,
+                            "c4_text_style": "standard",
+                            "c4_text_size": "md"
+                          },
+                          "blocks": {}
+                        },
+                        "pdp_table_row_zziVX7": {
+                          "type": "pdp-table-row",
+                          "name": "PDP Table Row",
+                          "settings": {
+                            "columns_count": 2,
+                            "c1_content": "<p>25-75 lbs</p>",
+                            "c1_text_alignment": "left",
+                            "c1_tag": false,
+                            "c1_text_style": "standard",
+                            "c1_text_size": "md",
+                            "c2_type": "rich_text",
+                            "c2_content": "<p>1 Soft Chew (Per Day)</p>",
+                            "c2_text_alignment": "right",
+                            "c2_tag": false,
+                            "c2_text_style": "standard",
+                            "c2_text_size": "md",
+                            "c3_type": "rich_text",
+                            "c3_content": "",
+                            "c3_text_alignment": "left",
+                            "c3_tag": false,
+                            "c3_text_style": "standard",
+                            "c3_text_size": "md",
+                            "c4_type": "rich_text",
+                            "c4_content": "",
+                            "c4_text_alignment": "left",
+                            "c4_tag": false,
+                            "c4_text_style": "standard",
+                            "c4_text_size": "md"
+                          },
+                          "blocks": {}
+                        },
+                        "pdp_table_row_VX39Ap": {
+                          "type": "pdp-table-row",
+                          "name": "PDP Table Row",
+                          "settings": {
+                            "columns_count": 2,
+                            "c1_content": "<p>Over 75 lbs</p>",
+                            "c1_text_alignment": "left",
+                            "c1_tag": false,
+                            "c1_text_style": "standard",
+                            "c1_text_size": "md",
+                            "c2_type": "rich_text",
+                            "c2_content": "<p>1.5 Soft Chews (Per Day)</p>",
+                            "c2_text_alignment": "right",
+                            "c2_tag": false,
+                            "c2_text_style": "standard",
+                            "c2_text_size": "md",
+                            "c3_type": "rich_text",
+                            "c3_content": "",
+                            "c3_text_alignment": "left",
+                            "c3_tag": false,
+                            "c3_text_style": "standard",
+                            "c3_text_size": "md",
+                            "c4_type": "rich_text",
+                            "c4_content": "",
+                            "c4_text_alignment": "left",
+                            "c4_tag": false,
+                            "c4_text_style": "standard",
+                            "c4_text_size": "md"
+                          },
+                          "blocks": {}
+                        }
+                      },
+                      "block_order": [
+                        "pdp_table_row_UVhxrY",
+                        "pdp_table_row_yhKpYB",
+                        "pdp_table_row_zziVX7",
+                        "pdp_table_row_VX39Ap"
+                      ]
+                    }
+                  },
+                  "block_order": [
+                    "pdp_table_NywiDm"
+                  ]
+                },
+                "pdp_tab_KihJFM": {
+                  "type": "pdp-tab",
+                  "name": "ProductTab",
+                  "settings": {
+                    "tab_title": "Key Benefits",
+                    "color_scheme": "scheme-ac2270cc-3926-4304-a7ec-d2d1494a5c63",
+                    "h-padding": 15,
+                    "v-padding": 15
+                  },
+                  "blocks": {
+                    "pdp_icon_hT7ne9": {
+                      "type": "pdp-icon",
+                      "name": "Icon with text",
+                      "settings": {
+                        "icon": "shopify://shop_images/circle-check.svg",
+                        "icon_name": "paw-print",
+                        "icon_bullet": true,
+                        "icon_width": 20,
+                        "title": "",
+                        "title_size": "md",
+                        "text": "<ul><li>Give your dog the immunity boost their body needs!</li><li>Targets abnormal cell growth.</li><li>Supports healthy energy levels</li><li>Helps regenerate liver cells damaged by medication/treatments</li><li>Promotes a healthy, shiny coat</li><li>Reduces lumps & bumps (lipomas)</li></ul>",
+                        "text_style": "standard",
+                        "text_size": "md",
+                        "orientation": "row",
+                        "mobile_orientation": "row",
+                        "icon_placement": "first",
+                        "icon_alignment": "center",
+                        "alignment": "left",
+                        "full_width": true
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "pdp_icon_hT7ne9"
+                  ]
+                }
+              },
+              "block_order": [
+                "pdp_tab_z8FJCL",
+                "pdp_tab_GRdhCe",
+                "pdp_tab_MPUMDJ",
+                "pdp_tab_KihJFM"
+              ]
+            },
+            "pdp_product_form_6eMnVR": {
+              "type": "pdp-product-form",
+              "name": "Product Form",
+              "settings": {
+                "product_form_type": "drawer",
+                "sub_title": "Subscribe and Save",
+                "otp_title": "One-Time Purchase",
+                "color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+                "upsell_title": "Add Extras to your Order",
+                "upsell_size": "text-lg",
+                "upsell_color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664",
+                "show_transaction_badges": true,
+                "badges_title": "All transactions secured and encrypted",
+                "delivery_time": "Expected delivery in 3-5 business days"
+              },
+              "blocks": {
+                "pdp_icon_VXdchL": {
+                  "type": "pdp-icon",
+                  "name": "Icon with text",
+                  "settings": {
+                    "icon": "shopify://shop_images/i-icon.svg",
+                    "icon_name": "paw-print",
+                    "icon_bullet": false,
+                    "icon_width": 25,
+                    "title": "",
+                    "title_size": "md",
+                    "text": "<p><strong>How do subscriptions work?</strong></p>",
+                    "text_style": "uppercase",
+                    "text_size": "md",
+                    "orientation": "row",
+                    "mobile_orientation": "row",
+                    "icon_placement": "first",
+                    "icon_alignment": "center",
+                    "alignment": "left",
+                    "full_width": true
+                  },
+                  "blocks": {}
+                },
+                "pdp_icon_Cj4HXB": {
+                  "type": "pdp-icon",
+                  "name": "Icon with text",
+                  "settings": {
+                    "icon": "shopify://shop_images/circle-check.svg",
+                    "icon_name": "paw-print",
+                    "icon_bullet": true,
+                    "icon_width": 20,
+                    "title": "",
+                    "title_size": "md",
+                    "text": "<ul><li>Free Shipping every single month</li><li>Free Product with first delivery</li><li>No contract, cancel with ease</li></ul>",
+                    "text_style": "standard",
+                    "text_size": "md",
+                    "orientation": "row",
+                    "mobile_orientation": "row",
+                    "icon_placement": "first",
+                    "icon_alignment": "center",
+                    "alignment": "left",
+                    "full_width": true
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "pdp_icon_VXdchL",
+                "pdp_icon_Cj4HXB"
+              ]
+            },
+            "pdp_collapsible_content_eg3RTm": {
+              "type": "pdp-collapsible-content",
+              "name": "Collapsible Content",
+              "settings": {
+                "title": "Description"
+              },
+              "blocks": {
+                "rich_text_z9eegx": {
+                  "type": "rich-text",
+                  "name": "Rich Text",
+                  "settings": {
+                    "content": "<p>Give your dog the immunity boost their body needs! Try America’s favorite wellness chew for dogs. This unique formula contains three potent super-mushrooms, cell-repairing Milk Thistle, and more. Fight pathogens, increase energy levels, and promote healthy cell activity with a single supplement. Your dog will wag its tail at first sight of these peanut butter-flavored chews. And you'll love what it does for their health.</p>",
+                    "text_style": "standard",
+                    "text_alignment": "left",
+                    "tag": false,
+                    "text_size": "md"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "rich_text_z9eegx"
+              ]
+            },
+            "pdp_collapsible_content_kwd8ct": {
+              "type": "pdp-collapsible-content",
+              "name": "Collapsible Content",
+              "settings": {
+                "title": "Feeding Directions"
+              },
+              "blocks": {
+                "pdp_table_E4chyf": {
+                  "type": "pdp-table",
+                  "name": "PDP Table",
+                  "settings": {
+                    "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3"
+                  },
+                  "blocks": {
+                    "pdp_table_row_FUmff9": {
+                      "type": "pdp-table-row",
+                      "name": "PDP Table Row",
+                      "settings": {
+                        "columns_count": 3,
+                        "c1_content": "<p>Size</p>",
+                        "c1_text_alignment": "left",
+                        "c1_tag": false,
+                        "c1_text_style": "text-heading",
+                        "c1_text_size": "lg",
+                        "c2_type": "rich_text",
+                        "c2_content": "<p>Dog's Weight</p>",
+                        "c2_text_alignment": "center",
+                        "c2_tag": false,
+                        "c2_text_style": "text-heading",
+                        "c2_text_size": "lg",
+                        "c3_type": "rich_text",
+                        "c3_content": "<p>Daily Intake</p>",
+                        "c3_text_alignment": "right",
+                        "c3_tag": false,
+                        "c3_text_style": "text-heading",
+                        "c3_text_size": "lg",
+                        "c4_type": "rich_text",
+                        "c4_content": "",
+                        "c4_text_alignment": "left",
+                        "c4_tag": false,
+                        "c4_text_style": "standard",
+                        "c4_text_size": "md"
+                      },
+                      "blocks": {}
+                    },
+                    "pdp_table_row_VfiQhN": {
+                      "type": "pdp-table-row",
+                      "name": "PDP Table Row",
+                      "settings": {
+                        "columns_count": 3,
+                        "c1_content": "<p>Small</p>",
+                        "c1_text_alignment": "left",
+                        "c1_tag": false,
+                        "c1_text_style": "standard",
+                        "c1_text_size": "md",
+                        "c2_type": "rich_text",
+                        "c2_content": "<p>Under 25 lbs</p>",
+                        "c2_text_alignment": "center",
+                        "c2_tag": false,
+                        "c2_text_style": "standard",
+                        "c2_text_size": "md",
+                        "c3_type": "rich_text",
+                        "c3_content": "<p>1/2 Chew</p>",
+                        "c3_text_alignment": "right",
+                        "c3_tag": false,
+                        "c3_text_style": "standard",
+                        "c3_text_size": "md",
+                        "c4_type": "rich_text",
+                        "c4_content": "",
+                        "c4_text_alignment": "left",
+                        "c4_tag": false,
+                        "c4_text_style": "standard",
+                        "c4_text_size": "md"
+                      },
+                      "blocks": {}
+                    },
+                    "pdp_table_row_4x98hX": {
+                      "type": "pdp-table-row",
+                      "name": "PDP Table Row",
+                      "settings": {
+                        "columns_count": 3,
+                        "c1_content": "<p>Average</p>",
+                        "c1_text_alignment": "left",
+                        "c1_tag": false,
+                        "c1_text_style": "standard",
+                        "c1_text_size": "md",
+                        "c2_type": "rich_text",
+                        "c2_content": "<p>25 - 75 lbs</p>",
+                        "c2_text_alignment": "center",
+                        "c2_tag": false,
+                        "c2_text_style": "standard",
+                        "c2_text_size": "md",
+                        "c3_type": "rich_text",
+                        "c3_content": "<p>1 Chew</p>",
+                        "c3_text_alignment": "right",
+                        "c3_tag": false,
+                        "c3_text_style": "standard",
+                        "c3_text_size": "md",
+                        "c4_type": "rich_text",
+                        "c4_content": "",
+                        "c4_text_alignment": "left",
+                        "c4_tag": false,
+                        "c4_text_style": "standard",
+                        "c4_text_size": "md"
+                      },
+                      "blocks": {}
+                    },
+                    "pdp_table_row_NTLp8d": {
+                      "type": "pdp-table-row",
+                      "name": "PDP Table Row",
+                      "settings": {
+                        "columns_count": 3,
+                        "c1_content": "<p>Large</p>",
+                        "c1_text_alignment": "left",
+                        "c1_tag": false,
+                        "c1_text_style": "standard",
+                        "c1_text_size": "md",
+                        "c2_type": "rich_text",
+                        "c2_content": "<p>Over 75 lbs</p>",
+                        "c2_text_alignment": "center",
+                        "c2_tag": false,
+                        "c2_text_style": "standard",
+                        "c2_text_size": "md",
+                        "c3_type": "rich_text",
+                        "c3_content": "<p>1.5 Chews</p>",
+                        "c3_text_alignment": "right",
+                        "c3_tag": false,
+                        "c3_text_style": "standard",
+                        "c3_text_size": "md",
+                        "c4_type": "rich_text",
+                        "c4_content": "",
+                        "c4_text_alignment": "left",
+                        "c4_tag": false,
+                        "c4_text_style": "standard",
+                        "c4_text_size": "md"
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "pdp_table_row_FUmff9",
+                    "pdp_table_row_VfiQhN",
+                    "pdp_table_row_4x98hX",
+                    "pdp_table_row_NTLp8d"
+                  ]
+                },
+                "rich_text_CC9zai": {
+                  "type": "rich-text",
+                  "name": "Rich Text",
+                  "settings": {
+                    "content": "<p>WARNING:</p><p>Not for human consumption. Keep out of the reach of children and animals. In case of accidental overdose, contact a health professional immediately. Keep in a cool dry place, away from direct sunlight. Ensure tub is resealed after use.</p>",
+                    "text_style": "standard",
+                    "text_alignment": "left",
+                    "tag": false,
+                    "text_size": "md"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "pdp_table_E4chyf",
+                "rich_text_CC9zai"
+              ]
+            },
+            "pdp_collapsible_content_mVfrMD": {
+              "type": "pdp-collapsible-content",
+              "name": "Collapsible Content",
+              "settings": {
+                "title": "Ingredients"
+              },
+              "blocks": {
+                "pdp_ingredients_7RRHFh": {
+                  "type": "pdp-ingredients",
+                  "name": "Ingredients List",
+                  "settings": {
+                    "text": "<p>Active Ingredients per Serving</p>",
+                    "text_style": "text-heading",
+                    "text_size": "lg",
+                    "ingredients": [
+                      "milk-thistle",
+                      "ginger-root",
+                      "turkey-tail",
+                      "maitake",
+                      "reishi"
+                    ],
+                    "name_size": "md",
+                    "ingredient_style": "standard",
+                    "row_style": "bottom-border--bar",
+                    "show_icon": false,
+                    "icon_size": 48,
+                    "show_amount": true,
+                    "show_blurb": false,
+                    "blurb_size": "md",
+                    "row_gap": 16
+                  },
+                  "blocks": {}
+                },
+                "rich_text_cDQrjH": {
+                  "type": "rich-text",
+                  "name": "Rich Text",
+                  "settings": {
+                    "content": "<p><strong>Inactive Ingredients:</strong> Oat Flour, Brown Rice Flour, Sunflower Oil, Deionized Water, Flaxseed Meal, Vegetable Glycerin, Vegetable Lecithin, Guar Gym, Potassium Sorbate, Brewers, Yeast, Carrots, Cucumbers, Lemon, Celery, Apples, Beets, Peanut Flour.<br/><br/><strong>Cautions: </strong>If your dog’s condition worsens or does not improve, stop administering the product and consult your veterinarian. Use for pregnant animals or animals intended for breeding has not been proven.<br/><br/>An exam from a veterinarian is recommended prior to using any product.<br/><br/>Absorption of drugs taken simultaneously may be delayed.</p>",
+                    "text_style": "standard",
+                    "text_alignment": "left",
+                    "tag": false,
+                    "text_size": "md"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "pdp_ingredients_7RRHFh",
+                "rich_text_cDQrjH"
+              ]
+            },
+            "pdp_collapsible_content_a3NKg7": {
+              "type": "pdp-collapsible-content",
+              "name": "Collapsible Content",
+              "settings": {
+                "title": "Why Subscribe?"
+              },
+              "blocks": {
+                "rich_text_pYiaVA": {
+                  "type": "rich-text",
+                  "name": "Rich Text",
+                  "settings": {
+                    "content": "<p>In order to see the full benefits of our products, we recommend their long-term use. That’s why we offer up to 30% off on subscriptions. Join our Subscribe & Save Club so you never run out and save big.</p>",
+                    "text_style": "standard",
+                    "text_alignment": "left",
+                    "tag": false,
+                    "text_size": "md"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "rich_text_pYiaVA"
+              ]
+            }
+          },
+          "block_order": [
+            "pdp_multicolumn_yWkKzx",
+            "pdp_tabulated_content_fpRtRd",
+            "pdp_product_form_6eMnVR",
+            "pdp_collapsible_content_eg3RTm",
+            "pdp_collapsible_content_kwd8ct",
+            "pdp_collapsible_content_mVfrMD",
+            "pdp_collapsible_content_a3NKg7"
+          ]
+        },
+        "yotpo_product_reviews_star_rating_QFKqTP": {
+          "type": "shopify://apps/yotpo-product-reviews/blocks/star-rating/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
+          "settings": {
+            "product": "{{closest.product}}"
+          }
+        }
+      },
+      "block_order": [
+        "pdp_column_z9wbAV",
+        "pdp_column_iz9zmc",
+        "yotpo_product_reviews_star_rating_QFKqTP"
+      ],
+      "name": "Product Columns",
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "title_tag": "Patent-pending formula",
+        "title_size": "h1",
+        "subtitle": "",
+        "title_position": "right",
+        "gallery_layout": "thumbnail_slider",
+        "thumbnail_position": "left",
+        "mobile_thumbnails": "show",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "column_widths": "50/50",
+        "column_gap": 10,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "multicolumn_bGxcrw": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_7zft4k": {
+          "type": "column",
+          "settings": {
+            "column_span": 2,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "",
+            "title_size": "h1-5",
+            "font_style": "body",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>AS SEEN ON SPONSORED CONTENT</p>",
+            "text_size": "lg",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_TQRyWU": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": false,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_1e94b9a011c744dda200af48bcf5cdc3.svg",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 160,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_gQpJfD": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": false,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_74ffc12c54e949e18a817d2e4a1853a0.svg",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 160,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_fmLAJt": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": false,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_0a5c38ddad084381b3d4705a24732473.svg",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 160,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_7zft4k",
+        "column_TQRyWU",
+        "column_gQpJfD",
+        "column_fmLAJt"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "heading_alignment": "left",
+        "heading_width": 0,
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "vertical_alignment": "center",
+        "columns_desktop": 5,
+        "column_alignment": "mr-auto",
+        "column_h_padding": 20,
+        "column_v_padding": 0,
+        "border_radius": 0,
+        "color_scheme": "scheme-42389180-1830-4cc2-85c9-5038c8e4a0fd",
+        "background_style": "none",
+        "color_scheme_secondary": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "show_slider_controls": true,
+        "mobile_shrink": true,
+        "section_padding_top": 0,
+        "section_padding_bottom": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "rich_text_GxRTHm": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_FdhXGC": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>|Progress| Speaks Louder than Promises</strong>",
+            "heading_size": "h0"
+          }
+        },
+        "heading_mEjQQL": {
+          "type": "heading",
+          "settings": {
+            "heading": "Baxter’s 3-month transformation",
+            "heading_size": "h2"
+          }
+        },
+        "text_JMLX8F": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Stephen recorded Baxter’s weight gain after a malignant tumor diagnosis and starting chemotherapy. He then shared a month-by-month review of Baxter’s transformative recovery with our chews.</p>",
+            "text_style": "standard",
+            "text_size": "md"
+          }
+        }
+      },
+      "block_order": [
+        "heading_FdhXGC",
+        "heading_mEjQQL",
+        "text_JMLX8F"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+        "full_width": true,
+        "content_full_width": false,
+        "padding_top": 40,
+        "padding_bottom": 0
+      }
+    },
+    "multicolumn_XXawQi": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_qV9hXQ": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_16131aa0729d419096b5b1180102b250.jpg",
+            "use_image_as_background": false,
+            "image_overlay_tag": "Before Chews",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "75 lbs",
+            "title_size": "text-md",
+            "font_style": "heading",
+            "title_style": "tag",
+            "tag_style": "overlay",
+            "title_align": "left",
+            "text": "<p><strong>Pre-Diagnosis</strong></p><p>Full of energy with a healthy weight & appetite.</p>",
+            "text_size": "md",
+            "text_align": "center",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_bfCjMB": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_7c7ac879c73645129e41a4c0d05b00c5.jpg",
+            "use_image_as_background": false,
+            "image_overlay_tag": "Month 1",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "61 lbs",
+            "title_size": "text-md",
+            "font_style": "heading",
+            "title_style": "tag",
+            "tag_style": "overlay",
+            "title_align": "left",
+            "text": "<p><strong>Start of Chemotherapy</strong></p><p>Decreased appetite and energy levels plummet. Baxter’s Pet Heal journey begins.</p>",
+            "text_size": "md",
+            "text_align": "center",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_LBGFcr": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_04e62e9a59c44a9b9ddff8e197de2c5b.jpg",
+            "use_image_as_background": false,
+            "image_overlay_tag": "Month 2",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "69 lbs",
+            "title_size": "text-md",
+            "font_style": "heading",
+            "title_style": "tag",
+            "tag_style": "overlay",
+            "title_align": "left",
+            "text": "<p><strong>Initial Improvements</strong></p><p>Appetite and weight increase, despite chemo treatments. Baxter starts acting more like his old self</p>",
+            "text_size": "md",
+            "text_align": "center",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_yqeMUy": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_b6bed3bd9662494898ce03a075533031.jpg",
+            "use_image_as_background": false,
+            "image_overlay_tag": "Month 3",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "74 lbs",
+            "title_size": "text-md",
+            "font_style": "heading",
+            "title_style": "tag",
+            "tag_style": "overlay",
+            "title_align": "left",
+            "text": "<p><strong>Recovery</strong></p><p>Chemo treatment successfully completed, weight is normal, and PetHeal becomes part of his wellness routine.</p>",
+            "text_size": "md",
+            "text_align": "center",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_qV9hXQ",
+        "column_bfCjMB",
+        "column_LBGFcr",
+        "column_yqeMUy"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "heading_alignment": "left",
+        "heading_width": 0,
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "vertical_alignment": "center",
+        "columns_desktop": 4,
+        "column_alignment": "mr-auto",
+        "column_h_padding": 40,
+        "column_v_padding": 25,
+        "border_radius": 14,
+        "color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+        "background_style": "color_scheme",
+        "color_scheme_secondary": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "show_slider_controls": true,
+        "mobile_shrink": false,
+        "section_padding_top": 36,
+        "section_padding_bottom": 12,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "icon_with_text_Y8L7ri": {
+      "type": "icon-with-text",
+      "name": "Icon with text",
+      "settings": {
+        "icon": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_cc51bf0dd11740b392fde6cbab2348c9.svg",
+        "icon_name": "paw-print",
+        "icon_width": 80,
+        "title": "",
+        "text": "",
+        "orientation": "column",
+        "icon_placement": "first",
+        "icon_alignment": "flex-end",
+        "alignment": "center",
+        "color_scheme": "scheme-6771aba1-bac3-4092-abad-c90c9e92177a",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "rich_text_HeFF4D": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_6iazVK": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Packed With |Wellness-Boosting| Ingredients</strong>",
+            "heading_size": "h0"
+          }
+        }
+      },
+      "block_order": [
+        "heading_6iazVK"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "full_width": true,
+        "content_full_width": false,
+        "padding_top": 68,
+        "padding_bottom": 0
+      }
+    },
+    "collapsible_content_99rUYh": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_MNi4xM": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Turkey Tail",
+            "heading_style": "heading",
+            "icon_image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_c10b9ffc014649c78f9495f11f8109b6.jpg",
+            "icon_image_width": 80,
+            "icon": "none",
+            "row_content": "<p>Long used in holistic medicine, this superfood increases T-helper and killer cells, which are known to attack abnormal cells directly. Having recently received FDA approval, Turkey Tail is currently being used to treat several types of malignant cells.</p>",
+            "row_content_size": "text-md",
+            "page": ""
+          }
+        },
+        "collapsible_row_zpjhK6": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Reishi",
+            "heading_style": "heading",
+            "icon_image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_505d6cbd5b714d808a35fba654a5b248.jpg",
+            "icon_image_width": 80,
+            "icon": "none",
+            "row_content": "<p>Known as the “King of Medicinal Mushrooms,” Reishi regulates your dog’s immune system due to its potent polysaccharides (PBP). When used with other synergistic herbs, PBPs have enhanced anti-inflammatory and anti-viral properties.</p>",
+            "row_content_size": "text-md",
+            "page": ""
+          }
+        },
+        "collapsible_row_UyRQf4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Milk Thistle",
+            "heading_style": "heading",
+            "icon_image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_c02e0829ac504aff94d5f8aba23ad4bb.jpg",
+            "icon_image_width": 80,
+            "icon": "none",
+            "row_content": "<p>Silymarin (sil-i-mar-in), a key compound in Milk Thistle, fights cell-damaging enzymes that can weaken weak immune systems. Milk Thistle has also been shown to repair damaged liver cells, helping your dog better withstand chemotherapy and medication.</p>",
+            "row_content_size": "text-md",
+            "page": ""
+          }
+        },
+        "collapsible_row_zadRfc": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Maitake",
+            "heading_style": "heading",
+            "icon_image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_37678923c889491e910fa0182b71a4ad.jpg",
+            "icon_image_width": 80,
+            "icon": "none",
+            "row_content": "<p>Rich in polysaccharides (PBPs), Maitake enhances cellular metabolism, leading to enhanced energy levels. PBPs are shown to improve your dog’s ability to utilize oxygen, which can contribute to more stamina and energy.</p>",
+            "row_content_size": "text-md",
+            "page": ""
+          }
+        },
+        "collapsible_row_CyB6Nb": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Ginger Root",
+            "heading_style": "heading",
+            "icon_image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_3189bbf7ae3b41399f02b26ccd7dadd3.jpg",
+            "icon_image_width": 80,
+            "icon": "none",
+            "row_content": "<p>Widely regarded for its anti-inflammatory properties, ginger root is full of immune-boosting active ingredients. Gingerol and Shogaols, two of its most promising compounds, are known to improve energy levels and promote overall wellness.</p>",
+            "row_content_size": "text-md",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_MNi4xM",
+        "collapsible_row_zpjhK6",
+        "collapsible_row_UyRQf4",
+        "collapsible_row_zadRfc",
+        "collapsible_row_CyB6Nb"
+      ],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "caption": "",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "content_alignment": "flex-start",
+        "gap": 20,
+        "columns": false,
+        "layout": "none",
+        "container_color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "single_open_only": true,
+        "open_first_collapsible_row": false,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 36,
+        "padding_bottom": 16
+      }
+    },
+    "icon_with_text_XFB7We": {
+      "type": "icon-with-text",
+      "name": "Icon with text",
+      "settings": {
+        "icon": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_945fb6a9a0484d84a6c58203a50db932.svg",
+        "icon_name": "paw-print",
+        "icon_width": 80,
+        "title": "",
+        "text": "",
+        "orientation": "column",
+        "icon_placement": "first",
+        "icon_alignment": "center",
+        "alignment": "center",
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "image_with_text_fLTKgY": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_UhBVbt": {
+          "type": "heading",
+          "settings": {
+            "heading": "How it works",
+            "heading_size": "h0"
+          }
+        },
+        "text_UPdWYF": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Made with scientifically-backed ingredients, our powerful wellness chews help fight abnormal cell growth and boost your dog’s immune system.</p>",
+            "text_style": "standard",
+            "text_size": "md"
+          }
+        }
+      },
+      "block_order": [
+        "heading_UhBVbt",
+        "text_UPdWYF"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/immune.png",
+        "height": "adapt",
+        "desktop_image_width": "large",
+        "image_max_width": 700,
+        "full_width": false,
+        "layout": "image_first",
+        "mobile_layout": "image_first",
+        "layout_direction": "row",
+        "image_behavior": "none",
+        "image_with_text_gap": 16,
+        "content_full_width": false,
+        "content_max_width": 0,
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "content_padding_top": 33,
+        "content_padding_bottom": 28,
+        "color_scheme": "scheme-42389180-1830-4cc2-85c9-5038c8e4a0fd",
+        "full_colors": true,
+        "content_color_scheme": "scheme-42389180-1830-4cc2-85c9-5038c8e4a0fd",
+        "color_scheme_application": "content",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "rich_text_zn6rjy": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_Uejqck": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Vet preferred for supporting</strong>",
+            "heading_size": "h0"
+          }
+        },
+        "heading_LMJnya": {
+          "type": "heading",
+          "settings": {
+            "heading": " |longevity & health|",
+            "heading_size": "h0"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Uejqck",
+        "heading_LMJnya"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "full_width": true,
+        "content_full_width": false,
+        "padding_top": 40,
+        "padding_bottom": 24
+      }
+    },
+    "image_with_text_jeYWPB": {
+      "type": "image-with-text",
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_4686a8028a294d2dbf5f1472b0063534.svg",
+        "mobile_image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_f2645656915841b58752f51af938c193.svg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "image_max_width": 920,
+        "full_width": false,
+        "layout": "image_first",
+        "mobile_layout": "image_first",
+        "layout_direction": "row",
+        "image_behavior": "none",
+        "image_with_text_gap": 0,
+        "content_full_width": true,
+        "content_max_width": 0,
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "content_padding_top": 0,
+        "content_padding_bottom": 0,
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "full_colors": true,
+        "content_color_scheme": "",
+        "color_scheme_application": "none",
+        "padding_top": 0,
+        "padding_bottom": 44
+      }
+    },
+    "rich_text_bVPhAM": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_N8RmQi": {
+          "type": "heading",
+          "settings": {
+            "heading": "Why you'll love PetHeal",
+            "heading_size": "h0"
+          }
+        },
+        "text_XUUmYj": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Here are just some of the benefits you’ll notice after feeding Immune Guard for 90 days.</p>",
+            "text_style": "standard",
+            "text_size": "md"
+          }
+        }
+      },
+      "block_order": [
+        "heading_N8RmQi",
+        "text_XUUmYj"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-42389180-1830-4cc2-85c9-5038c8e4a0fd",
+        "full_width": true,
+        "content_full_width": false,
+        "padding_top": 40,
+        "padding_bottom": 0
+      }
+    },
+    "collapsible_content_yanbJx": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_eDQazx": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Improved energy levels & appetite",
+            "heading_style": "body",
+            "icon_image_width": 15,
+            "icon": "none",
+            "row_content": "<p>Packed with natural, wellness-boosting ingredients, you’ll notice improved endurance and more tail-wagging during mealtime.</p>",
+            "row_content_size": "text-md",
+            "page": ""
+          }
+        },
+        "collapsible_row_LgrtVE": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Diminished lumps & bumps",
+            "heading_style": "body",
+            "icon_image_width": 15,
+            "icon": "none",
+            "row_content": "<p>Watch as antioxidants work their magic, causing lumps & bumps to shrivel up and fall off.</p>",
+            "row_content_size": "text-md",
+            "page": ""
+          }
+        },
+        "collapsible_row_nHpDhP": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "A shiner, healthier coat",
+            "heading_style": "body",
+            "icon_image_width": 15,
+            "icon": "none",
+            "row_content": "<p>Experience the joy of seeing your dog’s coat go from dull and coarse to silky-smooth and shiny.</p>",
+            "row_content_size": "text-md",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_eDQazx",
+        "collapsible_row_LgrtVE",
+        "collapsible_row_nHpDhP"
+      ],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "caption": "",
+        "heading": "",
+        "heading_size": "h0",
+        "heading_alignment": "center",
+        "content_alignment": "flex-start",
+        "gap": 20,
+        "columns": true,
+        "layout": "row",
+        "container_color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+        "color_scheme": "scheme-42389180-1830-4cc2-85c9-5038c8e4a0fd",
+        "single_open_only": false,
+        "open_first_collapsible_row": false,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 12,
+        "padding_bottom": 36
+      }
+    },
+    "rich_text_7kcQRp": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_GeApkW": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>See what our customers are barking about</strong>",
+            "heading_size": "h0"
+          }
+        }
+      },
+      "block_order": [
+        "heading_GeApkW"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "full_width": true,
+        "content_full_width": false,
+        "padding_top": 40,
+        "padding_bottom": 0
+      }
+    },
+    "multicolumn_video_mJ6m6k": {
+      "type": "multicolumn-video",
+      "blocks": {
+        "video_jFUrAL": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/0103 (4).mp4",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_9d081f9222ce40acb15b355879c9c96e.jpg",
+            "name": "Evan",
+            "message": "",
+            "product": "",
+            "thumbnail_width": 160,
+            "thumbnail_height": 300,
+            "thumbnail_circular": false,
+            "thumbnail_outline": false
+          }
+        },
+        "video_W6Vqca": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/0103 (3).mp4",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_c859237e4f204dceb96c551f2cdbeae9.jpg",
+            "name": "Amy",
+            "message": "",
+            "product": "",
+            "thumbnail_width": 160,
+            "thumbnail_height": 300,
+            "thumbnail_circular": false,
+            "thumbnail_outline": false
+          }
+        },
+        "video_BYjGkf": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/111.mp4",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_181824e9476a444abcefd0aa6b3265c5.jpg",
+            "name": "Robert",
+            "message": "",
+            "product": "",
+            "thumbnail_width": 160,
+            "thumbnail_height": 300,
+            "thumbnail_circular": false,
+            "thumbnail_outline": false
+          }
+        },
+        "video_ce8f8T": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/IAN.mp4",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_28b1c34cad3f418db28edff0f408d36d.jpg",
+            "name": "Tracy",
+            "message": "",
+            "product": "",
+            "thumbnail_width": 160,
+            "thumbnail_height": 300,
+            "thumbnail_circular": false,
+            "thumbnail_outline": false
+          }
+        },
+        "video_i7bmEX": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Petheal Video.mp4",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_3c65f8110218456b9ed8cdb0302548cc.jpg",
+            "name": "John",
+            "message": "",
+            "product": "",
+            "thumbnail_width": 160,
+            "thumbnail_height": 300,
+            "thumbnail_circular": false,
+            "thumbnail_outline": false
+          }
+        }
+      },
+      "block_order": [
+        "video_jFUrAL",
+        "video_W6Vqca",
+        "video_BYjGkf",
+        "video_ce8f8T",
+        "video_i7bmEX"
+      ],
+      "name": "Video Multicolumn",
+      "settings": {
+        "title": "See what all the bark is about!",
+        "heading_alignment": "center",
+        "heading_size": "text-lg",
+        "show_title": false,
+        "full_width": false,
+        "columns_desktop": 5,
+        "column_alignment": "left",
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "color_scheme_secondary": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "columns_mobile": 2,
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_left": 36,
+        "padding_right": 36
+      }
+    },
+    "175463743991c0d596": {
+      "type": "apps",
+      "blocks": {
+        "yotpo_product_reviews_reviews_arRDgq": {
+          "type": "shopify://apps/yotpo-product-reviews/blocks/reviews/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
+          "settings": {
+            "product": "{{product}}"
+          }
+        }
+      },
+      "block_order": [
+        "yotpo_product_reviews_reviews_arRDgq"
+      ],
+      "settings": {
+        "include_margins": false
+      }
+    },
+    "image_with_multi_column_L38MhM": {
+      "type": "image-with-multi-column",
+      "blocks": {
+        "column_iAf3FG": {
+          "type": "column",
+          "settings": {
+            "flex_direction": "row",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_ea8a8bf477b547fe941689a54903bfac.svg",
+            "image_width": 65,
+            "heading": "",
+            "heading_size": "text-xl",
+            "text": "<p>Manufactured in the USA</p>",
+            "text_size": "text-sm"
+          }
+        },
+        "column_VqQEeU": {
+          "type": "column",
+          "settings": {
+            "flex_direction": "row",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_61b46e35b1ea46a9b8ffce5cb2d9d18a.svg",
+            "image_width": 65,
+            "heading": "",
+            "heading_size": "text-xl",
+            "text": "<p>Batch tested</p>",
+            "text_size": "text-sm"
+          }
+        },
+        "column_CLgQq3": {
+          "type": "column",
+          "settings": {
+            "flex_direction": "row",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_f19bedb03bc44d20a573498278125f47.svg",
+            "image_width": 65,
+            "heading": "",
+            "heading_size": "text-xl",
+            "text": "<p>No artificial color or flavor</p>",
+            "text_size": "text-sm"
+          }
+        },
+        "column_6HRjCC": {
+          "type": "column",
+          "settings": {
+            "flex_direction": "row",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_e761157162464e08ba0fcb18658d3c44.svg",
+            "image_width": 65,
+            "heading": "",
+            "heading_size": "text-xl",
+            "text": "<p>GMO, hormone & antibiotic free</p>",
+            "text_size": "text-sm"
+          }
+        },
+        "column_gL3p7A": {
+          "type": "column",
+          "settings": {
+            "flex_direction": "row",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_4dfff3ce50df43bdb4b1efb61b14c5f6.svg",
+            "image_width": 65,
+            "heading": "",
+            "heading_size": "text-xl",
+            "text": "<p>GMP/SQF certified</p>",
+            "text_size": "text-sm"
+          }
+        },
+        "column_CAjfFU": {
+          "type": "column",
+          "settings": {
+            "flex_direction": "row",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_a703e99f272d41ab848c1522360ee09a.svg",
+            "image_width": 65,
+            "heading": "",
+            "heading_size": "text-xl",
+            "text": "<p>In line with FDA guidelines</p>",
+            "text_size": "text-sm"
+          }
+        }
+      },
+      "block_order": [
+        "column_iAf3FG",
+        "column_VqQEeU",
+        "column_CLgQq3",
+        "column_6HRjCC",
+        "column_gL3p7A",
+        "column_CAjfFU"
+      ],
+      "name": "Image with multi-column",
+      "settings": {
+        "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_58ba866b0e4c4c478bed4d6f762248db.png",
+        "height": "medium",
+        "desktop_image_width": "medium",
+        "image_max_width": 600,
+        "full_width": false,
+        "layout": "image_first",
+        "layout_direction": "row",
+        "image_behavior": "none",
+        "image_with_text_gap": 16,
+        "heading": "We're serious about quality",
+        "heading_size": "h1",
+        "text": "<p>That’s why we have scientific experts to help guide our product innovation every step of the way.</p>",
+        "text_style": "standard",
+        "text_size": "md",
+        "columns": 3,
+        "column_gap": 0,
+        "content_full_width": false,
+        "content_max_width": 0,
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "content_padding_top": 0,
+        "content_padding_bottom": 0,
+        "color_scheme": "scheme-42389180-1830-4cc2-85c9-5038c8e4a0fd",
+        "full_colors": true,
+        "content_color_scheme": "scheme-42389180-1830-4cc2-85c9-5038c8e4a0fd",
+        "color_scheme_application": "content",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "multicolumn_eCGNdC": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_N7GB9K": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_e5e2a5f728ea43268949bf6a6e079987.svg",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 64,
+            "max_width": 0,
+            "image_heading_inline": true,
+            "title": "Manufactured in the USA",
+            "title_size": "text-md",
+            "font_style": "body",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>From premium-quality domestic and globally-source ingredients</p>",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_G8Ahpx": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_9440bd22d02c46a68432be6f63b74153.svg",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 64,
+            "max_width": 0,
+            "image_heading_inline": true,
+            "title": "Science-Backed Formulation",
+            "title_size": "text-md",
+            "font_style": "body",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>We've worked closely with experts to ensure every ingredient has overwhelming evidence to support a long, healthy life for your dog.<br/></p>",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_dDNBzN": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_2f21cc29c66a4eb2b2f1b5e934301972.svg",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 64,
+            "max_width": 0,
+            "image_heading_inline": true,
+            "title": "Anti-Inflammatory & Anti-Oxidation",
+            "title_size": "text-md",
+            "font_style": "body",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>Packed with antioxidants that fight free radicals and protect your dog’s cells from damage. This helps reduce oxidative stress and supports a healthier immune system.</p>",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_VxAgUP": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_d604966b271d427e81a94ee4d558626f.svg",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 64,
+            "max_width": 0,
+            "image_heading_inline": true,
+            "title": "Energy & Vitality",
+            "title_size": "text-md",
+            "font_style": "body",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>Give your dog an immediate boost in energy while our immune-supporting ingredients fight off pathogens at the cellular level.</p>",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_N7GB9K",
+        "column_G8Ahpx",
+        "column_dDNBzN",
+        "column_VxAgUP"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "What makes Immune Guard unique?",
+        "heading_size": "h0",
+        "heading_alignment": "left",
+        "heading_width": 0,
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "vertical_alignment": "center",
+        "columns_desktop": 4,
+        "column_alignment": "mr-auto",
+        "column_h_padding": 20,
+        "column_v_padding": 20,
+        "border_radius": 8,
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "background_style": "color_scheme",
+        "color_scheme_secondary": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "show_slider_controls": true,
+        "mobile_shrink": false,
+        "section_padding_top": 16,
+        "section_padding_bottom": 52,
+        "padding_top": 56,
+        "padding_bottom": 16
+      }
+    },
+    "image_with_text_DDw9hr": {
+      "type": "image-with-text",
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_e817aa098da44b05a496d1ad9022f48d.jpg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "image_max_width": 0,
+        "full_width": true,
+        "layout": "image_first",
+        "mobile_layout": "image_first",
+        "layout_direction": "row",
+        "image_behavior": "none",
+        "image_with_text_gap": 0,
+        "content_full_width": false,
+        "content_max_width": 0,
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "content_padding_top": 0,
+        "content_padding_bottom": 0,
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "full_colors": true,
+        "content_color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "color_scheme_application": "content",
+        "padding_top": 24,
+        "padding_bottom": 0
+      }
+    },
+    "collapsible_content_mDUaxC": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_kwq7wy": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What are the best uses for Immune Guard?",
+            "heading_style": "body",
+            "icon_image_width": 15,
+            "icon": "none",
+            "row_content": "<p>Immune Guard is best suited for dogs with a compromised immune system, especially those with abnormal cell growth, whether that growth is benign Lipoma (lump and bump) or malignant cells. Immune Guard’s 5-key active ingredients support a healthy immune system, increase energy levels, and target abnormal cell growth.</p>",
+            "row_content_size": "text-md",
+            "page": ""
+          }
+        },
+        "collapsible_row_KzMGiD": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "My dog is currently undergoing chemotherapy. Can I use this?",
+            "heading_style": "body",
+            "icon_image_width": 15,
+            "icon": "none",
+            "row_content": "<p>Yes. Immune Guard is safe for dogs undergoing chemotherapy or taking medications. In fact, Milk Thistle is known to promote the regeneration of liver cells, which are frequently damaged by medications and chemotherapy. Turkey Tail is another ingredient especially beneficial to dogs undergoing chemotherapy treatments. The FDA recently approved clinical trials for Turkey Tail as a malignant cell treatment. These two ingredients, along with the immune and energy support from others, make Immune Guard an ideal treatment for dogs with a compromised immune system.</p>",
+            "row_content_size": "text-md",
+            "page": ""
+          }
+        },
+        "collapsible_row_FLQ3HV": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "My dog has a sensitive stomach. Will this upset their stomach?",
+            "heading_style": "body",
+            "icon_image_width": 15,
+            "icon": "none",
+            "row_content": "<p>While every dog’s body is unique, diarrhea or digestion issues are not a common side-effect of Immune Guard. In fact, most customers report seeing more solid stool while on Immune Guard due to anti-inflammatory ingredients like Ginger Root.</p>",
+            "row_content_size": "text-md",
+            "page": ""
+          }
+        },
+        "collapsible_row_fKhraB": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "My pet is so old already. Is it too late to start, and will it really make a difference?",
+            "heading_style": "body",
+            "icon_image_width": 15,
+            "icon": "none",
+            "row_content": "<p>It’s never too late to improve your dog’s quality of life. While we recommend feeding Immune Guard as early as possible, we believe every dog should have the healthiest possible immune system and highest energy levels—no matter what age.</p>",
+            "row_content_size": "text-md",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_kwq7wy",
+        "collapsible_row_KzMGiD",
+        "collapsible_row_FLQ3HV",
+        "collapsible_row_fKhraB"
+      ],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "caption": "",
+        "heading": "<strong>Frequently Asked Questions</strong>",
+        "heading_size": "h0",
+        "heading_alignment": "center",
+        "content_alignment": "flex-start",
+        "gap": 20,
+        "columns": false,
+        "layout": "none",
+        "container_color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+        "color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+        "single_open_only": true,
+        "open_first_collapsible_row": false,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related-products",
+    "main_product_v2_k3KHnw",
+    "multicolumn_bGxcrw",
+    "rich_text_GxRTHm",
+    "multicolumn_XXawQi",
+    "icon_with_text_Y8L7ri",
+    "rich_text_HeFF4D",
+    "collapsible_content_99rUYh",
+    "icon_with_text_XFB7We",
+    "image_with_text_fLTKgY",
+    "rich_text_zn6rjy",
+    "image_with_text_jeYWPB",
+    "rich_text_bVPhAM",
+    "collapsible_content_yanbJx",
+    "rich_text_7kcQRp",
+    "multicolumn_video_mJ6m6k",
+    "175463743991c0d596",
+    "image_with_multi_column_L38MhM",
+    "multicolumn_eCGNdC",
+    "image_with_text_DDw9hr",
+    "collapsible_content_mDUaxC"
+  ]
+}

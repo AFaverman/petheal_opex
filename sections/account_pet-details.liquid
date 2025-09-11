@@ -1,0 +1,615 @@
+{% style %}
+  .account-pet__details-container {
+    display: flex;
+    gap: 2rem;
+  }
+  .pet__img {
+    margin-right: 3.2rem;
+  }
+  .pet__img img {
+    border-radius: 100%;
+    object-fit: cover;
+    width: 80px;
+    height: 80px;
+  }
+  .pet__img .pet__edit {
+    font-size: 1.2rem;
+    padding: 0.4rem 1.2rem;
+    min-width: fit-content;
+    min-height: fit-content;
+  }
+  @media (min-width: 750px) {
+    .account-pet__details-column:first-child {
+      width: calc({{ section.settings.layout_ratio }}% - var(--gap, 0));
+    }
+    .account-pet__details-column:last-child {
+      flex: 1;
+    }
+    .pet__img img {
+      width: 120px;
+      height: 120px;
+    }
+  }
+  .pet__img-label {
+  border-color: rgb(209 213 219);
+  border-radius: 100%;
+  border-width: 2px;
+  border-style: dashed;
+  cursor: pointer;
+  width: 12.8rem;
+  height: 12.8rem;
+}
+
+.pet__img-label:hover {
+  border-color: rgb(var(--color-button));
+}
+
+.pet__img-label label {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.pet__img-label img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.pet-photo-remove {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  cursor: pointer;
+  background-color: rgb(var(--color-button));
+  border-radius: 100%;
+  padding: 0.2rem
+}
+
+.pet-photo-remove svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  stroke: rgb(var(--color-button-text));
+  display: block;
+  padding: 0.3rem;
+}
+
+.conditions-field{
+  --gap: 1.5rem;
+  gap: var(--gap);
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+#edit-pet-form {
+  input, select {
+    border-radius: 0.5rem;
+    border: 1px rgb(var(--color-foreground)) solid;
+    padding: 0.5rem 1rem;
+    font-size: 1.6rem;
+    width: 100%;
+    margin: .25rem 0 .5rem 0;
+  }
+  
+  label {
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+  
+  .pet__fields {
+    --gap: 1.3rem;
+    gap: var(--gap);
+  }
+
+  .pet-check {
+    width: auto;
+  }
+
+  .loading__spinner {
+    height: 2.4rem;
+    width: 2.4rem;
+    margin: 0;
+  }
+
+  .loading__spinner svg{
+    display: block;
+  }
+
+  .loading__spinner svg .path {
+    stroke: rgb(var(--color-button-text));
+  }
+}  
+
+@media screen and (max-width: 749px) {
+  #edit-pet-form .button--primary{
+  width: 100%;
+  margin: 10px 0 0 0;
+  }
+}
+
+.account-pet__details_content {
+  border-radius: 1rem;
+
+  img {
+    max-height: 40rem;
+    width: 100%;
+    object-fit: cover;
+  }
+  .list-social__link,
+  .list-social__link .svg-wrapper,
+  .list-social__link svg {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+.section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{% endstyle %}
+
+{%- assign page_url = content_for_header | split:'"pageurl":"' | last | split:'"' | first | split: request.host | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&' -%}
+{%- assign page_query = page_url | split: "pet=" | last | split: "&" | first -%}
+{%- assign pet = metaobjects.pet[page_query] -%}
+{%- if pet or request.design_mode -%}
+  <div class="color-{{ section.settings.color_scheme }} account-pet__details section-{{ section.id }}-padding">
+    <div class="page-width flex flex-col md:flex-row gap-8">
+      {%- assign half_size = section.blocks.size | divided_by: 2.0 | ceil -%}
+      
+      <!-- Left Column -->
+      <div class="account-pet__details-column flex flex-col gap-8">
+        {%- for block in section.blocks limit: half_size -%}
+            {%- if request.design_mode and block.type == 'pet_details' -%}
+              <div class="page-width center px-6 py-6 color-{{ block.settings.color_scheme }}">
+                Design mode - Preview theme to view dynamic account-based content
+              </div>
+            {%- else -%}
+              {% render 'pet-details-block', block: block, pet: pet %}
+            {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="account-pet__details-column flex flex-col gap-8">
+        {%- for block in section.blocks offset: half_size -%}
+          {%- if request.design_mode and block.type == 'pet_details'-%}
+            <div class="page-width center px-6 py-6 color-{{ block.settings.color_scheme }}">
+              Design mode - Preview theme to view dynamic account-based content
+            </div>
+          {%- else -%}
+            {% render 'pet-details-block', block: block, pet: pet %}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const metaAPI = new ShopifyMetaobjectAPI();
+      const pet = new URLSearchParams(window.location.search).get('pet');
+      window.refreshPet = () => {
+        metaAPI.getMetaobjectByHandle(pet).then(fields => {
+          if (!fields) {
+            console.log("Error no fields found");
+            return;
+          }
+          console.log(fields);
+          const pet = document.querySelector(".pet__details");
+          const conditions = JSON.parse(fields.conditions).join(", ");
+          pet.querySelector(".pet__name").innerHTML = fields.name;
+          pet.querySelector(".pet__weight").innerHTML = `${fields.weight} lbs`;
+          pet.querySelector(".pet__breed").innerHTML = fields.breed;
+          pet.querySelector(".pet__sex img").src = fields.sex == 'male' ? '{{ 'male.svg' | asset_url }}' : '{{ 'female.svg' | asset_url }}';   
+          pet.querySelector(".pet__img img").src = (fields.image && !fields?.image?.includes('gid')) ? `${fields.image}&width=120` : '{{ 'empty.svg' | asset_url }}'
+          pet.querySelector(".pet__conditions").innerHTML = conditions;
+          closeModals();
+        });
+      }
+
+      //eidt pet
+      window.editPet = () => {
+        const editPetModal = document.querySelector('#edit-pet-modal');
+        editPetModal.classList.add('active');
+      }
+
+      //Submit pet form
+      document.querySelector('#edit-pet-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const editPetConfirm = document.querySelector('#edit-pet-confirm');
+        editPetConfirm.querySelector('.form-submit-text').classList.add('visibility-hidden');
+        editPetConfirm.querySelector('.loading__spinner').classList.remove('hidden');
+
+        const form = document.querySelector('#edit-pet-form');
+        const formData = new FormData(form);
+        const formObject = Object.fromEntries(formData);
+
+
+        formObject.conditions = JSON.stringify(Array.from(
+          form.querySelectorAll('input[name="conditions"]:checked'),
+          checkbox => checkbox.value
+        ));
+
+        let fields = Object.entries(formObject)
+        .filter(([key, value]) => {
+          const input = form.querySelector(`[name="${key}"]`);
+          return input && input.type !== 'file' && value !== '';
+        })
+        .map(([key, value]) => ({
+          key: key,
+          value: value
+        }));
+        let file = null;
+        if (!document.querySelector('#pet-photo').classList.contains('unchanged')) {
+          file = document.querySelector('#pet-photo').files[0];
+        }
+
+        if (document.querySelector('#pet-photo').files.length == 0) {
+          fields.push({
+            key: 'image',
+            value: ''
+          });
+        }
+
+        if (file) {
+          metaAPI.uploadImage(file).then(result => {
+            fields.push({
+              key: 'image',
+              value: result.fileId
+            });
+            metaAPI.updateMetaobject("gid://shopify/Metaobject/{{pet.system.id}}",fields).then((response) => {
+              if(response.success) {
+                setTimeout(() => {
+                  refreshPet();
+                }, 750);
+              } else {
+                console.log(response);
+              }
+            })
+          });
+        } else {
+          metaAPI.updateMetaobject("gid://shopify/Metaobject/{{pet.system.id}}",fields).then((response) => {
+            if(response.success) {
+              refreshPet();
+            } else {
+              console.log(response);
+            }
+          });
+        }
+      });
+      
+      //pet photo preview
+      document.querySelector('#pet-photo').onchange = evt => {
+        evt.target.classList.remove('unchanged');
+        const [preview] = document.querySelector('#pet-photo').files
+        if (preview) {
+          document.querySelector('.pet-photo-preview img').src = URL.createObjectURL(preview);
+          document.querySelector('.pet-photo-preview').classList.remove('hidden');
+          document.querySelector('.pet-photo-remove').classList.remove('hidden');
+          document.querySelector('.pet-photo-icon').classList.add('hidden');
+        }
+      }
+
+      //Remove pet photo
+      document.querySelector('.pet-photo-remove').addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelector('#pet-photo').classList.add('unchanged');
+        document.querySelector('.pet-photo-preview').classList.add('hidden');
+        document.querySelector('.pet-photo-remove').classList.add('hidden');
+        document.querySelector('.pet-photo-icon').classList.remove('hidden');
+        document.querySelector('#pet-photo').value = '';
+      });
+
+      //Close modals
+      window.closeModals = () => {
+        document.querySelectorAll('.popup-modal').forEach(modal => {
+          modal.classList.remove('active');
+          document.querySelector('#edit-pet-confirm .form-submit-text').classList.remove('visibility-hidden');
+          document.querySelector('#edit-pet-confirm .loading__spinner').classList.add('hidden');
+        });
+      }
+
+      document.querySelector("#edit-pet-modal").addEventListener('click', (e) => {
+        if (!e.target.closest('.popup-modal__content')) {
+          closeModals();
+        }
+      });
+
+      document.querySelectorAll('.popup-modal__close').forEach((e)=> {
+        e.addEventListener('click', closeModals); 
+      });
+    });
+  </script>
+  <div id="edit-pet-modal" class="popup-modal color-{{ section.settings.color_scheme }}">
+    <div class="popup-modal__content">
+        <div class="popup-modal__close popup-modal__icon-close">
+            {{- 'icon-close.svg' | inline_asset_content -}}
+        </div>
+        <div class="popup-modal-overlay__content__header">
+          <div class="text-lg font-semibold">Edit Pet Details</div>
+          <p class="text-sm">Update your pet's details below.</p>
+        </div>
+        <form id="edit-pet-form">
+          <div class="filed__file">
+            <div class="text-sm font-semibold mb-2">Pet Photo</div>
+            <div class="pet__img-label mb-4 flex mx-auto align-center justify-center isolate">
+              <div class="pet-photo-remove px-1 py-1 {% if pet.image.value == blank %}hidden{% endif %}">{{- 'icon-close.svg' | inline_asset_content -}}</div>
+              <label class="flex align-center justify-center" for="pet-photo">
+                <div class="flex flex-col align-center justify-center pet-photo-icon {% if pet.image.value != blank %}hidden{% endif %}">
+                    {{- 'icon-camera.svg' | inline_asset_content -}}
+                  <span class="text-sm mt-3">Add photo</span>
+                </div>
+                <div class="pet-photo-preview {% if pet.image.value == blank %}hidden{% endif %}">
+                  <img src="{% if pet.image.value != blank %}{{ pet.image.value | image_url: width: 200 }}{% endif %}" alt="Pet Photo" width="auto" height="auto" />
+                </div>
+                <input type="file" id="pet-photo" name="pet-photo" accept="image/*" class="hidden unchanged" />
+              </label>
+            </div>
+          </div>
+
+          <div class="flex align-center gap-6">
+            <div class="flex-50">
+              <label class="mb-4" for="petForm-name">Pet Name</label>
+              <input
+                aria-required="true"
+                autocomplete="name"
+                type="text"
+                id="petForm-name"
+                name="name"
+                value="{% if pet.name.value != blank %}{{ pet.name.value }}{% endif %}"
+                required
+              >
+            </div>
+            <div class="flex-50">
+              <label class="mb-4" for="petForm-age">Age (years)</label>
+              <input
+                aria-required="true"
+                autocomplete="name"
+                type="number"
+                id="petForm-age"
+                name="age"
+                max="40"
+                value="{% if pet.age.value != blank %}{{ pet.age.value }}{% endif %}"
+                required
+              >
+            </div>
+          </div>
+          <div class="flex align-center gap-6">
+            <div class="flex-50">
+              <label class="mb-4" for="petForm-weight">Weight (lbs)</label>
+              <input
+                aria-required="true"
+                autocomplete="name"
+                type="number"
+                id="petForm-weight"
+                name="weight"
+                max="500"
+                value="{% if pet.weight.value != blank %}{{ pet.weight.value }}{% endif %}"
+                required
+              >
+              
+            </div>
+            <div class="flex-50">
+              <label class="mb-4" for="petForm-breed">Breed</label>
+              <input
+                aria-required="true"
+                autocomplete="name"
+                type="text"
+                id="petForm-breed"
+                name="breed"
+                value="{% if pet.breed.value != blank %}{{ pet.breed.value }}{% endif %}"
+                required
+              >
+            </div>
+          </div>
+          <div>
+            <label class="mb-4" for="petForm-sex">Sex</label>
+            <select id="petForm-sex" required="" name="sex" aria-required="true">
+              <option value="" disabled="" selected="">Select sex</option>
+              <option value="male" {% if pet.sex.value == 'male' %}selected{% endif %}>Male</option>
+              <option value="female" {% if pet.sex.value == 'female' %}selected{% endif %}>Female</option>
+            </select>
+          </div>
+          <div class="flex align-center conditions-field mt-4">
+            <div class="flex-100">
+              Pet Conditions
+            </div>
+            <div class="flex align-center flex-50">
+              <input type="checkbox" id="condition-itching" name="conditions" class="pet-check" value="itching" {% if pet.conditions.value contains 'itching' %}checked{% endif %}>
+              <label for="condition-itching" class="ml-2 text-xs">Itching</label>
+            </div>
+            <div class="flex align-center flex-50">
+              <input type="checkbox" id="condition-allergies" name="conditions" class="pet-check" value="allergies" {% if pet.conditions.value contains 'allergies' %}checked{% endif %}>
+              <label for="condition-allergies" class="ml-2 text-xs">Allergies</label>
+            </div>
+            <div class="flex align-center flex-50">
+              <input type="checkbox" id="condition-badBreath" name="conditions" class="pet-check" value="bad breath" {% if pet.conditions.value contains 'bad breath' %}checked{% endif %}>
+              <label for="condition-badBreath" class="ml-2 text-xs">Bad breath</label>
+            </div>
+            <div class="flex align-center flex-50">
+              <input type="checkbox" id="condition-immuneSystem" name="conditions" class="pet-check" value="immune system" {% if pet.conditions.value contains 'immune system' %}checked{% endif %}>
+              <label for="condition-immuneSystem" class="ml-2 text-xs">Immune system</label>
+            </div>
+            <div class="flex align-center flex-50">
+              <input type="checkbox" id="condition-gutHealth" name="conditions" class="pet-check" value="gut health" {% if pet.conditions.value contains 'gut health' %}checked{% endif %}>
+              <label for="condition-gutHealth" class="ml-2 text-xs">Gut health</label>
+            </div>
+            <div class="flex align-center flex-50">
+              <input type="checkbox" id="condition-gumHealth" name="conditions" class="pet-check" value="gum health" {% if pet.conditions.value contains 'gum health' %}checked{% endif %}>
+              <label for="condition-gumHealth" class="ml-2 text-xs">Gum health</label>
+            </div>
+            <div class="flex align-center flex-50">
+              <input type="checkbox" id="condition-pawLicking" name="conditions" class="pet-check" value="paw licking" {% if pet.conditions.value contains 'paw licking' %}checked{% endif %}>
+              <label for="condition-pawLicking" class="ml-2 text-xs">Paw Licking</label>
+            </div>
+            <div class="flex align-center flex-50">
+              <input type="checkbox" id="condition-weakness" name="conditions" class="pet-check" value="weakness" {% if pet.conditions.value contains 'weakness' %}checked{% endif %}>
+              <label for="condition-weakness" class="ml-2 text-xs">Weakness</label>
+            </div>
+            <div class="flex align-center flex-50">
+              <input type="checkbox" id="condition-lowEnergy" name="conditions" class="pet-check" value="low energy" {% if pet.conditions.value contains 'low energy' %}checked{% endif %}>
+              <label for="condition-lowEnergy" class="ml-2 text-xs">Low Energy</label>
+            </div>
+
+          </div>
+            <div class="flex flex-col-reverse md:flex-row justify-right align-center">
+                <div class="button button--primary button--cancel popup-modal__close mr-4">Cancel</div>
+                <button id="edit-pet-confirm" class="button button--primary">
+                  <span class="form-submit-text">Save Changes</span>
+                  <div class="loading__spinner center hidden">
+                  {{- 'loading-spinner.svg' | inline_asset_content -}}
+                  </div>
+              </button>
+            </div>
+        </form>
+    </div>
+  </div>
+{%- else -%}
+  {%- unless request.design_mode -%}
+  <script>//history.back();</script>
+  {%- endunless -%}
+{%- endif -%}
+{% schema %}
+{
+"name": "Account Pet Details",
+"settings": [
+  {
+    "type": "color_scheme",
+    "id": "color_scheme",
+    "label": "Section Color Scheme"
+  },
+  {
+    "type": "range",
+    "id": "layout_ratio",
+    "label": "Left Column Width",
+    "default": 60,
+    "min": 1,
+    "max": 100,
+    "step": 1,
+    "info": "Right column will fill remaining width"
+  },
+  {
+    "type": "header",
+    "content": "Padding"
+  },
+  {
+    "type": "range",
+    "id": "padding_top",
+    "label": "Padding Top",
+    "default": 16,
+    "min": 0,
+    "max": 100,
+    "step": 1
+  },
+  {
+    "type": "range",
+    "id": "padding_bottom",
+    "label": "Padding Bottom",
+    "default": 16,
+    "min": 0,
+    "max": 100,
+    "step": 1
+  }
+],
+"blocks": [
+  {
+    "type": "pet_details",
+    "name": "Pet Details",
+    "settings": [
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Block Color Scheme"
+      },
+    ],
+    "limit": 1
+  },
+  {
+    "type": "pet_recommendations",
+    "name": "Product Recommendations",
+    "settings": [
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Block Color Scheme"
+      },
+      {
+        "type": "range",
+        "id": "limit",
+        "label": "Number of Products",
+        "default": 3,
+        "min": 1,
+        "max": 5,
+        "step": 1
+      },
+    ],
+    "limit": 1
+  },
+  {
+    "type": "content",
+    "name": "Content Block",
+    "settings": [
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Block Color Scheme"
+      },
+      {
+        "type": "paragraph",
+        "content": "Use [pet] in the following text fields to display the pet's name"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle"
+      },
+      {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button Text"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button Link"
+      },
+      {
+        "type": "url",
+        "id": "facebook_url",
+        "label": "Facebook URL"
+      }
+    ]
+  },
+],
+"presets": [
+  {
+    "name": "Account Pet Details"
+  }
+]
+}
+{% endschema %}

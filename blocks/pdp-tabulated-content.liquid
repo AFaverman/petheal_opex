@@ -1,0 +1,95 @@
+{%- style -%}
+  .block-{{ block.id }} .pdp-tabulated-content {
+      flex-basis: 100%
+  }
+  @media screen and (min-width: 750px) {
+    .block-{{ block.id }} .pdp-tabulated-content {
+        flex-basis: {{ 100 | divided_by: block.blocks.size }}%
+    }
+  }
+  .pdp-tabulated-content .tabulated-content__panel-content { 
+    border-radius: 1.4rem;
+    overflow: hidden;
+  }
+{%- endstyle -%}
+
+<div class="color-{{ block.settings.color_scheme }} gradient md:px-6 md:py-6 block-content" {{ block.shopify_attributes }}>
+    <div class="block-{{ block.id }}">
+      <div class="page-width">
+        <div class="pdp-tabulated-content{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+          {%- if block.settings.heading != blank -%}
+            <div class="inline-richtext text-lg md:text-xl {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+              {{ block.settings.heading }}
+            </div>
+          {%- endif -%}
+          <div class="flex flex-col md:flex-row gap-4 my-6">
+            {%- for block in block.blocks -%}
+              {%- capture block_content -%}
+                {%- render block -%}
+              {%- endcapture -%}
+              {%- assign tab_title =  block_content | split: '||' | first -%}
+              <button
+                class="tabulated-content__tab button button--primary {% if forloop.first %}active{% endif %}"
+                data-tab-id="{{ block.id }}"
+                data-tab-index="{{ forloop.index0 }}"
+                {{ block.shopify_attributes }}
+                {% if forloop.first %}aria-selected="true"{% endif %}
+              >
+                {{ tab_title }}
+              </button>
+            {%- endfor -%}
+          </div>
+          
+          <div class="tabulated-content__panels">
+            {%- for block in block.blocks -%}
+              {%- capture block_content -%}
+                {%- render block -%}
+              {%- endcapture -%}
+              {%- assign tab_title =  block_content | split: '||' | first -%}
+              {%- assign tab_content = block_content | split: '||' | last -%}
+              <div
+                class="tabulated-content__panel"
+                {% unless forloop.first %}
+                style="display: none;"
+                {% endunless %}
+                data-panel-id="{{ block.id }}"
+                data-panel-index="{{ forloop.index0 }}"
+                {{ block.shopify_attributes }}
+              >
+                <div class="tabulated-content__panel-content my-6 mt-0">
+                  {{ tab_content }}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% schema %}
+{
+  "name": "PDP Tabulated Content",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "blocks":[
+    {"type": "pdp-tab"}
+  ],
+  "presets": [
+    {
+      "name": "PDP Tabulated Content"
+    }
+  ]
+}
+{% endschema %}

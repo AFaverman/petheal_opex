@@ -1,0 +1,56 @@
+<div class="product__title">
+  <div class="heading--tag px-2 py-2">{{ section.settings.title_tag }}</div>
+  <h1 class="{{ section.settings.title_size }} font-bold">{{ product.title | escape | remove: ' — OTP' }}</h1>
+  <a href="{{ product.url }}" class="product__title">
+    <h2 class="{{ section.settings.title_size }}">
+      {{ product.title | escape | remove: ' — OTP' }}
+    </h2>
+  </a>
+  <p class="mb-4">{{ section.settings.subtitle }}</p>
+</div>
+  {% schema %}
+  {
+    "name": "PDP Title",
+    "tag": null,
+    "settings": [
+        {
+            "type": "select",
+            "id": "title_size",
+            "label": "Title Size",
+            "options": [
+                {
+                  "value": "h2",
+                  "label": "t:sections.all.heading_size.options__1.label"
+                },
+                {
+                  "value": "h1-5",
+                  "label": "t:sections.all.heading_size.options__2.label"
+                },
+                {
+                  "value": "h1",
+                  "label": "t:sections.all.heading_size.options__3.label"
+                },
+                {
+                  "value": "h0",
+                  "label": "t:sections.all.heading_size.options__4.label"
+                },
+                {
+                  "value": "hxl",
+                  "label": "t:sections.all.heading_size.options__5.label"
+                }
+              ],
+              "default": "h1"
+        },
+        {
+            "type": "richtext",
+            "id": "subtitle",
+            "label": "Subtitle"
+        }
+    ],
+  "presets": [
+    {
+      "name": "Product Title"
+    }
+  ]
+}
+{% endschema %}

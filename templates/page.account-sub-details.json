@@ -1,0 +1,69 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "show_title": false,
+        "color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664"
+      }
+    },
+    "account_menu_bar_7cTFRA": {
+      "type": "account_menu-bar",
+      "name": "Account Menu Bar",
+      "settings": {
+        "color_scheme": "scheme-a399dfb4-4362-4681-9b1d-8582639001d5",
+        "color_scheme_2": "scheme-6771aba1-bac3-4092-abad-c90c9e92177a",
+        "menu": "shopify-account-menu-bar",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "account_sub_details_FqAWTx": {
+      "type": "account_sub-details",
+      "blocks": {
+        "need_help_MT3PFJ": {
+          "type": "need_help",
+          "settings": {
+            "icon": "shopify://shop_images/icon-cancel.svg",
+            "content": "I want to cancel"
+          }
+        }
+      },
+      "block_order": [
+        "need_help_MT3PFJ"
+      ],
+      "name": "Account Sub Details",
+      "settings": {
+        "color_scheme": "",
+        "color_scheme_block": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "sub_details_header": "My Subscription Details",
+        "color_scheme_caption": "scheme-42389180-1830-4cc2-85c9-5038c8e4a0fd",
+        "sub_details_tags": "Free Shipping",
+        "sub_details_caption": "You're on your way",
+        "sub_details_caption_text": "With 84% of subscribers reporting their best results around 3 months, your dog is on the way to soothed skin, healthy digestion and a strong immune system.",
+        "need_help_icon": "shopify://shop_images/Vector.svg",
+        "need_help_text": "Need Help With Anything Else?",
+        "need_help_disclaimer": "Please note this will cancel all future orders which have not already been processed.",
+        "padding_top": 24,
+        "padding_bottom": 16
+      }
+    }
+  },
+  "order": [
+    "main",
+    "account_menu_bar_7cTFRA",
+    "account_sub_details_FqAWTx"
+  ]
+}

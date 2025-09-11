@@ -1,0 +1,81 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "account_menu_bar_DBL9Pq": {
+      "type": "account_menu-bar",
+      "name": "Account Menu Bar",
+      "settings": {
+        "color_scheme": "scheme-a399dfb4-4362-4681-9b1d-8582639001d5",
+        "color_scheme_2": "scheme-6771aba1-bac3-4092-abad-c90c9e92177a",
+        "menu": "shopify-account-menu-bar",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "account_my_subscriptions_yLVcxU": {
+      "type": "account_my-subscriptions",
+      "blocks": {
+        "try_again_eY4TMj": {
+          "type": "try_again",
+          "settings": {
+            "device_display": "standard",
+            "title": "Try Again",
+            "slides": 4
+          }
+        },
+        "my_orders_7cHrtG": {
+          "type": "my_orders",
+          "settings": {
+            "device_display": "standard",
+            "title": "My Orders",
+            "title_link": "View All",
+            "link": "",
+            "orders": 2
+          }
+        }
+      },
+      "block_order": [
+        "try_again_eY4TMj",
+        "my_orders_7cHrtG"
+      ],
+      "name": "Account Subscriptions",
+      "settings": {
+        "color_scheme": "scheme-ac2270cc-3926-4304-a7ec-d2d1494a5c63",
+        "left_width": 60,
+        "color_scheme_2": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "include_header": false,
+        "title": "My Subscriptions",
+        "title_link": "Browse in store",
+        "link": "shopify://collections/all-products",
+        "benefits_title": "Benefits included in your subscription:",
+        "benefits": "",
+        "no_subs": "Looks like you don't have any active subscriptions!",
+        "add_sub": "Shop now",
+        "add_sub_link": "shopify://collections"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "show_title": true,
+        "color_scheme": ""
+      }
+    }
+  },
+  "order": [
+    "account_menu_bar_DBL9Pq",
+    "account_my_subscriptions_yLVcxU",
+    "main"
+  ]
+}

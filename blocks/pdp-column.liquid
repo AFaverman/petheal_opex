@@ -1,0 +1,69 @@
+<div class="block-{{ block.id }} product__column" {{ block.shopify_attributes }}>
+    {%- for block in block.blocks -%}
+        <div class="mb-4 {{ block.type }}">
+            {%- render block -%}
+        </div>
+    {%- endfor -%}
+</div>
+{%- style -%}
+    .block-{{ block.id }} .block-content {
+        border-radius: {{ block.settings.border-radius }}px;
+        overflow: hidden;
+    }
+{%- endstyle -%}
+{%- schema -%}
+{
+    "name": "PDP Column",
+    "tag": null,
+    "settings": [
+        {
+            "type": "select",
+            "id": "width",
+            "label": "Width",
+            "options": [
+                {
+                    "value": "33",
+                    "label": "1/3"
+                },
+                {
+                    "value": "50",
+                    "label": "1/2"
+                },
+                {
+                    "value": "66",
+                    "label": "2/3"
+                },
+                {
+                    "value": "100",
+                    "label": "Full Width"
+                }
+            ],
+            "default": "50"
+        },
+        {
+            "type": "range",
+            "id": "border-radius",
+            "label": "Block Border Radius",
+            "default": 14,
+            "min": 0,
+            "max": 100,
+            "step": 1
+        }
+    ],
+    "blocks": [
+        {"type": "@app"},
+        {"type": "pdp-title"},
+        {"type": "pdp-multicolumn"},
+        {"type": "pdp-tabulated-content"},
+        {"type": "pdp-product-form"},
+        {"type": "pdp-collapsible-content"},
+        {"type": "pdp-gallery"},
+        {"type": "rich-text"}
+    ],
+    "presets": [
+        {
+            "name": "PDP Column"
+        }
+    ]
+}
+{%- endschema -%}

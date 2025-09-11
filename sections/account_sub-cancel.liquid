@@ -1,0 +1,321 @@
+{% style %}
+  .section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+
+    h1, h2, h3, h4, h5, h6, p, ul{
+      margin: 0;
+      padding: 0;
+    }
+    strong {
+      letter-spacing: 20%;
+    }
+    h6 {
+      font-size: 1.8rem;
+      font-weight: 400;
+    }
+    h1{
+      font-size:6.8rem;
+    }
+    li {
+      display: inline-flex;
+      align-items: center;
+    }
+  }
+
+  .icon-bullet, .icon-bullet svg{
+    width: 2.4rem;
+    height: 2.4rem;
+    margin-right: 0.7rem;
+  }
+
+  .icon-bullet svg * {
+    stroke: rgb(var(--color-background));
+    fill: rgb(var(--color-foreground));
+  }
+
+  {% if section.settings.offer_image != blank %}
+  .offer-accept {
+    position: absolute;
+    bottom: 3rem;
+    left:0;
+    right:0;
+    z-index:10;
+  }
+  {% endif %}
+
+  .offer-info {
+    background: #a4c2c7;
+    color: #1C6672;
+    border-radius: 4px;
+  }
+
+  .offer-img {
+    max-width: 100%;
+    width: 100%;
+    object-fit: cover;
+    border: 2px solid rgb(var(--color-background));
+  }
+
+  .text-separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .text-separator span{
+    margin: 0 2rem;
+  }
+
+  .text-separator:before,
+  .text-separator:after {
+    background: rgb(var(--color-foreground));
+    height: 2px;
+    flex: 1;
+    content: '';
+  }
+
+  .loading__spinner {
+    height: 2.4rem;
+    width: 2.4rem;
+    margin: 0;
+    left: calc(50% - 1.2rem);
+  }
+
+  .loading__spinner svg{
+    display: block;
+  }
+
+  .loading__spinner svg .path {
+    stroke: rgb(var(--color-button-text));
+  }
+{% endstyle %}
+
+{% unless request.design_mode %}
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const subId = urlParams.get('id');
+      let data = null
+
+      getSingleSubscription(subId).then(response => {
+        data = response
+      })
+      
+      document.querySelector('.offer-accept').addEventListener('click', (e)=>{
+        const discount = e.target.dataset.discount;
+        if(data.discounts.edges[0].node.title == discount) {
+          alert('This discount code is already applied to this subscription');
+          return;
+        }
+        e.target.querySelector('.form-submit-text').classList.add('visibility-hidden');
+        e.target.querySelector('.loading__spinner').classList.remove('hidden');
+        applySubscriptionDiscount(subId, discount).then(response => {
+          if (response.success) {
+            window.location.href = `/pages/subscription?id=${subId}`;
+          }
+        });
+      })
+
+      document.querySelector('.cancel-sub').addEventListener('click', (e)=>{
+        if(!document.querySelector('input[type="radio"]:checked')) {
+          document.querySelector('.text-cta').classList.remove('hidden');
+          return;
+        }
+        e.target.querySelector('.form-submit-text').classList.add('visibility-hidden');
+        e.target.querySelector('.loading__spinner').classList.remove('hidden');
+        const reason = document.querySelector('input[type="radio"]:checked').value;
+        cancelSubscription(subId, reason).then(response => {
+          if (response.success) {
+            window.location.href = `/pages/my-subscriptions`;
+          }
+        });
+      });
+
+    });
+  </script>
+{% endunless %}
+
+<div class="section-{{section.id }} color-{{section.settings.color_scheme }}">
+  <div class="page-width">
+    <div class="flex-100 md:flex-75 mx-auto flex flex-col md:flex-row gap-8 md:px-6 pt-6 mb-4 align-start">
+        <div class="flex-100 md:flex-50 flex flex-col justify-center align-start px-6 py-6 gap-4 color-{{section.settings.color_scheme_form }}">
+          {% if section.settings.form_caption != blank %}
+            <div class="mx-auto">{{section.settings.form_caption }}</div>
+          {% endif %}
+          {% if section.settings.form_title != blank %}
+            <div class="text-lg mx-auto">{{section.settings.form_title }}</div>
+          {% endif %}
+          {% for block in section.blocks %}
+            <div class="flex py-2 px-2 flex-100 gap-8 color-{{ section.settings.color_scheme_block }}">
+              <input type="radio" id="reason-radio-{{ forloop.index0 }}" name="reason" value="{{ block.settings.reason }}">
+              <label for="reason-radio-{{ forloop.index0 }}">{{ block.settings.reason }}</label>
+            </div>
+          {% endfor %}
+          <div class="mx-auto text-cta hidden">*Please select a reason</div>
+        </div>
+       <div class="flex-100 md:flex-50 flex flex-col justify-center align-center">
+        {% if section.settings.offer_message != blank %}
+          <div class="center flex-100 py-6 color-{{ section.settings.color_scheme_offer }}">
+            {%- assign processed_text = section.settings.offer_message -%}
+            {%- capture icon_html -%}
+              <span class="icon-bullet">
+                {{ 'circle-check.svg' | inline_asset_content }}
+              </span>
+            {%- endcapture -%}
+            {%- assign li_with_icon = '<li>' | append: icon_html -%}
+            {%- assign processed_text = processed_text | replace: '<li>', li_with_icon -%}
+            {{ processed_text }}
+          </div>
+        {% endif %}
+        
+          <div class="isolate">
+            {% if section.settings.offer_image != blank %}
+              <img src="{{ section.settings.offer_image | image_url: width: 525 }}" width="auto" height="auto" class="offer-img color-{{ section.settings.color_scheme_offer }}" alt="Subscription offer image" />
+            {% endif %}
+            <button data-discount="{{section.settings.offer_discount}}" class="button button--primary uppercase offer-accept text-lg mx-8 color-{{ section.settings.color_scheme_offer }}">
+              <span class="form-submit-text">{{ section.settings.offer_button_text }}</span>
+              <div class="loading__spinner center hidden">
+                {{- 'loading-spinner.svg' | inline_asset_content -}}
+              </div>
+            </button>
+          </div>
+       </div>
+    </div>
+    {% if section.settings.info != blank %}
+      <div class="offer-info flex-100 md:flex-75 mx-auto center py-2 px-6 mb-4">
+        {{ section.settings.info }}
+      </div>
+    {% endif %}
+    <div class="text-separator caption-letter-spacing uppercase flex-75 md:flex-25 mx-auto"><span>OR</span></div>
+    <button class="cancel-sub button button--secondary button--block mt-8 mb-8 mx-auto text-lg">
+      <span class="form-submit-text">{{section.settings.cancel_button }}</span>
+      <div class="loading__spinner center hidden">
+        {{- 'loading-spinner.svg' | inline_asset_content -}}
+      </div>
+    </button>
+  </div>
+</div>
+{%- schema -%}
+{
+  "name": "Account Sub Cancel",
+  "settings": [
+      {
+        "type": "color_scheme",
+        "id": "color_scheme_offer",
+        "label": "Offer color scheme",
+        "default": "scheme-1"
+      },
+      {
+        "type": "richtext",
+        "id": "offer_message",
+        "label": "Offer Message"
+      },
+      {
+        "type": "image_picker",
+        "id": "offer_image",
+        "label": "Offer  Image"
+      },
+      {
+        "type": "text",
+        "id": "offer_button_text",
+        "label": "Offer Button Text",
+        "default": "Yes, I want 50% Off"
+      },
+      {
+        "type": "text",
+        "id": "offer_discount",
+        "label": "Offer Discount Code",
+        "info": "Enter a valid discount code created in the Shopify admin."
+      },
+      {
+        "type": "header",
+        "content": "Cancellation Reason Form"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme_form",
+        "label": "Container color scheme",
+        "default": "scheme-1"
+      },
+      {
+        "type": "text",
+        "id": "form_caption",
+        "label": "Form Caption"
+      },
+      {
+        "type": "text",
+        "id": "form_title",
+        "label": "Form Title"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme_block",
+        "label": "Per-reason color scheme",
+        "default": "scheme-1"
+      },
+      {
+        "type": "header",
+        "content": "General"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Section color scheme",
+        "default": "scheme-1"
+      },
+      {
+        "type": "richtext",
+        "id": "info",
+        "label": "Bottom info message"
+      },
+      {
+        "type": "text",
+        "id": "cancel_button",
+        "label": "Cancel Button Text",
+        "default": "No, still cancel"
+      },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "default": 16,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "default": 16,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "cancellation_reason",
+      "name": "Cancellation Reason",
+      "settings": [
+        {
+          "type": "text",
+          "id": "reason",
+          "label": "Cancellation Reason"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Account Sub Cancel Flow"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["page"]
+  }
+}
+{% endschema %}

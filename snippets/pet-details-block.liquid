@@ -1,0 +1,165 @@
+{%- case block.type -%}
+    {%- when 'pet_details' -%}
+    <div class="pet__details flex px-6 py-6 color-{{ block.settings.color_scheme }}">
+        <div class="pet__img flex flex-col justify-center align-center">
+            <img src="{% if pet.image.value != blank %}{{ pet.image.value | image_url: width: 120 }}{% else %}{{ 'empty.svg' | asset_url }}{% endif %}" alt="{{ pet.name.value }}" width="auto" height="auto">
+            <button class="pet__edit mt-4 button button--secondary caption-letter-spacing uppercase" onclick="editPet()">Edit</button>
+        </div>
+        <div class="flex-grow">
+            <div class="flex justify-between bottom-border--bar mb-4">
+                <div class="text-heading text-lg pet__name">{{ pet.name.value }}</div>
+                <div class="pet__sex">
+                    {% if pet.sex.value == 'male' %}
+                        <img src="{{ 'male.svg' | asset_url }}" alt="male" width="32" height="32">
+                    {% else %}
+                        <img src="{{ 'female.svg' | asset_url }}" alt="female" width="32" height="32">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="flex justify-between bottom-border--bar mb-4">
+                <div class="text-heading text-lg">Weight</div>
+                <div class="pet__weight">{{ pet.weight.value }} lbs</div>
+            </div>
+            <div class="flex justify-between bottom-border--bar mb-4">
+                <div class="text-heading text-lg">Breed</div>
+                <div class="capitalize pet__breed">{{ pet.breed.value }}</div>
+            </div>
+            <div class="flex justify-between bottom-border--bar mb-4">
+                <div class="text-heading text-lg">Conditions</div>
+                <div class="flex-50 right capitalize pet__conditions">{%- for condition in pet.conditions.value -%}{{ condition }}{%- unless forloop.last %}, {% endunless -%}{%- endfor -%}</div>
+            </div>
+        </div>
+    </div>
+    {%- when 'pet_recommendations' -%}
+    <div class="px-6 py-6 color-{{ block.settings.color_scheme }}">
+        <div class="flex justify-between align-center bottom-border--bar mb-4">
+            <div>
+                <div class="text-heading text-lg">
+                    {% unless request.design_mode %}
+                        For {{ pet.name.value }}
+                    {% else %}
+                        For [pet]
+                    {% endunless %}
+                </div>
+                <div class="font-semibold">Based on {% if pet.sex.value == 'male' %}his{% else %}her{% endif %} conditions</div>
+            </div>
+            {{'dog-jumping-left.svg' | inline_asset_content}}
+        </div>
+        {%- liquid 
+            assign limit = 0
+            assign product_recs = ''
+            for condition in pet.conditions.value
+                for product in collections['all-products'].products
+                    assign conditions = product.metafields.custom.related_pet_conditions.value | downcase
+                    if conditions contains condition
+                        if pet.type.value == "dog" and product.handle contains "feline"
+                            continue
+                        elsif pet.type.value == "cat" and product.handle contains "canine"
+                            continue
+                        endif
+
+                        assign limit = limit | plus: 1
+                        assign product_recs = product_recs | append: product.handle | append: ','
+                        if limit == block.settings.limit
+                            break
+                        endif
+                    endif
+                endfor
+                if limit == block.settings.limit
+                    break
+                endif
+            endfor
+        -%}
+
+        <div class="flex flex-wrap gap-4 justify-between align-stretch">
+            {% if product_recs != blank %}
+                {%- assign product_recs = product_recs | split: ',' -%}
+                {%- for rec in product_recs -%}
+                    {%- assign product = all_products[rec] -%}
+                    <div class="px-4 py-4 mb-4 flex-100 lg:flex-50 flex flex-col justify-between">
+                        <img src="{{ product.featured_image | image_url: width: 230 }}" alt="{{ product.title }}" width="auto" height="auto">
+                        <div class="flex flex-col justify-between">
+                            <div class="text-heading text-lg">{{ product.title | split: ' —' | first }}</div>
+                            {% render 'price', product: product, price_class: '', show_compare_at_price: true, global_discount: global_discount %}
+                            <a href="{{ product.url }}" class="button button--primary">View Product</a>
+                        </div>
+                    </div>
+                {%- endfor -%}
+            {% else %}
+                {%- for product in collections['all-products'].products limit: block.settings.limit -%}
+                    {%- liquid
+                        if pet.type.value == "dog" and product.handle contains "feline"
+                            continue
+                        elsif pet.type.value == "cat" and product.handle contains "canine"
+                            continue
+                        endif
+                    -%}
+                    <div class="px-4 py-4 mb-4 flex-100 lg:flex-50 flex flex-col justify-between">
+                        <img src="{{ product.featured_image | image_url: width: 230 }}" alt="{{ product.title }}" width="auto" height="auto">
+                        <div class="flex flex-col justify-between">
+                            <div class="text-heading text-lg">{{ product.title | split: ' —' | first }}</div>
+                            {% render 'price', product: product, price_class: '', show_compare_at_price: true, global_discount: global_discount %}
+                            <a href="{{ product.url }}" class="button button--primary">View Product</a>
+                        </div>
+                    </div>
+                {%- endfor -%}
+            {% endif %}
+        </div>
+    </div>
+    {%- when 'content' -%}
+        <div class="account-pet__details_content">
+            {% if block.settings.title != blank %}
+                <div class="flex justify-between align-center block_header bottom-border--bar mb-4">
+                    <div class="text-heading text-lg">
+                        {% unless request.design_mode %}
+                            {{ block.settings.title | replace: '[pet]', pet.name.value }}
+                        {% else %}
+                            {{ block.settings.title }}
+                        {% endunless %}
+                    </div>
+                </div>
+            {% endif %}
+            <div class="color-{{ block.settings.color_scheme }}">
+                {% if block.settings.image != blank %}
+                    <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.title }}" width="auto" height="auto">
+                {% endif %}
+                <div class="px-6 py-6">
+                    {% if block.settings.subtitle != blank %}
+                    <div class="font-semibold">
+                        {% unless request.design_mode %}
+                            {{ block.settings.subtitle | replace: '[pet]', pet.name.value  }}
+                        {% else %}
+                            {{ block.settings.subtitle }}
+                        {% endunless %}
+                    </div>
+                    {% endif %}
+                    {% if block.settings.content != blank %}
+                        <div class="text-sm bottom-border--bar">
+                            {% unless request.design_mode %}
+                                {{ block.settings.content | replace: '[pet]', pet.name.value  }}
+                            {% else %}
+                                {{ block.settings.content }}
+                            {% endunless %}
+                        </div>
+                    {% endif %}
+                    {% if block.settings.button_text != blank and block.settings.button_link != blank or block.settings.facebook_url != blank %}
+                        <div class="flex justify-between align-center mt-4">
+                            {% if block.settings.button_text != blank and block.settings.button_link != blank %}
+                                <a href="{{ block.settings.button_link }}" class="button button--primary caption-letter-spacing uppercase">
+                                    {{ block.settings.button_text }}
+                                </a>
+                            {% endif %}
+                            {% if block.settings.facebook_url != blank %}
+                                <a href="{{ settings.social_facebook_link }}" class="link list-social__link">
+                                    <span class="svg-wrapper">
+                                    {{- 'icon-facebook.svg' | inline_asset_content -}}
+                                    </span>
+                                    <span class="visually-hidden">{{ 'general.social.links.facebook' | t }}</span>
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+{%- endcase -%}

@@ -1,0 +1,604 @@
+{%- style -%}
+  {% if block.settings.full_width %}
+    .block-{{ block.id }}.icon-with-text--horizontal{
+      justify-content: unset;
+    }
+    .block-{{ block.id }}.icon-with-text--horizontal .icon-with-text__container {
+      width: 100%;
+    }
+    .block-{{ block.id }}.icon-with-text--horizontal .icon-with-text__text{
+      flex-grow: 1;
+    }
+    .block-{{ block.id }}.icon-with-text--horizontal .icon-with-text__text h2{
+      margin: 1rem 0;
+    }
+  {% endif %}
+
+  .block-{{ block.id }} .icon-with-text__icon-svg {
+    width: {{ block.settings.icon_width }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: {{ block.settings.icon_alignment }};
+    flex-shrink: 0;
+  }
+
+  .block-{{ block.id }} .icon-with-text__icon-svg svg,
+  .block-{{ block.id }} .icon-with-text__icon-svg img {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+    margin: 0;
+  }
+
+  {% if block.settings.icon_bullet %}
+    .block-{{ block.id }} .icon-with-text__icon-svg {
+      display: none;
+    }
+    
+    .block-{{ block.id }} .icon-with-text__text .rte ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    
+    .block-{{ block.id }} .icon-with-text__text .rte ul li {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+      {% if block.settings.icon_name == "none" and block.settings.icon == blank %}
+        border-bottom: 1px solid rgba(var(--color-foreground), 0.5);
+      {% endif %}
+    }
+
+    
+    .block-{{ block.id }} .icon-with-text__text .rte ul li .icon-bullet {
+      flex-shrink: 0;
+      width: {{ block.settings.icon_width }}px;
+      height: {{ block.settings.icon_width }}px;
+      margin-right: 15px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0;
+      align-self: flex-start
+    }
+    
+    .block-{{ block.id }} .icon-with-text__text .rte ul li .icon-bullet svg,
+    .block-{{ block.id }} .icon-with-text__text .rte ul li .icon-bullet img {
+      width: 100%;
+      height: 100%;
+      fill: currentColor;
+    }
+
+    @media screen and (min-width: 750px) {
+      .block-{{ block.id }} .icon-with-text__text .rte ul li {
+        align-items: {{ block.settings.icon_alignment }};
+      }
+
+      .block-{{ block.id }} .icon-with-text__text .rte ul li .icon-bullet {
+        align-self: {{ block.settings.icon_alignment }};
+      }
+    }
+  {% endif %}
+{%- endstyle -%}
+
+<div class="icon-with-text block-{{ block.id }}{% if block.settings.orientation == 'row' %} icon-with-text--horizontal{% endif %} {% if block.settings.mobile_orientation == 'row' %} icon-with-text--mobile-horizontal{% endif %}{% if block.settings.icon_placement == 'second' %} icon-with-text--reverse{% endif %}" style="text-align: {{ block.settings.alignment }};" {{ block.shopify_attributes }}>
+  <div class="icon-with-text__container">
+    <div class="icon-with-text__icon-svg">
+      {%- if block.settings.icon != blank -%}
+        {{ block.settings.icon | image_url: width: block.settings.icon.width | image_tag:
+          class: 'icon',
+          alt: block.settings.icon.alt
+        }}
+      {%- else -%}
+        {%- assign icon_file = 'icon-' | append: block.settings.icon_name | append: '.svg' -%}
+        {{ icon_file | inline_asset_content }}
+      {%- endif -%}
+    </div>
+    <div class="icon-with-text__text">
+      {%- if block.settings.title != blank -%}
+        <h2 class="text-{{ block.settings.title_size }}">{{ block.settings.title }}</h2>
+      {%- endif -%}
+      {%- if block.settings.text != blank -%}
+        <div class="rte text-{{ block.settings.text_size }} {{ block.settings.text_style }}">
+          {% if block.settings.icon_bullet %}
+            {%- assign processed_text = block.settings.text -%}
+            {%- if block.settings.icon != blank -%}
+              {%- capture icon_html -%}
+                {{ block.settings.icon | image_url: width: block.settings.icon.width | image_tag: class: 'icon-bullet', alt: block.settings.icon.alt }}
+              {%- endcapture -%}
+            {%- elsif block.settings.icon_name != "none" -%}
+              {%- capture icon_html -%}
+                <span class="icon-bullet">
+                  {%- assign icon_file = 'icon-' | append: block.settings.icon_name | append: '.svg' -%}
+                  {{ icon_file | inline_asset_content }}
+                </span>
+              {%- endcapture -%}
+            {%- endif -%}
+            {%- assign li_with_icon = '<li>' | append: icon_html -%}
+            {%- assign processed_text = processed_text | replace: '<li>', li_with_icon -%}
+            {{ processed_text }}
+          {% else %}
+            {{ block.settings.text }}
+          {% endif %}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Icon with text",
+  "tag": null,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "icon",
+      "label": "Custom icon"
+    },
+    {
+      "type": "select",
+      "id": "icon_name",
+      "label": "Icon",
+      "options": [
+        {
+          "value": "",
+          "label": "None"
+        },
+        {
+          "value": "3d-model",
+          "label": "3D Model"
+        },
+        {
+          "value": "account",
+          "label": "Account"
+        },
+        {
+          "value": "apple",
+          "label": "Apple"
+        },
+        {
+          "value": "banana",
+          "label": "Banana"
+        },
+        {
+          "value": "bottle",
+          "label": "Bottle"
+        },
+        {
+          "value": "box",
+          "label": "Box"
+        },
+        {
+          "value": "carrot",
+          "label": "Carrot"
+        },
+        {
+          "value": "chat-bubble",
+          "label": "Chat Bubble"
+        },
+        {
+          "value": "check-mark",
+          "label": "Check Mark"
+        },
+        {
+          "value": "clipboard",
+          "label": "Clipboard"
+        },
+        {
+          "value": "dairy",
+          "label": "Dairy"
+        },
+        {
+          "value": "dairy-free",
+          "label": "Dairy Free"
+        },
+        {
+          "value": "heart",
+          "label": "Heart"
+        },
+        {
+          "value": "info",
+          "label": "Info"
+        },
+        {
+          "value": "inventory-status",
+          "label": "Inventory Status"
+        },
+        {
+          "value": "iron",
+          "label": "Iron"
+        },
+        {
+          "value": "leaf",
+          "label": "Leaf"
+        },
+        {
+          "value": "leather",
+          "label": "Leather"
+        },
+        {
+          "value": "lightning-bolt",
+          "label": "Lightning Bolt"
+        },
+        {
+          "value": "lipstick",
+          "label": "Lipstick"
+        },
+        {
+          "value": "lock",
+          "label": "Lock"
+        },
+        {
+          "value": "map-pin",
+          "label": "Map Pin"
+        },
+        {
+          "value": "minus",
+          "label": "Minus"
+        },
+        {
+          "value": "nut-free",
+          "label": "Nut Free"
+        },
+        {
+          "value": "p-tag",
+          "label": "Price Tag"
+        },
+        {
+          "value": "padlock",
+          "label": "Padlock"
+        },
+        {
+          "value": "pants",
+          "label": "Pants"
+        },
+        {
+          "value": "pause",
+          "label": "Pause"
+        },
+        {
+          "value": "paw-print",
+          "label": "Paw Print"
+        },
+        {
+          "value": "pinterest",
+          "label": "Pinterest"
+        },
+        {
+          "value": "plane",
+          "label": "Plane"
+        },
+        {
+          "value": "plant",
+          "label": "Plant"
+        },
+        {
+          "value": "play",
+          "label": "Play"
+        },
+        {
+          "value": "plus",
+          "label": "Plus"
+        },
+        {
+          "value": "price-tag",
+          "label": "Price Tag"
+        },
+        {
+          "value": "question-mark",
+          "label": "Question Mark"
+        },
+        {
+          "value": "recycle",
+          "label": "Recycle"
+        },
+        {
+          "value": "remove",
+          "label": "Remove"
+        },
+        {
+          "value": "reset",
+          "label": "Reset"
+        },
+        {
+          "value": "return",
+          "label": "Return"
+        },
+        {
+          "value": "ruler",
+          "label": "Ruler"
+        },
+        {
+          "value": "search",
+          "label": "Search"
+        },
+        {
+          "value": "serving-dish",
+          "label": "Serving Dish"
+        },
+        {
+          "value": "share",
+          "label": "Share"
+        },
+        {
+          "value": "shirt",
+          "label": "Shirt"
+        },
+        {
+          "value": "shoe",
+          "label": "Shoe"
+        },
+        {
+          "value": "silhouette",
+          "label": "Silhouette"
+        },
+        {
+          "value": "snapchat",
+          "label": "Snapchat"
+        },
+        {
+          "value": "snowflake",
+          "label": "Snowflake"
+        },
+        {
+          "value": "star",
+          "label": "Star"
+        },
+        {
+          "value": "stopwatch",
+          "label": "Stopwatch"
+        },
+        {
+          "value": "success",
+          "label": "Success"
+        },
+        {
+          "value": "tick",
+          "label": "Tick"
+        },
+        {
+          "value": "tiktok",
+          "label": "TikTok"
+        },
+        {
+          "value": "truck",
+          "label": "Truck"
+        },
+        {
+          "value": "tumblr",
+          "label": "Tumblr"
+        },
+        {
+          "value": "twitter",
+          "label": "Twitter"
+        },
+        {
+          "value": "unavailable",
+          "label": "Unavailable"
+        },
+        {
+          "value": "vimeo",
+          "label": "Vimeo"
+        },
+        {
+          "value": "washing",
+          "label": "Washing"
+        },
+        {
+          "value": "youtube",
+          "label": "YouTube"
+        },
+        {
+          "value": "zoom",
+          "label": "Zoom"
+        }
+      ],
+      "default": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "icon_bullet",
+      "label": "Show icon as bullet for rich text",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "icon_width",
+      "min": 10,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "Icon width",
+      "default": 100
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Icon with text"
+    },
+    {
+      "type": "select",
+      "id": "title_size",
+      "options": [
+        {
+          "value": "sm",
+          "label": "t:sections.rich-text.blocks.caption.settings.caption_size.options__1.label"
+        },
+        {
+          "value": "md",
+          "label": "t:sections.rich-text.blocks.caption.settings.caption_size.options__2.label"
+        },
+        {
+          "value": "lg",
+          "label": "t:sections.rich-text.blocks.caption.settings.caption_size.options__3.label"
+        },
+        {
+          "value": "xl",
+          "label": "Extra Large"
+        },
+        {
+          "value": "xxl",
+          "label": "2X Large"
+        }
+      ],
+      "default": "md",
+      "label": "Heading size"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Pair text with an icon to focus on your store's features.</p>"
+    },
+    {
+        "type": "select",
+        "id": "text_style",
+        "options": [
+          {
+            "value": "standard",
+            "label": "Standard"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          }
+        ],
+        "default": "standard",
+        "label": "t:sections.rich-text.blocks.caption.settings.text_style.label"
+      },
+      {
+        "type": "select",
+        "id": "text_size",
+        "options": [
+          {
+            "value": "sm",
+            "label": "t:sections.rich-text.blocks.caption.settings.caption_size.options__1.label"
+          },
+          {
+            "value": "md",
+            "label": "t:sections.rich-text.blocks.caption.settings.caption_size.options__2.label"
+          },
+          {
+            "value": "lg",
+            "label": "t:sections.rich-text.blocks.caption.settings.caption_size.options__3.label"
+          },
+          {
+            "value": "xl",
+            "label": "Extra Large"
+          },
+          {
+            "value": "xxl",
+            "label": "2X Large"
+          }
+        ],
+        "default": "md",
+        "label": "Text size"
+      },
+    {
+      "type": "select",
+      "id": "orientation",
+      "label": "Desktop Layout",
+      "options": [
+        {
+          "value": "column",
+          "label": "Column"
+        },
+        {
+          "value": "row",
+          "label": "Row"
+        }
+      ],
+      "default": "column"
+    },
+    {
+      "type": "select",
+      "id": "mobile_orientation",
+      "label": "Mobile Layout",
+      "options": [
+        {
+          "value": "column",
+          "label": "Column"
+        },
+        {
+          "value": "row",
+          "label": "Row"
+        }
+      ],
+      "default": "column"
+    },
+    {
+      "type": "select",
+      "id": "icon_placement",
+      "label": "Icon placement",
+      "options": [
+        {
+          "value": "first",
+          "label": "First"
+        },
+        {
+          "value": "second",
+          "label": "Second"
+        }
+      ],
+      "default": "first"
+    },
+    {
+      "type": "select",
+      "id": "icon_alignment",
+      "label": "Icon alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Flex Start"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Flex End"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon with text",
+      "settings": {
+        "icon_name": "paw-print"
+      }
+    }
+  ]
+}
+{% endschema %}

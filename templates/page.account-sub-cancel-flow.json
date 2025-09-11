@@ -1,0 +1,112 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "account_menu_bar_NzBJ9d": {
+      "type": "account_menu-bar",
+      "name": "Account Menu Bar",
+      "settings": {
+        "color_scheme": "scheme-a399dfb4-4362-4681-9b1d-8582639001d5",
+        "color_scheme_2": "scheme-6771aba1-bac3-4092-abad-c90c9e92177a",
+        "menu": "shopify-account-menu-bar",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "account_sub_cancel_dQyL6c": {
+      "type": "account_sub-cancel",
+      "blocks": {
+        "cancellation_reason_GK8xDi": {
+          "type": "cancellation_reason",
+          "settings": {
+            "reason": "I have too many products"
+          }
+        },
+        "cancellation_reason_cNVGyT": {
+          "type": "cancellation_reason",
+          "settings": {
+            "reason": "I haven't seen the results yet"
+          }
+        },
+        "cancellation_reason_aYKcLR": {
+          "type": "cancellation_reason",
+          "settings": {
+            "reason": "I am purchasing from Amazon instead"
+          }
+        },
+        "cancellation_reason_bYFGmd": {
+          "type": "cancellation_reason",
+          "settings": {
+            "reason": "I no longer need the product"
+          }
+        },
+        "cancellation_reason_Jgz6hQ": {
+          "type": "cancellation_reason",
+          "settings": {
+            "reason": "Not in my budget right now"
+          }
+        },
+        "cancellation_reason_JCBqQt": {
+          "type": "cancellation_reason",
+          "settings": {
+            "reason": "My pet(s) don't like the product"
+          }
+        },
+        "cancellation_reason_Gaqpb9": {
+          "type": "cancellation_reason",
+          "settings": {
+            "reason": "Prefer not to say"
+          }
+        }
+      },
+      "block_order": [
+        "cancellation_reason_GK8xDi",
+        "cancellation_reason_cNVGyT",
+        "cancellation_reason_aYKcLR",
+        "cancellation_reason_bYFGmd",
+        "cancellation_reason_Jgz6hQ",
+        "cancellation_reason_JCBqQt",
+        "cancellation_reason_Gaqpb9"
+      ],
+      "name": "Account Sub Cancel Flow",
+      "settings": {
+        "color_scheme_offer": "scheme-1e06d4bd-f7f0-468b-b68c-fd3254845cc5",
+        "offer_message": "<p><strong>VERY LAST CHANCE!!!!</strong></p><h4>Next Month's Order</h4><h1>50% OFF</h1><ul><li>50% off your next delivery</li><li>20% off every future delivery</li><li>Free delivery every time</li></ul>",
+        "offer_image": "shopify://shop_images/679db14e35e9a2c6836eec6ce787de35dcbf3333_93e79bf0-40d8-4d52-8392-4ab0712a510a.png",
+        "offer_button_text": "Yes, I want 50% Off",
+        "offer_discount": "subscription_stay_offer",
+        "color_scheme_form": "scheme-a399dfb4-4362-4681-9b1d-8582639001d5",
+        "form_caption": "Sorry you wish to leave",
+        "form_title": "Can you please tell us why?",
+        "color_scheme_block": "scheme-6771aba1-bac3-4092-abad-c90c9e92177a",
+        "color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664",
+        "info": "<p>Just like human supplements, continual use is necessary to see optimal results.</p><p>see for yourself and save 50%</p>",
+        "cancel_button": "No, still cancel",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "show_title": false,
+        "color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664"
+      }
+    }
+  },
+  "order": [
+    "account_menu_bar_NzBJ9d",
+    "account_sub_cancel_dQyL6c",
+    "main"
+  ]
+}

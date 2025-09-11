@@ -1,0 +1,78 @@
+{%- if block.settings.alternate_block_scheme -%}
+    {% assign block_scheme =  block.settings.block_color_scheme %}
+{%- endif -%}
+<div class="block-multicolumn color-{{ block.settings.color_scheme }} gradient block-{{ block.id }}" {{ block.shopify_attributes }}>
+    <div class="page-width">
+      <div class="block-multicolumn__block-container flex {% if block.settings.mobile_full_width %}wrap{% endif %}">
+        {% for block in block.blocks %}
+            <div class="block-multicolumn__block {% if block_scheme %}color-{{ block_scheme }}{% endif %}">
+            {%- render block -%}
+            </div>
+        {% endfor %}
+      </div>
+    </div>
+</div>
+{% style %}
+    .block-{{ block.id }} .block-multicolumn__block {
+        width:{% if block.settings.mobile_full_width %}100%{% else %}{{ 100 | divided_by: block.blocks.size }}%{% endif %};
+    }
+    .block-{{ block.id }} .block-multicolumn__block-container {
+            gap: {{ block.settings.gap }}px;
+    }
+    @media screen and (min-width: 750px) {
+        .block-{{ block.id }} .block-multicolumn__block {
+            flex-basis: calc({{ 100 | divided_by: block.blocks.size }} - {{ block.settings.gap }}px);
+        }
+    }
+{% endstyle %}
+{%- schema -%}
+{
+    "name": "Icon Multicolumn",
+    "tag": null,
+    "settings": [
+        {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "label": "Color Scheme",
+            "default": "scheme-1"
+        },
+        {
+            "type": "range",
+            "id": "gap",
+            "label": "Gap between blocks",
+            "default": 10,
+            "min": 0,
+            "max": 100,
+            "step": 1
+        },
+        {
+            "type": "checkbox",
+            "id": "alternate_block_scheme",
+            "label": "Activate alternative color scheme for each block",
+            "default": false
+        },
+        {
+            "type": "color_scheme",
+            "id": "block_color_scheme",
+            "label": "Per-block color scheme",
+            "default": "scheme-1",
+            "visible_if": "{{ block.settings.alternate_block_scheme == true }}"
+        },
+        {
+            "type": "checkbox",
+            "id": "mobile_full_width",
+            "label": "Columns are full width on mobile",
+            "default": false
+        }
+    ],
+    "blocks": [
+        {"type": "pdp-icon"}
+    ],
+    "presets": [
+        {
+            "name": "Multicolumn"
+        }
+    ]
+}
+
+{%- endschema -%}

@@ -1,0 +1,153 @@
+{{ 'component-sliding-banner.css' | asset_url | stylesheet_tag }}
+{% style %}
+  .section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+  .section-{{section.id }} .sliding-marquee-item img {
+    max-height: {{ section.settings.max_height }}px;
+  }
+{% endstyle %}
+
+<div class="sliding-marquee-container section-{{section.id }} color-{{section.settings.color_scheme}}">
+    <div class="sliding-marquee gap-8 mr-8" style="--play: running; --direction: {{section.settings.direction}}; --duration: {{section.settings.play_speed}}s; --delay: 0s; --iteration-count: infinite; --min-width: auto;">
+        {% for block in section.blocks %}
+            <div class="sliding-marquee-item flex gap-4 px-6">
+                <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.image.alt }}" width="auto" height="auto">
+                <div class="sliding-marquee-item-content">{{ block.settings.content }}</div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="sliding-marquee gap-8" style="--play: running; --direction: {{section.settings.direction}}; --duration: {{section.settings.play_speed}}s; --delay: 0s; --iteration-count: infinite; --min-width: auto;">
+      {% for block in section.blocks %}
+          <div class="sliding-marquee-item flex gap-4 px-6">
+              <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.image.alt }}" width="auto" height="auto">
+              <div class="sliding-marquee-item-content">{{ block.settings.content }}</div>
+          </div>
+      {% endfor %}
+  </div>
+</div>
+
+{%- schema -%}
+{
+  "name": "Sliding Marquee",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+        "type": "range",
+        "id": "play_speed",
+        "label": "Scroll Speed",
+        "default": 60,
+        "min": 30,
+        "max": 120,
+        "step": 1,
+        "unit": "s"
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Direction",
+      "default": "normal",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "reverse",
+          "label": "Reverse"
+        }
+      ]
+    },
+    {
+        "type": "select",
+        "id": "text_size",
+        "options": [
+          {
+            "value": "sm",
+            "label": "t:sections.image-with-text.blocks.caption.settings.caption_size.options__1.label"
+          },
+          {
+            "value": "md",
+            "label": "t:sections.image-with-text.blocks.caption.settings.caption_size.options__2.label"
+          },
+          {
+            "value": "lg",
+            "label": "t:sections.image-with-text.blocks.caption.settings.caption_size.options__3.label"
+          },
+          {
+            "value": "xl",
+            "label": "Extra Large"
+          },
+          {
+            "value": "xxl",
+            "label": "2X Large"
+          }
+        ],
+        "default": "md",
+        "label": "Text Size"
+      },
+    {
+      "type": "range",
+      "id": "max_height",
+      "label": "Icon Max Height",
+      "info": "Set to 0 to allow automatic max height",
+      "default": 35,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+        "type": "range",
+        "id": "padding_top",
+        "label": "Padding Top",
+        "default": 16,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px"
+    },
+    {
+        "type": "range",
+        "id": "padding_bottom",
+        "label": "Padding Bottom",
+        "default": 16,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px"
+    }
+
+  ],
+  "blocks": [
+    {
+        "type": "marquee",
+        "name": "marquee",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Image"
+            },
+            {
+                "type": "text",
+                "id": "content",
+                "label": "Text"
+            }
+        ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sliding Marquee"
+    }
+  ]
+}
+{% endschema %}

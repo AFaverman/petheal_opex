@@ -1,0 +1,153 @@
+
+      {%- if contact_settings.heading != blank -%}
+        <h2 class="title title-wrapper--no-top-margin inline-richtext text-{{ contact_settings.heading_size }} font-semibold text-body{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+          {{ contact_settings.heading }}
+        </h2>
+      {%- else -%}
+        <h2 class="visually-hidden">{{ 'templates.contact.form.title' | t }}</h2>
+      {%- endif -%}
+      {%- liquid
+        assign contact_form_class = 'isolate'
+        if settings.animations_reveal_on_scroll
+          assign contact_form_class = 'isolate scroll-trigger animate--slide-in'
+        endif
+      -%}
+      {%- form 'contact', id: 'ContactForm', class: contact_form_class -%}
+        {%- if form.posted_successfully? -%}
+          <h2 class="form-status form-status-list form__message" tabindex="-1" autofocus>
+            {{- 'icon-success.svg' | inline_asset_content -}}
+            {{ 'templates.contact.form.post_success' | t }}
+          </h2>
+        {%- elsif form.errors -%}
+          <div class="form__message">
+            <h2 class="form-status caption-large text-body" role="alert" tabindex="-1" autofocus>
+              {{- 'icon-error.svg' | inline_asset_content -}}
+              {{ 'templates.contact.form.error_heading' | t }}
+            </h2>
+          </div>
+          <ul class="form-status-list caption-large" role="list">
+            {% for error in form.errors %}
+            <li>
+                {{ error.message }}
+            </li>
+          {% endfor %}
+          </ul>
+        {%- endif -%}
+        <div class="contact__fields">
+          <div class="field">
+            <input
+              aria-required="true"
+              class="field__input"
+              autocomplete="name"
+              type="text"
+              id="ContactForm-first-name"
+              name="contact[first-name]"
+              value="{% if form.first_name %}{{ form.first_name }}{% elsif customer %}{{ customer.first_name }}{% endif %}"
+              placeholder="First name"
+              required
+            >
+            <label class="field__label" for="ContactForm-first-name">First name<span aria-hidden="true">*</span></label>
+          </div>
+          <div class="field">
+            <input
+              aria-required="true"
+              class="field__input"
+              autocomplete="name"
+              type="text"
+              id="ContactForm-last-name"
+              name="contact[last-name]"
+              value="{% if form.last_name %}{{ form.last_name }}{% elsif customer %}{{ customer.last_name }}{% endif %}"
+              placeholder="Last name"
+              required
+            >
+            <label class="field__label" for="ContactForm-last-name">Last name<span aria-hidden="true">*</span></label>
+          </div>
+        </div>
+        <div class="contact__fields">
+          <div class="field">
+            <input
+              aria-required="true"
+              class="field__input"
+              type="number"
+              id="ContactForm-order"
+              name="contact[order]"
+              value=""
+              placeholder="Order #"
+              required
+            >
+            <label class="field__label" for="ContactForm-order">Order #<span aria-hidden="true">*</span></label>
+          </div>
+          <div class="field">
+            <input
+              aria-required="true"
+              class="field__input"
+              autocomplete="zip"
+              type="number"
+              id="ContactForm-zip"
+              name="contact[zip]"
+              value=""
+              placeholder="Zip Code"
+              required
+            >
+            <label class="field__label" for="ContactForm-zip">Zip Code<span aria-hidden="true">*</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <input
+            autocomplete="email"
+            type="email"
+            id="ContactForm-email"
+            class="field__input"
+            name="contact[email]"
+            spellcheck="false"
+            autocapitalize="off"
+            value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+            aria-required="true"
+            required
+            {% if form.errors contains 'email' %}
+              aria-invalid="true"
+              aria-describedby="ContactForm-email-error"
+            {% endif %}
+            placeholder="{{ 'templates.contact.form.email' | t }}"
+          >
+          <label class="field__label" for="ContactForm-email">
+            {{- 'templates.contact.form.email' | t }}
+            <span aria-hidden="true">*</span></label
+          >
+        </div>
+        <div class="field">
+          <div class="select">
+            <select id="reason" required="" name="reason" class="field__input" aria-required="true">
+              <option value="" disabled selected>Please select a reason</option>
+              <option value="problem with order">Problem with my order</option>
+              <option value="shipping question">Question about shipping</option>
+            </select>
+            <span class="svg-wrapper">
+              {{- 'icon-caret.svg' | inline_asset_content -}}
+            </span>
+          </div>
+          <label class="field__label" for="reason">Reason for contact <span aria-hidden="true">*</span></label>
+        </div>
+        <div class="field">
+          <textarea
+            aria-required="true"
+            rows="10"
+            id="ContactForm-body"
+            class="text-area field__input"
+            name="contact[{{ 'templates.contact.form.comment' | t }}]"
+            placeholder="{{ 'templates.contact.form.comment' | t }}"
+            required
+          >
+            {{- form.body -}}
+          </textarea>
+          <label class="form__label field__label" for="ContactForm-body">
+            Message<span aria-hidden="true">*</span>
+          </label>
+        </div>
+        <div class="contact__button">
+          <button type="submit" class="button">
+            {{ 'templates.contact.form.send' | t }}
+          </button>
+        </div>
+      {%- endform -%}
+  

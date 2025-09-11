@@ -1,0 +1,434 @@
+<product-info
+    id="MainProduct-{{ section.id }}"
+    class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
+    data-section="{{ section.id }}"
+    data-product-id="{{ product.id }}"
+    data-update-url="true"
+    data-url="{{ product.url }}"
+    {% if section.settings.image_zoom == 'hover' %}
+      data-zoom-on-hover
+    {% endif %}
+  >
+    {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+    {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
+    {{ 'component-price.css' | asset_url | stylesheet_tag }}
+    {{ 'component-slider.css' | asset_url | stylesheet_tag }}
+    {{ 'component-rating.css' | asset_url | stylesheet_tag }}
+    {{ 'component-icon-with-text.css' | asset_url | stylesheet_tag }}
+    {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+    {{ 'component-icon-with-text.css' | asset_url | stylesheet_tag }}
+    {{ 'component-image-with-text.css' | asset_url | stylesheet_tag }}
+    {{ 'component-tab-content.css' | asset_url | stylesheet_tag }}
+    {{ 'component-multicolumn-block.css' | asset_url | stylesheet_tag }}
+    {{ 'collapsible-content.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'component-tab-content.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'collapsible-content.js' | asset_url }}" defer="defer"></script>
+
+    {{ 'component-product-form-block.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'component-product-form-block.js' | asset_url }}" defer="defer"></script>
+
+    {% unless product.has_only_default_variant %}
+      {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
+      {{ 'component-swatch-input.css' | asset_url | stylesheet_tag }}
+      {{ 'component-swatch.css' | asset_url | stylesheet_tag }}
+    {% endunless %}
+    {%- if product.quantity_price_breaks_configured? -%}
+      {{ 'component-volume-pricing.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+  
+    {%- style -%}
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+        padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+      }
+  
+      @media screen and (min-width: 750px) {
+        .section-{{ section.id }}-padding {
+          padding-top: {{ section.settings.padding_top }}px;
+          padding-bottom: {{ section.settings.padding_bottom }}px;
+        }
+        .section-{{ section.id }}-padding .product-columns {
+          --gap: {{ section.settings.column_gap }}px;
+          gap: var(--gap);
+        }
+      }
+    {%- endstyle -%}
+  
+    <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+    {%- if product.quantity_price_breaks_configured? -%}
+      <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+  
+    {% if section.settings.image_zoom == 'hover' %}
+      <script id="EnableZoomOnHover-main" src="{{ 'magnify.js' | asset_url }}" defer="defer"></script>
+    {% endif %}
+    {%- if request.design_mode -%}
+      <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+  
+    {%- assign first_3d_model = product.media | where: 'media_type', 'model' | first -%}
+    {%- if first_3d_model -%}
+      {{ 'component-product-model.css' | asset_url | stylesheet_tag }}
+      <link
+        id="ModelViewerStyle"
+        rel="stylesheet"
+        href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css"
+        media="print"
+        onload="this.media='all'"
+      >
+      <link
+        id="ModelViewerOverride"
+        rel="stylesheet"
+        href="{{ 'component-model-viewer-ui.css' | asset_url }}"
+        media="print"
+        onload="this.media='all'"
+      >
+    {%- endif -%}
+    {% capture app_blocks %}
+      {% for block in section.blocks %}
+        {% if block.type == '@app' %}
+          {% render block %}
+        {% endif %}
+      {% endfor %}
+    {% endcapture %}
+    {% liquid
+      assign col_widths = section.settings.column_widths | split: '/'
+    %}
+    {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
+    <div class="page-width">
+      <div class="product product-columns flex-wrap">
+        {% assign block_count = 0 %}
+        {% for block in section.blocks %}
+          {% if block.type == '@app' %}
+            {% continue %}
+          {% endif %}
+          {% assign col_width = col_widths[block_count] %}
+          {% assign block_count = block_count | plus: 1 %}
+          {% if col_width == blank %}
+            {% assign col_width = 100 %}
+          {% endif %}
+          <div class="product__column-sticky flex-100 md:flex-{{ col_width }}">
+            {%- if forloop.first-%}
+              <div class="{% if section.settings.title_position == 'right' %}medium-hide large-up-hide{% endif %}">
+                <div class="product__title">
+                  <div class="heading--tag px-2 py-2">{{ section.settings.title_tag }}</div>
+                  <h1 class="{{ section.settings.title_size }} font-bold">{{ product.title | escape | remove: ' — OTP' }}</h1>
+                  <a href="{{ product.url }}" class="product__title">
+                    <h2 class="{{ section.settings.title_size }}">
+                      {{ product.title | escape | remove: ' — OTP' }}
+                    </h2>
+                  </a>
+                  <p class="mb-4">{{ section.settings.subtitle }}</p>
+                </div>
+                {{ app_blocks }}
+              </div>
+            {%- elsif section.settings.title_position == 'right' -%}
+              <div class="small-hide">
+                <div class="product__title">
+                  <div class="heading--tag px-2 py-2">{{ section.settings.title_tag }}</div>
+                  <h1 class="{{ section.settings.title_size }} font-bold">{{ product.title | escape | remove: ' — OTP' }}</h1>
+                  <a href="{{ product.url }}" class="product__title">
+                    <h2 class="{{ section.settings.title_size }} sm:text-xl">
+                      {{ product.title | escape | remove: ' — OTP' }}
+                    </h2>
+                  </a>
+                  <p class="mb-4">{{ section.settings.subtitle }}</p>
+                </div>
+                {{ app_blocks }}
+              </div>
+            {%- endif -%}
+            {% render block %}
+          </div>
+        {% endfor %}
+      </div>
+  
+      {% render 'product-media-modal', variant_images: variant_images %}
+    
+      {%- if product.media.size > 0 -%}
+        <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
+        <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
+      {%- endif -%}
+  
+      {%- if first_3d_model -%}
+        <script type="application/json" id="ProductJSON-{{ product.id }}">
+          {{ product.media | where: 'media_type', 'model' | json }}
+        </script>
+        <script src="{{ 'product-model.js' | asset_url }}" defer></script>
+      {%- endif -%}
+  
+      {%- liquid
+        if product.selected_or_first_available_variant.featured_media
+          assign seo_media = product.selected_or_first_available_variant.featured_media
+        else
+          assign seo_media = product.featured_media
+        endif
+      -%}
+  
+      <script type="application/ld+json">
+        {{ product | structured_data }}
+      </script>
+    </div>
+  </product-info>
+  
+  {% schema %}
+  {
+    "name": "Product Columns",
+    "tag": "section",
+    "class": "section",
+    "blocks": [
+      {
+        "type": "pdp-column"
+      },
+      {
+        "type": "@app"
+      }
+    ],
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_sticky_info",
+        "default": true,
+        "label": "t:sections.main-product.settings.enable_sticky_info.label"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "t:sections.all.colors.label",
+        "default": "scheme-1"
+      },
+      {
+        "type": "header",
+        "content": "Title"
+      },
+      {
+        "type": "text",
+        "id": "title_tag",
+        "label": "Title Tag"
+      },
+      {
+        "type": "select",
+        "id": "title_size",
+        "label": "Title Size",
+        "options": [
+            {
+              "value": "h2",
+              "label": "t:sections.all.heading_size.options__1.label"
+            },
+            {
+              "value": "h1-5",
+              "label": "t:sections.all.heading_size.options__2.label"
+            },
+            {
+              "value": "h1",
+              "label": "t:sections.all.heading_size.options__3.label"
+            },
+            {
+              "value": "h0",
+              "label": "t:sections.all.heading_size.options__4.label"
+            },
+            {
+              "value": "hxl",
+              "label": "t:sections.all.heading_size.options__5.label"
+            }
+          ],
+          "default": "h1"
+      },
+      {
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "Subtitle"
+      },
+      {
+        "type": "select",
+        "id": "title_position",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "right",
+        "label": "Desktop Title position"
+      },
+      {
+        "type": "header",
+        "content": "Media"
+      },
+      {
+        "type": "select",
+        "id": "gallery_layout",
+        "options": [
+          {
+            "value": "stacked",
+            "label": "t:sections.main-product.settings.gallery_layout.options__1.label"
+          },
+          {
+            "value": "columns",
+            "label": "t:sections.main-product.settings.gallery_layout.options__2.label"
+          },
+          {
+            "value": "thumbnail",
+            "label": "t:sections.main-product.settings.gallery_layout.options__3.label"
+          },
+          {
+            "value": "thumbnail_slider",
+            "label": "t:sections.main-product.settings.gallery_layout.options__4.label"
+          }
+        ],
+        "default": "stacked",
+        "label": "t:sections.main-product.settings.gallery_layout.label"
+      },
+      {
+        "type": "select",
+        "id": "thumbnail_position",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          },
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ],
+        "default": "bottom",
+        "label": "Thumbnail Position",
+        "visible_if": "{{ section.settings.gallery_layout == 'thumbnail_slider' }}"
+      },
+      {
+        "type": "select",
+        "id": "mobile_thumbnails",
+        "options": [
+          {
+            "value": "columns",
+            "label": "t:sections.main-product.settings.mobile_thumbnails.options__1.label"
+          },
+          {
+            "value": "show",
+            "label": "t:sections.main-product.settings.mobile_thumbnails.options__2.label"
+          },
+          {
+            "value": "hide",
+            "label": "t:sections.main-product.settings.mobile_thumbnails.options__3.label"
+          }
+        ],
+        "default": "hide",
+        "label": "t:sections.main-product.settings.mobile_thumbnails.label"
+      },
+      {
+        "type": "select",
+        "id": "image_zoom",
+        "options": [
+          {
+            "value": "lightbox",
+            "label": "t:sections.main-product.settings.image_zoom.options__1.label"
+          },
+          {
+            "value": "hover",
+            "label": "t:sections.main-product.settings.image_zoom.options__2.label"
+          },
+          {
+            "value": "none",
+            "label": "t:sections.main-product.settings.image_zoom.options__3.label"
+          }
+        ],
+        "default": "lightbox",
+        "label": "t:sections.main-product.settings.image_zoom.label"
+      },
+      {
+        "type": "checkbox",
+        "id": "hide_variants",
+        "default": false,
+        "label": "t:sections.main-product.settings.hide_variants.label"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_video_looping",
+        "default": false,
+        "label": "t:sections.main-product.settings.enable_video_looping.label"
+      },
+      {
+        "type": "header",
+        "content": "Column Widths"
+      },
+      {
+        "type": "select",
+        "id": "column_widths",
+        "label": "Column Widths",
+        "options": [
+          {
+            "value": "33/66",
+            "label": "1/3 - 2/3"
+          },
+          {
+              "value": "50/50",
+              "label": "1/2 - 1/2"
+          },
+          {
+              "value": "66/33",
+              "label": "2/3 - 1/3"
+          },
+          {
+              "value": "100/100",
+              "label": "Full Width each"
+          }
+        ],
+        "default": "50/50"
+      },
+      {
+        "type": "header",
+        "content": "t:sections.all.padding.section_padding_heading"
+      },
+      {
+        "type": "range",
+        "id": "column_gap",
+        "min": 0,
+        "max": 25,
+        "step": 1,
+        "unit": "px",
+        "label": "Gap between columns",
+        "default": 10
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_top",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_bottom",
+        "default": 36
+      }
+    ],
+    "presets": [
+      {
+        "name": "Product Columns"
+      }
+    ]
+  }
+  {% endschema %}
+  

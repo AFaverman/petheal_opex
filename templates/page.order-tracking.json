@@ -1,0 +1,172 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "show_title": true,
+        "color_scheme": ""
+      }
+    },
+    "order_tracking_form_fiMJik": {
+      "type": "order-tracking-form",
+      "name": "Order Tracking Form",
+      "settings": {
+        "heading": "Track your order",
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "multicolumn_gMTd8G": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_RkaKaL": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_8b46c7eeb1d24771becda06822cd2d33_e7a7699d-db09-465c-aa03-efa5a2b93d03.jpg",
+            "use_image_as_background": true,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "Shop With Us",
+            "title_size": "h2",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>Take a look at our best-</p><p>sellers</p>",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "Shop now",
+            "link_style": "button--secondary",
+            "link": "shopify://collections/all-products",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_PDx9Pw": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_cb80fe3ad61e4928844b89c50c523f33.jpg",
+            "use_image_as_background": true,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "FAQ",
+            "title_size": "h2",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>Our most frequently</p><p>asked questions</p>",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "Read more",
+            "link_style": "button--secondary",
+            "link": "shopify://pages/help-center",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_3HUGdk": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_8b46c7eeb1d24771becda06822cd2d32.jpg",
+            "use_image_as_background": true,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "Help Center",
+            "title_size": "h2",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>Our customer care team is</p><p>here to assist</p>",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "Contact us",
+            "link_style": "button--secondary",
+            "link": "/pages/help-center?tab=contact-us",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_RkaKaL",
+        "column_PDx9Pw",
+        "column_3HUGdk"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "heading_alignment": "left",
+        "heading_width": 0,
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "vertical_alignment": "center",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "column_h_padding": 15,
+        "column_v_padding": 15,
+        "border_radius": 12,
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "background_style": "none",
+        "color_scheme_secondary": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "show_slider_controls": true,
+        "mobile_shrink": false,
+        "section_padding_top": 36,
+        "section_padding_bottom": 36,
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "main",
+    "order_tracking_form_fiMJik",
+    "multicolumn_gMTd8G"
+  ]
+}

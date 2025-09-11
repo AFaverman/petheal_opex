@@ -1,0 +1,95 @@
+<div class="text-body text-{{ block.settings.text_size }} {{ block.settings.text_style }} {{block.settings.text_alignment}} {% if block.settings.tag %}heading--tag px-0 py-0{% endif %}" {{ block.shopify_attributes }}>
+    {{ block.settings.content }}
+</div>
+{% schema %}
+{
+  "name": "Rich Text",
+  "tag": null,
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Text"
+    },
+    {
+      "type": "select",
+      "id": "text_style",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "text-heading",
+          "label": "Heading"
+        }
+      ],
+      "default": "standard",
+      "label": "t:sections.rich-text.blocks.caption.settings.text_style.label"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "label": "Text alignment"
+    },
+    {
+      "type": "checkbox",
+      "id": "tag",
+      "label": "Display as a tag",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "options": [
+        {
+          "value": "sm",
+          "label": "t:sections.rich-text.blocks.caption.settings.caption_size.options__1.label"
+        },
+        {
+          "value": "md",
+          "label": "t:sections.rich-text.blocks.caption.settings.caption_size.options__2.label"
+        },
+        {
+          "value": "lg",
+          "label": "t:sections.rich-text.blocks.caption.settings.caption_size.options__3.label"
+        },
+        {
+          "value": "xl",
+          "label": "Extra Large"
+        },
+        {
+          "value": "xxl",
+          "label": "2X Large"
+        }
+      ],
+      "default": "md",
+      "label": "t:sections.rich-text.blocks.caption.settings.caption_size.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rich Text"
+    }
+  ]
+}
+{% endschema %}

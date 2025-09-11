@@ -1,0 +1,230 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "show_title": false,
+        "color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664"
+      }
+    },
+    "custom_liquid_eqxRmB": {
+      "type": "custom-liquid",
+      "name": "yotpo mobile styles",
+      "settings": {
+        "custom_liquid": "<style>\n@media only screen and (max-width: 749px) {\n.yotpo-widget-referral-widget .yotpo-container-background:not(.yotpo-is-mobile)>* {\n  min-height:300px;\n}\n  .yotpo-widget-referral-widget\n    .yotpo-container-background:not(.yotpo-is-mobile).yotpo-swap-container {\n    flex-direction: column;\n  }\n  .yotpo-widget-referral-widget\n    .yotpo-container-background\n    .yotpo-tile-wrapper {\n    flex-grow: 1;\n    padding: 30px 10px;\n  }\n  .yotpo-widget-referral-widget .yotpo-customer-email-view {\n    justify-content: center;\n  }\n}</style>",
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "custom_liquid_VK4etN": {
+      "type": "custom-liquid",
+      "custom_css": [],
+      "name": "Yotpo Integration",
+      "settings": {
+        "custom_liquid": "<script src=\"https://cdn-widgetsrepository.yotpo.com/v1/loader/bLbsAlt2WQ0dtPGS-gN78g\" async></script>\n<div class=\"yotpo-widget-instance\" data-yotpo-instance-id=\"953580\"></div>",
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "multicolumn_ciW3MX": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_MibaBD": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "title": "1. Share",
+            "title_size": "h2",
+            "font_style": "heading",
+            "title_style": "tag",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>Share your unique link with friends via email, text, or social media.</p>",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_AqWptK": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "title": "2. Purchase",
+            "title_size": "h2",
+            "font_style": "heading",
+            "title_style": "tag",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>Your friend makes their first order of $28 or more via your link and they get $10 off.</p>",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_yzt9eY": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "title": "3. Reward",
+            "title_size": "h2",
+            "font_style": "heading",
+            "title_style": "tag",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>We'll give you $10 to spend on your next PetHeal order as a \"thank you\".</p>",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_MibaBD",
+        "column_AqWptK",
+        "column_yzt9eY"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "How It Works",
+        "heading_size": "h2",
+        "heading_alignment": "center",
+        "heading_width": 0,
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "vertical_alignment": "center",
+        "columns_desktop": 3,
+        "column_alignment": "center",
+        "column_h_padding": 0,
+        "column_v_padding": 0,
+        "border_radius": 0,
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "background_style": "none",
+        "color_scheme_secondary": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "show_slider_controls": true,
+        "mobile_shrink": false,
+        "section_padding_top": 36,
+        "section_padding_bottom": 36,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_banner_zLeKQk": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_kH4Qe9": {
+          "type": "heading",
+          "settings": {
+            "heading": "We're PetHeal, A company built for pet owners, by pet owners.",
+            "heading_size": "h2"
+          }
+        },
+        "buttons_FarUzm": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Shop our best sellers",
+            "button_link_1": "shopify://collections/all-products",
+            "button_style_secondary_1": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_kH4Qe9",
+        "buttons_FarUzm"
+      ],
+      "custom_css": [],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/assets_5c4ac7a0add34c76813af3764f810e32_33d00c41c52f41f4a8732fbde2ca7f46.jpg",
+        "image_overlay_opacity": 0,
+        "image_height": "small",
+        "image_behavior": "none",
+        "desktop_content_position": "top-left",
+        "desktop_content_alignment": "left",
+        "show_text_box": true,
+        "margin_top": 30,
+        "margin_bottom": 0,
+        "margin_left": 20,
+        "margin_right": 0,
+        "text_box_opacity": 0,
+        "text_box_corner": 0,
+        "text_max_width": 460,
+        "text_box_padding": 30,
+        "color_scheme": "scheme-1e06d4bd-f7f0-468b-b68c-fd3254845cc5",
+        "stack_images_on_mobile": false,
+        "mobile_content_alignment": "center",
+        "show_text_below": false,
+        "mobile_opacity": 25
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_liquid_eqxRmB",
+    "custom_liquid_VK4etN",
+    "multicolumn_ciW3MX",
+    "image_banner_zLeKQk"
+  ]
+}

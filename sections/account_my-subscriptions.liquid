@@ -1,0 +1,646 @@
+{% liquid
+    unless request.design_mode
+      for block in section.blocks
+        if block.type == 'my_orders' or block.type == 'try_again'
+          assign call_orders = true
+          if block.type == 'try_again'
+            assign slide_max = block.settings.slides
+          endif
+        endif
+      endfor
+      if call_orders and customer.orders.size > 0
+        assign orders = customer.orders | sort: "created_at"
+        assign seen = ""
+        assign count = 0
+        for order in orders
+          if count == slide_max
+            break
+          endif
+          for line_item in order.line_items
+            if count == slide_max
+              break
+            endif
+            assign key = line_item.product.handle
+            unless key contains "-special"
+              if key contains "-quantity"
+                assign key = key | replace: "-quantity", "-special-quantity"
+              else
+                assign key = key | replace: "-otp", "-special-otp"
+              endif
+            endunless
+            unless seen contains key
+              assign seen = seen | append: key | append: ","
+              assign count = count | plus: 1
+            endunless
+          endfor
+        endfor
+        assign product_handles = seen | split: ","
+      endif
+    endunless
+  %}
+  
+  {%- if call_orders and customer.orders.size > 0 -%}
+    {{ 'component-slider.css' | asset_url | stylesheet_tag }}
+    {{ 'component-slideshow.css' | asset_url | stylesheet_tag }}
+  {%- endif -%}
+  
+  {% style %}
+    .pet__img {
+      width: 56px;
+      height: 56px;
+      object-fit: cover;
+      border-radius: 100%;
+    }
+  
+    .loading__spinner {
+      width: 4rem;
+      height: 4rem;
+      z-index: 1;
+      position: relative;
+      margin: 4rem auto;
+    }
+  
+    .icon-bullet svg,
+    .order-status svg {
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+    
+    .order-status {
+      border-radius: 4px;
+      border: 1px solid rgb(var(--color-foreground));
+    }
+  
+    .account-dashboard-grid__subs li {
+      list-style: none;
+    }
+  
+    .account-dashboard-grid__subs ul {
+      padding-left: 0;
+    }
+  
+    .account-dashboard-grid .slideshow__slide {
+      width: 100%;
+    }
+  
+    .slider-buttons {
+      border: none;
+    }
+    @media only screen and (min-width: 1039px) {
+        .section-left {
+            max-width: calc({{ section.settings.left_width }}% - 20px);
+            width: 100%;
+        }
+    }
+    @media screen and (min-width: 750px) {
+      .account-dashboard-grid__subs ul {
+        display: grid;
+        grid-template-columns: repeat(2, max-content);
+        column-gap: 1.5rem;
+        row-gap: 1rem;
+        justify-content: start;
+        align-items: center;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  {% endstyle %}
+  
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        getAllSubscriptions().then(data => {
+          const subs = data.data.filter(subscription => subscription.status === 'ACTIVE');
+          if (subs.length == 0) {
+            document.querySelector('.account-dashboard-grid__subs .no_subs.hidden').classList.remove('hidden');
+            document.querySelector('.account-dashboard-grid__subs .loading__spinner').classList.add('hidden');
+            return;
+          }
+  
+          document.querySelector('.account-dashboard-grid__subs').classList.remove('center');
+  
+          // Build subscription card
+            const soonest = subs.sort((a, b) => new Date(a.nextBillingDate) - new Date(b.nextBillingDate))[0];
+            const date = new Date(soonest.nextBillingDate);
+            const formattedShort = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+              .replace(/(\w+)\s+(\d+)/, '$2 $1')
+              .toUpperCase(); 
+  
+            const subsContainer = document.querySelector('.account-dashboard-grid__subs .has_subs');
+            soonest.lineItems = soonest.lineItems.sort((a, b) => a.productTitle.localeCompare(b.productTitle));
+            getSubImage(soonest.lineItems[0].productTitle).then(imageUrl => {
+              subsContainer.querySelector('.subs__image').innerHTML = `<img src="${imageUrl}" alt="${soonest.lineItems[0].title}" width="100" height="100"/>`;
+              const title = soonest.lineItems[0].productTitle.split("— Quantity");
+              const quantity = soonest.lineItems[0].quantity;
+              subsContainer.querySelector('.subs__title').textContent = `${title[0]} ${title[1]}x Quantity`;
+              if (soonest.lineItems.length > 1) {
+                subsContainer.querySelector('.subs__extra').textContent = `+ ${soonest.lineItems.length - 1} additional items`;
+              }
+              subsContainer.querySelector('.subs__next-delivery').textContent = formattedShort;
+              subsContainer.querySelector('.button').href = `/pages/subscription?id=${soonest.id}`;
+  
+              document.querySelector('.account-dashboard-grid__subs .has_subs.hidden').classList.remove('hidden');
+              document.querySelector('.account-dashboard-grid__subs .loading__spinner').classList.add('hidden');
+            });  
+        });
+  
+        window.getSubImage = async function(title) {
+          const productName = title.split('—')[0].trim();
+          const searchQuery = `${productName} OTP`;
+          
+          const response = await fetch(`/search/suggest.json?q=${encodeURIComponent(searchQuery)}&resources[type]=product&resources[limit]=1`);
+          if (response.ok) {
+            const data = await response.json();
+            const product = data.resources?.results?.products?.[0];
+            if (product) {
+              return product.featured_image?.url || product.image;
+            }
+          }
+        };
+    });
+  </script>
+  <div class="isolate">
+    <div class="account-dashboard-grid color-{{ section.settings.color_scheme }}">
+        <div class="page-width">
+            <div class="lg:flex justify-center md:mx-8 lg:mx-auto gap-8">
+                <div class="section-left">
+                        <div class="flex justify-between align-center block_header bottom-border--bar-bold mt-4">
+                            <div class="text-heading text-lg">
+                            {{ section.settings.title }}
+                            </div>
+                            {% if section.settings.title_link != blank and section.settings.link != blank %}
+                            <a href="{{ section.settings.link }}" class="link animate-arrow caption-letter-spacing uppercase">
+                            {{ section.settings.title_link }}
+                            <span class="svg-wrapper">
+                                <span class="icon-wrap">{{ 'icon-arrow.svg' | inline_asset_content }}</span>
+                            </span>
+                            </a>
+                            {% endif %}
+                        </div>
+                        <div class="mt-2">
+                    {% if request.design_mode %}
+                        <div class="text-body px-4 py-4 color-{{ section.settings.color_scheme_2 }}">
+                            Design mode - Preview theme to view dynamic account-based content
+                        </div>
+                    {% else %}
+                        <div class="account-dashboard-grid__subs center isolate color-{{ section.settings.color_scheme_2 }} px-4 py-4">
+                            <div class="loading__spinner center">
+                                {{- 'loading-spinner.svg' | inline_asset_content -}}
+                            </div>
+                            <div class="has_subs hidden px-6 py-6">
+                                <div class="bottom-border--bar-bold mb-4 pb-4">
+                                    <div class="flex align-center">
+                                    <div class="subs__image"></div>
+                                    <div class="ml-6">
+                                        <div class="subs__title text-lg font-semibold"></div>
+                                        <div class="subs__extra"></div> 
+                                    </div>
+                                    </div>
+                                    <div class="text-heading mb-4">
+                                    {{ section.settings.benefits_title }}
+                                    </div>
+                                    <div class="subs__benefits text-sm">
+                                    {%- assign processed_text = section.settings.benefits -%}
+                                    {%- capture icon_html -%}
+                                        <span class="icon-bullet">
+                                        {{ 'circle-check.svg' | inline_asset_content }}
+                                        </span>
+                                    {%- endcapture -%}
+                                    {%- assign li_with_icon = '<li>' | append: icon_html -%}
+                                    {%- assign processed_text = processed_text | replace: '<li>', li_with_icon -%}
+                                    {{ processed_text }}
+                                    </div>
+                                </div>
+                                <div class="flex flex-col md:flex-row justify-between gap-6 align-center md:align-start">
+                                    <div class="flex-100 md:flex-50">
+                                        <div class="flex justify-between align-center">
+                                            <div class="text-heading">Frequency</div>
+                                            <div class="subs__frequency">Monthly</div>
+                                        </div>
+                                        <div class="flex justify-between align-center">
+                                            <div class="text-heading">Shipping Date</div>
+                                            <div class="subs__next-delivery"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <a href="#" class="button button--secondary uppercase">View Subscription</a>
+                                    </div>
+                                </div>   
+                            </div>
+                            <div class="no_subs hidden px-6 py-6">
+                            <p>{{ section.settings.no_subs }}</p>
+                            <a href="{{section.settings.add_sub_link}}" class="button button--primary">
+                                {{ section.settings.add_sub }}
+                            </a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                </div>
+                <div class="flex-grow">
+                {%- for block in section.blocks -%}
+                    <div id="block-{{ block.id }}" class="mt-4 mb-4 {% if block.settings.device_display == 'desktop-only' %}small-hide medium-hide{% elsif block.settings.device_display == 'mobile-only' %}large-up-hide{% endif %} {% if section.settings.include_header %}px-4 py-4 color-{{ section.settings.color_scheme_2 }}{% endif %}">
+                    <div class="flex justify-between align-center block_header bottom-border--bar-bold">
+                        <div class="text-heading text-lg">
+                        {{ block.settings.title }}
+                        </div>
+                        {% if block.settings.title_link != blank and block.settings.link != blank %}
+                        <a href="{{ block.settings.link }}" class="link animate-arrow caption-letter-spacing uppercase">
+                        {{ block.settings.title_link }}
+                        <span class="svg-wrapper">
+                            <span class="icon-wrap">{{ 'icon-arrow.svg' | inline_asset_content }}</span>
+                        </span>
+                        </a>
+                        {% endif %}
+                    </div>
+                    <div class="mt-2">
+                        {% case block.type %}
+                        {% when 'my_orders' %}
+                            {% if request.design_mode %}
+                            <div class="text-body px-4 py-4 color-{{ section.settings.color_scheme_2 }}">
+                                Design mode - Preview theme to view dynamic account-based content
+                            </div>
+                            {% elsif customer.orders.size > 0 %}
+                            {%- assign orders = customer.orders | sort: "created_at" | reverse -%}
+                            {%- for order in orders limit: block.settings.orders -%}
+                                <div class="mb-4 color-{{ section.settings.color_scheme_2 }} px-4 py-4">
+                                <div class="flex md:justify-between align-start mb-4">
+                                    <div class="flex">
+                                    {% assign featured_product = order.line_items.first.product %}
+                                    <img src="{{ featured_product.featured_image | image_url: width: 100 }}" alt="{{ featured_product.featured_image.alt }}" width="100" height="100" />
+                                    <div class="ml-4 small-hide medium-hide">
+                                        <div class="font-semibold text-lg">
+                                        {{ featured_product.title | split: "—" | first }}
+                                        </div>
+                                        {% if order.line_items.size > 1 %}
+                                        <div>
+                                            + {{ order.line_items.size | minus: 1 }} additional items
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    </div>
+                                    <div class="left lg:right ml-4">
+                                    <div class="medium-hide large-up-hide font-semibold">
+                                        {{ featured_product.title | split: "—" | first }}
+                                        {% if order.line_items.size > 1 %}
+                                        <div>
+                                            + {{ order.line_items.size | minus: 1 }} additional items
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        {{ order.created_at | date: "%B %d, %Y" }}
+                                    </div>
+                                    <div class="text-cta">
+                                        {{ order.total_price | money }}
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="justify-between flex align-center">
+                                    <div class="flex gap-2 order-status text-sm px-4 py-2 align-center">
+                                        {{ 'circle-check.svg' | inline_asset_content }}
+                                    <div>
+                                        {% if order.cancelled %}
+                                        Cancelled<span class="small-hide"> on {{ order.cancelled_at | date: "%B %d, %Y" }}</span>
+                                        {% else %}
+                                        {{ order.fulfillment_status_label }}
+                                        {% endif %}
+                                    </div>
+                                    </div>
+                                    <a href="{{ order.order_status_url }}" target="_blank" class="link animate-arrow caption-letter-spacing uppercase font-semibold">View Order</a>
+                                </div>
+                                </div>
+                            {%- endfor -%}
+                            {% else %}
+                            <div class="text-body px-4 py-4 color-{{ section.settings.color_scheme_2 }}">
+                                <div class="center">
+                                <div class="mb-4">No products ordered yet.</div>
+                                <a href="/collections/all-products" class="button button--primary">Shop Now</a>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% when 'try_again' %}
+                            {% if request.design_mode %}
+                            <div class="text-body px-4 py-4 color-{{ section.settings.color_scheme_2 }}">
+                                Design mode - Preview theme to view dynamic account-based content
+                            </div>
+                            {% else %}
+                            <div class="text-body px-4 py-4 color-{{ section.settings.color_scheme_2 }}">
+                                {% if product_handles.size > 0 %}
+                                <slideshow-component
+                                    role="region"
+                                    aria-roledescription="{{ 'sections.slideshow.carousel' | t }}"
+                                    aria-label="{{ block.settings.title }}"
+                                >
+                                    <div
+                                    class="slideshow banner grid grid--1-col slider slider--everywhere"
+                                    id="Slider-{{ block.id }}"
+                                    aria-live="polite"
+                                    aria-atomic="true"
+                                    data-autoplay="false"
+                                    style="--slideshow-slide-width: 100%;"
+                                    >
+                                    {%- for handle in product_handles -%}
+                                        <div
+                                        class="slideshow__slide grid__item grid--1-col slider__slide"
+                                        id="Slide-{{ block.id }}-{{ forloop.index }}"
+                                        role="group"
+                                        aria-roledescription="{{ 'sections.slideshow.slide' | t }}"
+                                        aria-label="{{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}"
+                                        tabindex="-1"
+                                        style="width: 100%;"
+                                        >
+                                        {% assign slider_product = all_products[handle] %}
+                                        {% if handle contains "quantity" %}
+                                            {% assign subscription_product = true %}                                      
+                                        {% endif %}
+                                        {% if slider_product != blank %}
+                                            <div class="flex gap-6 pb-6 mb-4 bottom-border--bar-bold align-center">
+                                            <img src="{{ slider_product.featured_image | image_url: width: 100 }}" alt="{{ slider_product.featured_image.alt }}" width="100" height="100" />
+                                            <div class="ml-4">
+                                                <div>
+                                                {{ slider_product.title | split: "—" | first }}
+                                                {% if subscription_product %}
+                                                - Subscription
+                                                {% endif %}
+                                            </div>
+                                            {% if subscription_product %}
+                                                <div>
+                                                {{ slider_product.title | split: "— Quantity" | last }}x Quantity
+                                                </div>
+                                            {% endif %}
+                                            </div>
+                                            </div>
+                                            {% if subscription_product %}
+                                            <div class="flex justify-between align-center">
+                                                <div class="text-heading">Frequency</div>
+                                                <div>Monthly</div>
+                                            </div>
+                                            <div class="flex justify-between align-center">
+                                                <div class="text-heading">Subscribe & save</div>
+                                                <div>{{ slider_product.selected_or_first_available_variant.selling_plan_allocations.first.price | money }}</div>
+                                            </div>
+                                            {% else %}
+                                            <div class="right">
+                                                <div>{{ slider_product.price | money }}</div>
+                                            </div>
+                                            {% endif %}
+                                            {% if slider_product.handle contains "otp" %}
+                                              {% assign link_handle = slider_product.handle %}
+                                            {% else %}
+                                              {% assign link_handle =  slider_product.handle | split: "-quantity" | first | append: "-otp" %}
+                                            {% endif %}
+                                            <a href="/products/{{ link_handle }}" class="button button--primary mt-8 mx-8">BUY AGAIN</a>
+                                        {% endif %}
+                                        </div>
+                                    {%- endfor -%}
+                                    </div>
+    
+                                    {%- if product_handles.size > 1 -%}
+                                    <div class="slideshow__controls slider-buttons">
+                                        <button
+                                        type="button"
+                                        class="slider-button slider-button--prev"
+                                        name="previous"
+                                        aria-label="{{ 'sections.slideshow.previous_slideshow' | t }}"
+                                        aria-controls="Slider-{{ block.id }}"
+                                        >
+                                        <span class="svg-wrapper">
+                                            {{- 'icon-caret.svg' | inline_asset_content -}}
+                                        </span>
+                                        </button>
+                                        <div class="slider-counter slider-counter--dots">
+                                        <div class="slideshow__control-wrapper">
+                                            {%- for handle in product_handles -%}
+                                            <button
+                                                class="slider-counter__link slider-counter__link--dots link"
+                                                aria-label="{{ 'sections.slideshow.load_slide' | t }} {{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}"
+                                                aria-controls="Slider-{{ block.id }}"
+                                            >
+                                                <span class="dot"></span>
+                                            </button>
+                                            {%- endfor -%}
+                                        </div>
+                                        </div>
+                                        <button
+                                        type="button"
+                                        class="slider-button slider-button--next"
+                                        name="next"
+                                        aria-label="{{ 'sections.slideshow.next_slideshow' | t }}"
+                                        aria-controls="Slider-{{ block.id }}"
+                                        >
+                                        <span class="svg-wrapper">
+                                            {{- 'icon-caret.svg' | inline_asset_content -}}
+                                        </span>
+                                        </button>
+                                    </div>
+                                    {%- endif -%}
+                                </slideshow-component>
+                                {%- else -%}
+                                <div class="center">
+                                    <div class="mb-4">No products ordered yet.</div>
+                                    <a href="/collections/all-products" class="button button--primary">Shop Now</a>
+                                </div>
+                                {%- endif -%}
+                            </div>
+                            {% endif %}
+                        {% endcase %}
+                    </div>
+                    </div>
+                {%-  endfor -%}
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  {% schema %}
+  {
+    "name": "My Subscriptions",
+    "settings": [
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Section color scheme",
+        "default": "scheme-1"
+      },
+      {
+        "type": "range",
+        "id": "left_width",
+        "label": "My Subscriptions Panel width",
+        "default": 60,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme_2",
+        "label": "Grid item color scheme",
+        "default": "scheme-1"    
+      },
+      {
+        "type": "checkbox",
+        "id": "include_header",
+        "label": "Include grid header in color scheme",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "My Subscriptions"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "My Subscriptions"
+      },
+      {
+        "type": "text",
+        "id": "title_link",
+        "label": "Title Link",
+        "default": "View All"
+      },
+      {
+        "type": "url",
+        "id": "link",
+        "label": "Link"
+      },
+      {
+        "type": "text",
+        "id": "benefits_title",
+        "label": "Benefits Title",
+        "default": "Benefits included in your subscription:"
+      },
+      {
+        "type": "richtext",
+        "id": "benefits",
+        "label": "Subscription Benefits"
+      },
+      {
+        "type": "text",
+        "id": "no_subs",
+        "label": "No Subscriptions Text",
+        "default": "No active subscriptions!"
+      },
+      {
+        "type": "text",
+        "id": "add_sub",
+        "label": "No Subscriptions button Text",
+        "default": "Browse Products"
+      },
+      {
+        "type": "url",
+        "id": "add_sub_link",
+        "label": "No Subscriptions button Link",
+      }
+   ],
+   "blocks": [
+      {
+        "type": "my_orders",
+        "name": "My Orders",
+        "settings": [
+          {
+            "type": "select",
+            "id": "device_display",
+            "label": "Display on:",
+            "options": [
+              {
+                "value": "standard",
+                "label": "Desktop & Mobile"
+              },
+              {
+                "value": "desktop-only",
+                "label": "Desktop only"
+              },
+              {
+                "value": "mobile-only",
+                "label": "Mobile only"
+              }
+            ],
+            "default": "standard"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "My Orders"
+          },
+          {
+            "type": "text",
+            "id": "title_link",
+            "label": "Title Link",
+            "default": "View All"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+          },
+          {
+            "type": "range",
+            "id": "orders",
+            "label": "orders to show",
+            "default": 2,
+            "min": 0,
+            "max": 4,
+            "step": 1
+          }
+        ]
+      },
+      {
+        "type": "try_again",
+        "name": "Try Again Slider",
+        "settings": [
+          {
+            "type": "select",
+            "id": "device_display",
+            "label": "Display on:",
+            "options": [
+              {
+                "value": "standard",
+                "label": "Desktop & Mobile"
+              },
+              {
+                "value": "desktop-only",
+                "label": "Desktop only"
+              },
+              {
+                "value": "mobile-only",
+                "label": "Mobile only"
+              }
+            ],
+            "default": "standard"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Try Again"
+          },
+          { 
+            "type": "range",
+            "id": "slides",
+            "label": "Slides",
+            "default": 3,
+            "min": 1,
+            "max": 10,
+            "step": 1
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Account Subscriptions"
+      }
+    ],
+    "enabled_on": {
+      "templates": ["page"]
+    }
+  }
+  {% endschema %}

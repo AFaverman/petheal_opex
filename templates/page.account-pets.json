@@ -1,0 +1,92 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "account_menu_bar_CAFred": {
+      "type": "account_menu-bar",
+      "name": "Account Menu Bar",
+      "settings": {
+        "color_scheme": "scheme-a399dfb4-4362-4681-9b1d-8582639001d5",
+        "color_scheme_2": "scheme-6771aba1-bac3-4092-abad-c90c9e92177a",
+        "menu": "shopify-account-menu-bar",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "account_pet_hub_3LYPXk": {
+      "type": "account_pet-hub",
+      "blocks": {
+        "add_pet_D3YC9C": {
+          "type": "add_pet",
+          "settings": {
+            "icon_image": "shopify://shop_images/dog-running-outline.svg",
+            "add_pet_text": "Add A Dog",
+            "pet_type": "dog"
+          }
+        },
+        "add_pet_BXmcFF": {
+          "type": "add_pet",
+          "settings": {
+            "icon_image": "shopify://shop_images/cat-running-outline.svg",
+            "add_pet_text": "Add A Cat",
+            "pet_type": "cat"
+          }
+        }
+      },
+      "block_order": [
+        "add_pet_D3YC9C",
+        "add_pet_BXmcFF"
+      ],
+      "name": "Account Pet Hub",
+      "settings": {
+        "color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664",
+        "color_scheme_2": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "include_header": false,
+        "pets_title": "My Pets",
+        "no_pets": "You haven't saved any pets yet!",
+        "add_pet_title": "Add A New Pet"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "show_title": true,
+        "color_scheme": ""
+      }
+    },
+    "icon_with_text_qceRe7": {
+      "type": "icon-with-text",
+      "name": "Icon with text",
+      "settings": {
+        "icon": "shopify://shop_images/dog-outline-my-pets.svg",
+        "icon_name": "paw-print",
+        "icon_width": 110,
+        "title": "",
+        "text": "",
+        "orientation": "column",
+        "icon_placement": "first",
+        "icon_alignment": "flex-start",
+        "alignment": "center",
+        "color_scheme": "scheme-ac2270cc-3926-4304-a7ec-d2d1494a5c63",
+        "padding_top": 28,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "account_menu_bar_CAFred",
+    "account_pet_hub_3LYPXk",
+    "main",
+    "icon_with_text_qceRe7"
+  ]
+}

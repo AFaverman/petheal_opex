@@ -1,0 +1,82 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "show_title": false,
+        "color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664"
+      }
+    },
+    "account_menu_bar_TqUhze": {
+      "type": "account_menu-bar",
+      "name": "Account Menu Bar",
+      "settings": {
+        "color_scheme": "scheme-a399dfb4-4362-4681-9b1d-8582639001d5",
+        "color_scheme_2": "scheme-6771aba1-bac3-4092-abad-c90c9e92177a",
+        "menu": "shopify-account-menu-bar",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "account_pet_details_B7eXEg": {
+      "type": "account_pet-details",
+      "blocks": {
+        "pet_details_7NCqC3": {
+          "type": "pet_details",
+          "settings": {
+            "color_scheme": "scheme-6771aba1-bac3-4092-abad-c90c9e92177a"
+          }
+        },
+        "content_f64eKc": {
+          "type": "content",
+          "settings": {
+            "color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+            "title": "Go Social",
+            "image": "shopify://shop_images/dog-human-mountain.webp",
+            "subtitle": "How is [pet] doing?",
+            "content": "<p>Share his story on PetHeal’s Facebook Page</p><p>We would love to hear about your pet. As a member of the pack, you can share your thoughts with our pet lovers community. You have exclusive access to tailored content along with a series of advices from vets and dog lovers from all over the world.</p>",
+            "button_text": "Access Now",
+            "button_link": "https://www.facebook.com/thepetheal",
+            "facebook_url": "https://www.facebook.com/thepetheal"
+          }
+        },
+        "pet_recommendations_LmwY4j": {
+          "type": "pet_recommendations",
+          "settings": {
+            "color_scheme": "scheme-42389180-1830-4cc2-85c9-5038c8e4a0fd",
+            "limit": 3
+          }
+        }
+      },
+      "block_order": [
+        "pet_details_7NCqC3",
+        "content_f64eKc",
+        "pet_recommendations_LmwY4j"
+      ],
+      "name": "Account Pet Details",
+      "settings": {
+        "color_scheme": "",
+        "layout_ratio": 60,
+        "padding_top": 0,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "account_menu_bar_TqUhze",
+    "account_pet_details_B7eXEg"
+  ]
+}
