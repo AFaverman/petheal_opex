@@ -114,6 +114,7 @@
                           assign url = item.url | split: '-discount' | first
                         else
                           assign url = item.url
+                        endif
                       -%}
                       <a href="{{ url }}" class="cart-item__name h4 break">{{ item.product.title | escape }}</a>
 
