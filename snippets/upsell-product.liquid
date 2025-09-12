@@ -4,7 +4,7 @@
 -%}
 <div class="px-6 py-6 my-6 color-{{ color_scheme }}">
     <div class="flex align-center">
-        <div class="upsell--product-image">
+        <div class="upsell--product-image flex flex-col justify-left">
             <span class="heading--tag text-sm">{{ upsell_percent }}% off</span>
             <img src="{{ upsell.featured_image | image_url: width: 87 }}" alt="{{ upsell.title | split: ' — ' | first }}" width="87" height="auto">
         </div>

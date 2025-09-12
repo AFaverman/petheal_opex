@@ -35,12 +35,27 @@ class CartNotification extends HTMLElement {
   }
 
   renderContents(parsedState) {
-    this.cartItemKey = parsedState.key;
+    // Handle both single and multiple items
+    this.cartItems = Array.isArray(parsedState.items) ? parsedState.items : [{ key: parsedState.key }];
+    
     this.getSectionsToRender().forEach((section) => {
-      document.getElementById(section.id).innerHTML = this.getSectionInnerHTML(
-        parsedState.sections[section.id],
-        section.selector
-      );
+      const element = document.getElementById(section.id);
+      if (!element) return;
+
+      // For product notifications, we'll render all items in a container
+      if (section.id === 'cart-notification-product') {
+        const productHTML = this.cartItems.map(item => {
+          const sectionHTML = parsedState.sections[section.id];
+          const tempDiv = document.createElement('div');
+          tempDiv.classList.add('cart-notification-product');
+          tempDiv.innerHTML = this.getSectionInnerHTML(sectionHTML, `[id="cart-notification-product-${item.key}"]`);
+          return tempDiv.outerHTML;
+        }).join('');
+        
+        element.innerHTML = productHTML;
+      } else {
+        element.innerHTML = this.getSectionInnerHTML(parsedState.sections[section.id], section.selector);
+      }
     });
 
     if (this.header) this.header.reveal();
@@ -50,14 +65,13 @@ class CartNotification extends HTMLElement {
   getSectionsToRender() {
     return [
       {
-        id: 'cart-notification-product',
-        selector: `[id="cart-notification-product-${this.cartItemKey}"]`,
+        id: 'cart-notification-product'
       },
       {
-        id: 'cart-notification-button',
+        id: 'cart-notification-button'
       },
       {
-        id: 'cart-icon-bubble',
+        id: 'cart-icon-bubble'
       },
     ];
   }

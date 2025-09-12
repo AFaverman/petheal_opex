@@ -5,6 +5,40 @@ class CartRemoveButton extends HTMLElement {
     this.addEventListener('click', (event) => {
       event.preventDefault();
       const cartItems = this.closest('cart-items') || this.closest('cart-drawer-items');
+      const isUpsell = this.dataset.upsell === 'true';
+      
+      // If removing a non-upsell item, check if it's the last one
+      if (!isUpsell) {
+        const allCartItems = cartItems.querySelectorAll('cart-remove-button');
+        const nonUpsellItems = Array.from(allCartItems).filter(item => 
+          item.dataset.upsell === 'false' && item !== this
+        );
+        
+        // If this is the last non-upsell item, remove all upsell items too
+        if (nonUpsellItems.length === 0) {
+          const upsellItems = Array.from(allCartItems).filter(item => 
+            item.dataset.upsell === 'true'
+          );
+          
+          // Get total number of items from the DOM
+          const removeButtons = document.querySelectorAll('cart-remove-button');
+          const maxIndex = Math.max(...Array.from(removeButtons).map(item => parseInt(item.dataset.index)));
+          
+          // Create updates array with all items to remove
+          const updates = new Array(maxIndex).fill(undefined);
+          // Add all upsell items
+          upsellItems.forEach(item => {
+            updates[parseInt(item.dataset.index) - 1] = 0;
+          });
+          // Add the main item
+          updates[parseInt(this.dataset.index) - 1] = 0;
+          
+          cartItems.updateMultipleQuantities(updates, event);
+          return;
+        }
+      }
+      
+      // Normal removal for upsells or when other non-upsell items exist
       cartItems.updateQuantity(this.dataset.index, 0, event);
     });
   }
@@ -142,6 +176,61 @@ class CartItems extends HTMLElement {
         selector: '.js-contents',
       },
     ];
+  }
+
+  updateMultipleQuantities(updates, event) {
+    // Enable loading for all affected lines
+    updates.forEach((qty, index) => {
+      if (qty !== undefined) {
+        this.enableLoading(index + 1);
+      }
+    });
+
+    const body = JSON.stringify({
+      updates,
+      sections: this.getSectionsToRender().map((section) => section.section),
+      sections_url: window.location.pathname,
+    });
+
+    const eventTarget = event.currentTarget instanceof CartRemoveButton ? 'clear' : 'change';
+
+    fetch(`${routes.cart_update_url}`, { ...fetchConfig(), ...{ body } })
+      .then((response) => response.text())
+      .then((state) => {
+        const parsedState = JSON.parse(state);
+        this.classList.toggle('is-empty', parsedState.item_count === 0);
+        
+        const cartDrawerWrapper = document.querySelector('cart-drawer');
+        const cartFooter = document.getElementById('main-cart-footer');
+
+        if (cartFooter) cartFooter.classList.toggle('is-empty', parsedState.item_count === 0);
+        if (cartDrawerWrapper) cartDrawerWrapper.classList.toggle('is-empty', parsedState.item_count === 0);
+
+        this.getSectionsToRender().forEach((section) => {
+          const elementToReplace =
+            document.getElementById(section.id).querySelector(section.selector) || document.getElementById(section.id);
+          elementToReplace.innerHTML = this.getSectionInnerHTML(
+            parsedState.sections[section.section],
+            section.selector
+          );
+        });
+
+        CartPerformance.measureFromEvent(`${eventTarget}:user-action`, event);
+        publish(PUB_SUB_EVENTS.cartUpdate, { source: 'cart-items', cartData: parsedState });
+      })
+      .catch(() => {
+        this.querySelectorAll('.loading__spinner').forEach((overlay) => overlay.classList.add('hidden'));
+        const errors = document.getElementById('cart-errors') || document.getElementById('CartDrawer-CartErrors');
+        errors.textContent = window.cartStrings.error;
+      })
+      .finally(() => {
+        // Disable loading for all affected lines
+        updates.forEach((qty, index) => {
+          if (qty !== undefined) {
+            this.disableLoading(index + 1);
+          }
+        });
+      });
   }
 
   updateQuantity(line, quantity, event, name, variantId) {

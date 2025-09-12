@@ -130,15 +130,18 @@ function initializePdpForm(container) {
 
       // Add selling plan if available
       const sellingPlanId = selectedSubscription.dataset.sellingPlanId;
-      let sellingPlanInput = form.querySelector('input[name="selling_plan"]');
+      // Check both possible selling plan input names
+      let sellingPlanInput = form.querySelector('input[name="selling_plan"], input[name="items[0][selling_plan]"]');
+      const isMultiItemForm = !!form.querySelector('input[name="items[1][id]"]');
       
       if (sellingPlanId && sellingPlanId !== 'undefined' && sellingPlanId !== '') {
         if (!sellingPlanInput) {
           sellingPlanInput = document.createElement('input');
           sellingPlanInput.type = 'hidden';
-          sellingPlanInput.name = 'selling_plan';
           form.appendChild(sellingPlanInput);
         }
+        // Set the correct name based on whether we have multiple items
+        sellingPlanInput.name = isMultiItemForm ? 'items[0][selling_plan]' : 'selling_plan';
         sellingPlanInput.value = sellingPlanId;
       } else if (sellingPlanInput) {
         sellingPlanInput.remove();
@@ -164,11 +167,9 @@ function initializePdpForm(container) {
       }
     }
     
-    // Remove selling plan input for OTP
-    const sellingPlanInput = form.querySelector('input[name="selling_plan"]');
-    if (sellingPlanInput) {
-      sellingPlanInput.remove();
-    }
+    // Remove selling plan input for OTP (check both possible names)
+    const sellingPlanInputs = form.querySelectorAll('input[name="selling_plan"], input[name="items[0][selling_plan]"]');
+    sellingPlanInputs.forEach(input => input.remove());
   }
 
   // Handle subscription radio changes
