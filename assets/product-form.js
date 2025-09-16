@@ -25,53 +25,57 @@ if (!customElements.get('product-form')) {
       addUpsellToCart(evt) {
         evt.preventDefault();
         const variantId = this.upsellButton.dataset.variantId;
-        if (!variantId || this.upsellButton.getAttribute('disabled')) return;
+        if (!variantId) return;
 
-        this.upsellButton.setAttribute('disabled', true);
-        this.upsellButton.textContent = 'Adding...';
+        // Toggle upsell state
+        const isSelected = this.upsellButton.classList.toggle('selected');
+        this.upsellButton.textContent = isSelected ? 'Added' : 'Add';
 
-        const config = fetchConfig('javascript');
-        config.headers['X-Requested-With'] = 'XMLHttpRequest';
-        delete config.headers['Content-Type'];
+        // Get the main product's inputs
+        const mainVariantInput = this.form.querySelector('.product-variant-id');
+        const mainQuantityInput = this.form.querySelector('.product-quantity');
+        const mainSellingPlanInput = this.form.querySelector('input[name="selling_plan"]') || this.form.querySelector('input[name="items[0][selling_plan]"]');
+        
+        if (isSelected) {
+          // Convert form to multi-item format
+          mainVariantInput.name = 'items[0][id]';
+          mainQuantityInput.name = 'items[0][quantity]';
+          if (mainSellingPlanInput) {
+            mainSellingPlanInput.name = 'items[0][selling_plan]';
+          }
 
-        const formData = new FormData();
-        formData.append('id', variantId);
-        formData.append('quantity', 1);
+          // Add upsell item
+          console.log(mainSellingPlanInput);
+          let upsellVariantInput = this.form.querySelector('input[name="items[1][id]"]');
+          if (!upsellVariantInput) {
+            upsellVariantInput = document.createElement('input');
+            upsellVariantInput.type = 'hidden';
+            upsellVariantInput.name = 'items[1][id]';
+            this.form.appendChild(upsellVariantInput);
+          }
+          upsellVariantInput.value = variantId;
 
-        if (this.cart) {
-          formData.append(
-            'sections',
-            this.cart.getSectionsToRender().map((section) => section.id)
-          );
-          formData.append('sections_url', window.location.pathname);
-          this.cart.setActiveElement(document.activeElement);
+          let upsellQuantityInput = this.form.querySelector('input[name="items[1][quantity]"]');
+          if (!upsellQuantityInput) {
+            upsellQuantityInput = document.createElement('input');
+            upsellQuantityInput.type = 'hidden';
+            upsellQuantityInput.name = 'items[1][quantity]';
+            this.form.appendChild(upsellQuantityInput);
+          }
+          upsellQuantityInput.value = '1';
+        } else {
+          // Convert back to single item format
+          mainVariantInput.name = 'id';
+          mainQuantityInput.name = 'quantity';
+          console.log(mainSellingPlanInput);
+          if (mainSellingPlanInput) {
+            mainSellingPlanInput.name = 'selling_plan';
+          }
+
+          // Remove upsell inputs
+          const upsellInputs = this.form.querySelectorAll('input[name^="items[1]"]');
+          upsellInputs.forEach(input => input.remove());
         }
-        config.body = formData;
-
-        fetch(`${routes.cart_add_url}`, config)
-          .then((response) => response.json())
-          .then((response) => {
-            if (response.status) {
-              this.handleErrorMessage(response.description);
-              this.upsellButton.removeAttribute('disabled');
-              this.upsellButton.textContent = 'Add';
-              return;
-            }
-
-            publish(PUB_SUB_EVENTS.cartUpdate, {
-              source: 'product-form-upsell',
-              productVariantId: variantId,
-              cartData: response,
-            });
-
-            this.cart.renderContents(response);
-            this.upsellButton.textContent = 'Added!';
-          })
-          .catch((e) => {
-            console.error(e);
-            this.upsellButton.removeAttribute('disabled');
-            this.upsellButton.textContent = 'Add';
-          });
       }
 
       onSubmitHandler(evt) {
