@@ -107,8 +107,16 @@
                       {%- if settings.show_vendor -%}
                         <p class="caption-with-letter-spacing">{{ item.product.vendor }}</p>
                       {%- endif -%}
-
-                      <a href="{{ item.url }}" class="cart-item__name h4 break">{{ item.product.title | escape }}</a>
+                      {%-  liquid
+                        if item.url contains "quantity" 
+                          assign url = item.url | split: '-quantity' | first
+                        elsif item.url contains "discount"
+                          assign url = item.url | split: '-discount' | first
+                        else
+                          assign url = item.url
+                        endif
+                      -%}
+                      <a href="{{ url }}" class="cart-item__name h4 break">{{ item.product.title | escape }}</a>
 
                       {%- if item.original_price != item.final_price -%}
                         <div class="cart-item__discounted-prices">
