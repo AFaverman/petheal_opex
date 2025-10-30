@@ -30,6 +30,12 @@
         "id": "favicon",
         "label": "t:settings_schema.logo.settings.favicon.label",
         "info": "t:settings_schema.logo.settings.favicon.info"
+      },
+      {
+        "type": "text",
+        "id": "base_url",
+        "label": "Site B base url",
+        "default": "https://offers.petheal.com"
       }
     ]
   },

@@ -113,40 +113,114 @@
   
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-        getAllSubscriptions().then(data => {
-          const subs = data.data.filter(subscription => subscription.status === 'ACTIVE');
-          if (subs.length == 0) {
-            document.querySelector('.account-dashboard-grid__subs .no_subs.hidden').classList.remove('hidden');
-            document.querySelector('.account-dashboard-grid__subs .loading__spinner').classList.add('hidden');
-            return;
+    {% comment %} const customerMeta = {
+    loyaltyPoints: {{ customer.metafields.custom.test  | json }}
+  };
+  console.log("Customer metafields:", customerMeta ); {% endcomment %}
+  const customerId = "{{ customer.id }}"; 
+  generateJwtToken(customerId).then(tokenData => {
+        const jwt_token = tokenData || '';   
+        console.log("Generated JWT Token:", jwt_token);
+  })
+  const subsContainer = document.querySelector('.account-dashboard-grid__subs');
+  const loader = subsContainer.querySelector('.loading__spinner');
+  const noSubs = subsContainer.querySelector('.no_subs.hidden');
+  
+  Promise.allSettled([
+    getAllSubscriptions(), 
+    getAllSubscriptionsSiteB(customerId)
+  ]).then(([siteAResult, siteBResult]) => {
+    let hasSubs = false;
+  
+    // ---- Site A ----
+    if (siteAResult.status === "fulfilled") {
+      const subs = siteAResult.value?.data?.filter(sub => sub.status === 'ACTIVE') || [];
+      if (subs.length > 0) {
+        hasSubs = true;
+  
+        subsContainer.classList.remove('center');
+  
+        const soonest = subs.sort((a, b) => new Date(a.nextBillingDate) - new Date(b.nextBillingDate))[0];
+        const date = new Date(soonest.nextBillingDate);
+        const formattedShort = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+          .replace(/(\w+)\s+(\d+)/, '$2 $1')
+          .toUpperCase();
+  
+        const subsCard = subsContainer.querySelector('.has_subs');
+        soonest.lineItems = soonest.lineItems.sort((a, b) => a.productTitle.localeCompare(b.productTitle));
+  
+        getSubImage(soonest.lineItems[0].productTitle).then(imageUrl => {
+          subsCard.querySelector('.subs__image').innerHTML =
+            `<img src="${imageUrl}" alt="${soonest.lineItems[0].title}" width="100" height="100"/>`;
+  
+          const title = soonest.lineItems[0].productTitle.split("— Quantity");
+          subsCard.querySelector('.subs__title').textContent = `${title[0]} ${title[1]}x Quantity`;
+  
+          if (soonest.lineItems.length > 1) {
+            subsCard.querySelector('.subs__extra').textContent = `+ ${soonest.lineItems.length - 1} additional items`;
           }
   
-          document.querySelector('.account-dashboard-grid__subs').classList.remove('center');
+          subsCard.querySelector('.subs__next-delivery').textContent = formattedShort;
+          subsCard.querySelector('.button').href = `/pages/subscription?id=${soonest.id}`;
   
-          // Build subscription card
-            const soonest = subs.sort((a, b) => new Date(a.nextBillingDate) - new Date(b.nextBillingDate))[0];
-            const date = new Date(soonest.nextBillingDate);
-            const formattedShort = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-              .replace(/(\w+)\s+(\d+)/, '$2 $1')
-              .toUpperCase(); 
-  
-            const subsContainer = document.querySelector('.account-dashboard-grid__subs .has_subs');
-            soonest.lineItems = soonest.lineItems.sort((a, b) => a.productTitle.localeCompare(b.productTitle));
-            getSubImage(soonest.lineItems[0].productTitle).then(imageUrl => {
-              subsContainer.querySelector('.subs__image').innerHTML = `<img src="${imageUrl}" alt="${soonest.lineItems[0].title}" width="100" height="100"/>`;
-              const title = soonest.lineItems[0].productTitle.split("— Quantity");
-              const quantity = soonest.lineItems[0].quantity;
-              subsContainer.querySelector('.subs__title').textContent = `${title[0]} ${title[1]}x Quantity`;
-              if (soonest.lineItems.length > 1) {
-                subsContainer.querySelector('.subs__extra').textContent = `+ ${soonest.lineItems.length - 1} additional items`;
-              }
-              subsContainer.querySelector('.subs__next-delivery').textContent = formattedShort;
-              subsContainer.querySelector('.button').href = `/pages/subscription?id=${soonest.id}`;
-  
-              document.querySelector('.account-dashboard-grid__subs .has_subs.hidden').classList.remove('hidden');
-              document.querySelector('.account-dashboard-grid__subs .loading__spinner').classList.add('hidden');
-            });  
+          subsCard.classList.remove('hidden');
         });
+      }
+    }
+  
+    // ---- Site B ----
+    if (siteBResult.status === "fulfilled") {
+      const subsB = siteBResult.value?.data || [];
+      if (subsB.length > 0) {
+        hasSubs = true;
+  
+        subsB.forEach(sub => {
+          const subHtml = `
+            <div class="has_subs px-6 py-6">
+              <div class="bottom-border--bar-bold mb-4 pb-4">
+                <div class="flex align-center">
+                  <div class="subs__image">
+                    <img src="${sub.order.orderItems[0].image.originalSrc}" alt="${sub.subscriptionId}" width="100" height="100">
+                  </div>
+                  <div class="ml-6">
+                    <div class="subs__title text-lg font-semibold">${sub.order.orderItems[0].name}</div>
+                    <div class="subs__extra"></div> 
+                  </div>
+                </div>
+                {% comment %} <div class="text-heading mb-4">Benefits included in your subscription:</div> {% endcomment %}
+              </div>
+              <div class="flex flex-col md:flex-row justify-between gap-6 align-center md:align-start">
+                <div class="flex-100 md:flex-50">
+                  <div class="flex justify-between align-center">
+                    <div class="text-heading">Frequency</div>
+                    <div class="subs__frequency">Monthly</div>
+                  </div>
+                  <div class="flex justify-between align-center">
+                    <div class="text-heading">Shipping Date</div>
+                    <div class="subs__next-delivery">
+                      ${sub.status != 'paused' ? new Date(sub.currentPeriodEnd).toLocaleString('en-GB', { day: 'numeric', month: 'short' }) : 'Paused'}
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <a href="/pages/subscription-site-b?id=${sub.subscriptionId}" class="button button--secondary uppercase">View Subscription</a>
+                </div>
+              </div>   
+            </div>
+          `;
+          subsContainer.insertAdjacentHTML("beforeend", subHtml);
+        });
+      }
+    }
+  
+    // ---- After both responses ----
+    loader.classList.add('hidden');
+  
+    if (!hasSubs) {
+      noSubs.classList.remove('hidden');
+    }
+  });
+  
   
         window.getSubImage = async function(title) {
           const productName = title.split('—')[0].trim();

@@ -314,6 +314,48 @@
       {% endif %}
     {% endif %}
   </head>
+  <script>
+    window.BASE_URL = "{{ settings.base_url }}";
+  </script>
+  <!-- ✅ Custom Toast Container -->
+<div id="custom-toast-container"></div>
+
+<style>
+  #custom-toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 2000;
+  }
+
+  .custom-toast {
+    min-width: 250px;
+    max-width: 320px;
+    padding: 14px 18px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.4s ease;
+  }
+
+  .custom-toast.show {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Variants */
+  .custom-toast.success { background-color: #28a745; }
+  .custom-toast.error   { background-color: #dc3545; }
+  .custom-toast.warning { background-color: #ffc107; color: #000; }
+  .custom-toast.info    { background-color: #17a2b8; }
+</style>
+
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">

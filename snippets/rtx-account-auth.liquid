@@ -154,4 +154,124 @@
             return null;
         }
     }
+    async function generateJwtToken(customerId) {
+      console.log(window.BASE_URL, "window.BASE_URL");
+      try {
+        const response = await fetch(`${window.BASE_URL}/api/jwt`, {
+          method: 'POST',
+          headers: {
+            accept: 'application/json',
+            'content-type': 'application/json', 
+          },
+          body: JSON.stringify({ id: `gid://shopify/Customer/${customerId}`}),
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('API Error:', error);
+        return null;
+      }
+    }
+
+    async function getAllSubscriptionsSiteB(customerId) {
+     
+      try {
+        const response = await fetch(`${window.BASE_URL}/api/subscription`, {
+          method: 'POST',
+          headers: {
+            accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id: 'gid://shopify/Customer/' + customerId }),
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('API Error:', error);
+        return null;
+      }
+    }
+    async function getSingleSubscriptionSiteB(subscriptionId,jwt_token) {
+
+      try {
+        const response = await fetch(`${window.BASE_URL}/api/subscription/details`, {
+          method: 'POST',
+          headers: {
+            accept: 'application/json',
+            'content-type': 'application/json',
+            Authorization:
+            `Bearer ${jwt_token}`,
+          },
+          body: JSON.stringify({ id: subscriptionId }),
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('API Error:', error);
+        return null;
+      }
+    }
+  
+    async function apiRequest(url, method = 'GET', payload = {},jwt_token) {
+      console.log(jwt_token,"jwt_token======")
+      try {
+        let finalUrl = `${window.BASE_URL}${url}`;
+        const options = {
+          method,
+          headers: {
+            accept: 'application/json',
+            'content-type': 'application/json',
+            Authorization:
+              `Bearer ${jwt_token}`,
+          },
+        };
+  
+        if (method === 'GET') {
+          const query = new URLSearchParams(payload).toString();
+          if (query) {
+            finalUrl += (finalUrl.includes('?') ? '&' : '?') + query;
+          }
+        } else {
+          options.body = JSON.stringify(payload);
+        }
+        const response = await fetch(finalUrl, options);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+  
+        return await response.json();
+      } catch (error) {
+        console.error('API Error:', error);
+        return null;
+      }
+    }
+
+    function showCustomToast(message, type = 'info', duration = 3000) {
+      const container = document.getElementById('custom-toast-container');
+      const toast = document.createElement('div');
+  
+      toast.className = `custom-toast ${type}`;
+      toast.textContent = message;
+  
+      container.appendChild(toast);
+  
+      // Show toast with animation
+      setTimeout(() => toast.classList.add('show'), 50);
+  
+      // Auto remove after duration
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 400); // match transition time
+      }, duration);
+    }
+
 </script>

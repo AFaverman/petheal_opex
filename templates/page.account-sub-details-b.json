@@ -31,7 +31,7 @@
       }
     },
     "account_sub_details_FqAWTx": {
-      "type": "account_sub-details",
+      "type": "account_sub-details-b",
       "blocks": {
         "need_help_MT3PFJ": {
           "type": "need_help",

@@ -1,0 +1,630 @@
+{% style %}
+    .section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+
+    .loading__spinner {
+        width: 6rem;
+        height: 6rem;
+        z-index: 1;
+        position: relative;
+        margin: 4rem auto;
+        display: block;
+    }
+
+    .subs__image-container {
+      width: 100%;
+    }
+    .subs__image-container img {
+      max-width: 100%;
+    }
+    .sub-details__details {
+      width: 100%;
+    }
+
+    .datepicker-toggle {
+      display: inline-block;
+      position: relative;
+      width: 34px;
+      height: 31px;
+    }
+    .datepicker-toggle-button {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('{{ 'calendar.svg' | asset_url }}');
+    }
+    .datepicker-input {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+      box-sizing: border-box;
+    }
+    .datepicker-input::-webkit-calendar-picker-indicator {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+    }
+    .date-span {
+      cursor: pointer;
+    }
+
+   
+
+ 
+    .popup-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+.popup-modal.active {
+  display: flex;
+}
+.popup-modal__content {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 500px;
+  width: 100%;
+}
+
+  #address-form {
+    input, select {
+      border-radius: 0.5rem;
+      border: 1px rgb(var(--color-foreground)) solid;
+      padding: 0.5rem 1rem;
+      font-size: 1.6rem;
+      width: 100%;
+      margin: .25rem 0 .5rem 0;
+    }
+
+    label {
+      font-size: 1.4rem;
+      font-weight: 500;
+    }
+
+    .loading__spinner {
+      height: 2.4rem;
+      width: 2.4rem;
+      margin: 0;
+      position: absolute;
+    }
+
+    .loading__spinner svg{
+      display: block;
+    }
+
+    .loading__spinner svg .path {
+      stroke: rgb(var(--color-button-text));
+    }
+  }
+
+    @media only screen and (min-width: 750px) {
+      .subs__image-container {
+        max-width: 450px;
+      }
+      .sub-details__details {
+        width: auto;
+      }
+    }
+{% endstyle %}
+
+{% unless request.design_mode %}
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const subId = urlParams.get('id'); 
+      const jwtToken =  {{customer.metafields.auth.jwt_token  | json}}
+      if (subId) { 
+        const modal = document.getElementById('subscription-modal');
+        const modalTitle = document.getElementById('subscription-modal-title');
+        const modalMessage = document.getElementById('subscription-modal-message');
+        const yesBtn = document.getElementById('subscription-yes');
+        const noBtn = document.getElementById('subscription-no');
+      
+        let currentAction = null; // "cancel" or "pause"
+      
+        // ✅ Handle Cancel click
+        document.querySelector('.subscription-help_item')?.addEventListener('click', (e) => {
+          e.preventDefault();
+          currentAction = "cancel";
+          modalTitle.innerText = "Cancel Subscription";
+          modalMessage.innerText = "Are you sure you want to cancel your subscription? This action cannot be undone.";
+          modal.classList.add('active');
+        });
+      
+        // ✅ Handle Pause click
+        document.querySelector('.subscription-pause')?.addEventListener('click', (e) => {
+          e.preventDefault();
+          currentAction = "pause";
+          modalTitle.innerText = "Pause Subscription";
+          modalMessage.innerText = "Are you sure you want to pause your subscription? You can resume anytime.";
+          modal.classList.add('active');
+        });
+
+        document.querySelector('.subscription-resume')?.addEventListener('click', (e) => {
+          e.preventDefault();
+          currentAction = "resume";
+          modalTitle.innerText = "Resume Subscription";
+          modalMessage.innerText = "Do you want to resume your subscription? Your deliveries will continue as scheduled.";
+          modal.classList.add('active');
+        });
+      
+        // ✅ Yes button
+        yesBtn?.addEventListener('click', async () => {
+          if (!currentAction) return;
+      
+          yesBtn.classList.add('loading');
+         const status = currentAction === "cancel" 
+        ? "canceled" 
+        : currentAction === "pause" 
+          ? "pause" 
+          : "resume";
+          try {
+            const response  = await apiRequest(
+              `/api/subscription/${status}`,
+              'POST',
+              { id:subId },
+              jwtToken
+            );  
+            yesBtn.classList.remove('loading');
+            modal.classList.remove('active');
+            if (response?.status == 200) {
+              showCustomToast(`Subscription ${status}d successfully`, "success");
+              window.location.href = "/pages/my-subscriptions";
+            } else {
+              showCustomToast("There was an issue updating your subscription.", "error");
+            }
+          } catch (err) {
+            yesBtn.classList.remove('loading');
+            modal.classList.remove('active');
+            showCustomToast("Something went wrong. Please try again.", "error");
+          }
+        });
+      
+        // ✅ No button
+        noBtn?.addEventListener("click", (e) => {
+          e.preventDefault();
+          modal.classList.remove('active');
+          currentAction = null;
+        });
+
+        console.log(jwtToken,"jwtToken====")
+        getSingleSubscriptionSiteB(subId,jwtToken).then(response => {
+          const data = response.data;
+          console.log(data?.subscription.status,"tstss")
+          document.querySelector('.sub__status').innerHTML = data?.subscription?.status.toLowerCase();
+          document.querySelector('.sub__status').classList.add('text-muted');
+          if(data?.subscription?.status == "active"){
+            document.querySelector('.subscription-pause').classList.add('hidden')
+            document.querySelector('.subscription-pause').classList.remove('hidden')
+            document.querySelector('.subscription-resume').classList.add('hidden')
+          }else{
+            document.querySelector('.subscription-pause').classList.add('hidden')
+            document.querySelector('.subscription-resume').classList.remove('hidden')
+          }
+          const {
+            order: {
+              orderItems,
+              paidAt,
+              shippingAddress: address,
+            },
+          } = data;
+          
+          const totalCompareAtPrice = orderItems.reduce((sum, { compareAtPrice }) => sum + (compareAtPrice?.amount ?? 0), 0);
+          const totalPrice = orderItems.reduce((sum, { price }) => sum + (price?.amount ?? 0), 0);
+          
+          const percent = totalCompareAtPrice
+            ? ((totalCompareAtPrice - totalPrice) / totalCompareAtPrice) * 100
+            : 0;
+          
+          const shipDate = new Date(paidAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+          const isoDateValue = paidAt.split('T')[0];
+          
+          const { image, name: title } = orderItems[0] ?? {};
+          const imageUrl = image?.originalSrc; 
+          
+          document.querySelector('.date-span').innerHTML = isoDateValue;
+          document.querySelector('#edit-date').value = isoDateValue;
+        
+            let percentTag = document.createElement('div');
+            percentTag.innerHTML = `<div class="subs__tag subs__tag px-2 color-{{ section.settings.color_scheme_caption }} mr-2">${percent.toFixed(0)}% OFF</div>`
+            document.querySelector('.subs__tags').prepend(percentTag);
+            document.querySelector('.sub-details-container').classList.remove('hidden');
+            document.querySelector('.sub-details-header').classList.remove('hidden');
+            document.querySelector('.loading__spinner').classList.add('hidden');
+            document.querySelector('.subs__image').innerHTML = `<img src="${imageUrl}&width=450" alt="${title}" width="auto" height="auto"/>`;
+            document.querySelector('.subs__title').innerHTML = title.split('—')[0].trim();
+            if (orderItems.length > 1) document.querySelector('.subs__extra').innerHTML = `+ ${orderItems.length - 1} additional items`;
+            document.querySelector('.subs__total').innerHTML = `<span class="text-cta line-through  ${totalCompareAtPrice.toFixed(2) === totalPrice.toFixed(2) ? 'hidden' : ''}">$${totalCompareAtPrice.toFixed(2)}</span> $${totalPrice.toFixed(2)}`;
+            document.querySelector('.subs__date').innerHTML = shipDate;
+            document.querySelector('.subs__address').innerHTML =`
+              <div>${address.firstName} ${address.lastName}</div>
+              <div>${address.address}</div>
+              ${(address.address2 != null ? `<div>${address.address2}</div>` : '')}
+              <div>${address.city}, ${address.postalCode}</div>
+              <div>${address.postalCode}</div>
+            `;
+        })   
+      }
+ 
+    
+    });
+  </script>
+{% endunless %}
+<div class="color-{{ section.settings.color_scheme }} section-{{ section.id }}">
+  <div class="page-width">
+    {% unless request.design_mode %}
+      <div class="loading__spinner center">
+        {{- 'loading-spinner.svg' | inline_asset_content -}}
+      </div>
+    {% endunless %}
+    <div class="sub-details-header flex-100 md:flex-75 mx-auto flex justify-between align-center py-6 mb-6 {% unless request.design_mode %}hidden{% endunless %}">
+      <div class="flex-25">
+        <a href="/pages/my-subscriptions" class="unstyled-link hidden previous-sub-link">
+          <img
+            src="{{ 'left-arrow-circle-outline.svg' | asset_url }}"
+            alt="left-arrow-circle-outline"
+            width="32"
+            height="32"
+          >
+          <span class="hidden">Previous Subscription</span>
+        </a>
+      </div>
+      <div class="flex-grow center">
+        <div class="subs__title md:text-lg"></div>
+        <div class="subs__extra"></div>
+        <div class="heading--tag text-sm sub__status">active</div>
+      </div>
+      <div class="flex-25">
+        <a href="" class="unstyled-link hidden next-sub-link">
+          <img
+            src="{{ 'left-arrow-circle-outline.svg' | asset_url }}"
+            alt="left-arrow-circle-outline"
+            width="32"
+            height="32"
+            style="transform: rotate(180deg);"
+          >
+          <span class="hidden">Next Subscription</span>
+        </a>
+      </div>
+    </div>
+    <div class="sub-details-container flex-100 md:flex-75 mx-auto color-{{ section.settings.color_scheme_block }} {% unless request.design_mode %}hidden{% endunless %} py-6 px-6">
+      <div class="center text-lg font-semibold uppercase caption-letter-spacing bottom-border--bar pb-6 mb-4">
+        {{ section.settings.sub_details_header }}
+      </div>
+      {% if request.design_mode %}
+        <div class="text-body center px-4 py-4">Design mode - Preview theme to view dynamic account-based content</div>
+      {% else %}
+        <div class="flex flex-col md:flex-row gap-8 align-center">
+          <div class="subs__image-container">
+            <div class="subs__image"></div>
+            <div class="subs__tags flex flex-wrap mb-4">
+              {% assign tags = section.settings.sub_details_tags | split: ',' %}
+              {% for tag in tags %}
+                <div class="subs__tag px-2 color-{{ section.settings.color_scheme_caption }} mr-2">{{ tag }}</div>
+              {% endfor %}
+            </div>
+            {% if section.settings.sub_details_caption != blank or section.settings.sub_details_caption_text != blank %}
+              <div class="color-{{ section.settings.color_scheme_caption }} mt-2 px-4 py-4">
+                <img src="{{ 'progress-bar.png' | asset_url }}" alt="progress-bar" width="auto" height="auto">
+                {% if section.settings.sub_details_caption != blank %}
+                  <div class="text-lg font-semibold">{{ section.settings.sub_details_caption }}</div>
+                {% endif %}
+                {% if section.settings.sub_details_caption_text != blank %}
+                  <p>{{ section.settings.sub_details_caption_text }}</p>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+          <div class="flex-grow sub-details__details">
+            <div class="flex flex-col md:flex-row justify-between align-center py-6 bottom-border--bar">
+              <div class="flex-100 md:flex-50">
+                <div class="subs__total-title text-heading font-semibold text-lg mb-4">Order Total:</div>
+                <div class="subs__total"></div>
+                <div>Shipped and billed monthly</div>
+              </div>
+            </div>
+            <div class="py-6 bottom-border--bar">
+              <div class="flex flex-col md:flex-row justify-between align-center">
+                <div class="flex-100 md:flex-50">
+                  <div class="subs__date-title text-heading font-semibold text-lg mb-4">Shipping Renewal Date</div>
+                  <div class="subs__date"></div>
+                </div>
+               
+                <div class="date-edit__container isolate hidden">
+                  <div class="flex align-center">
+                    <input
+                      type="date"
+                      id="edit-date"
+                      name="edit-date"
+                      min="{{ 'now' | date: '%Y-%m-%d' }}"
+                      class="flex-50 mx-auto datepicker-input"
+                    >
+                    <span class="date-span ml-6"></span>
+                  </div>
+
+                  <div class="flex gap-6 justify-center md:justify-right mt-4">
+                    <div class="button button--primary caption-letter-spacing" type="button" id="cancel-date-edit">
+                      Cancel
+                    </div>
+                    <button class="button button--primary caption-letter-spacing" id="submit-date-edit">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between align-center py-6">
+              <div class="flex-100 md:flex-50">
+                <div class="subs__address-title text-heading font-semibold text-lg mb-4">Shipping Address</div>
+                <div class="subs__address"></div>
+              </div>
+              {% comment %} <div class="button button--secondary sub-edit__address uppercase caption-letter-spacing mt-4">
+                Edit Address
+              </div> {% endcomment %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+    {% if section.blocks.size > 0 %}
+      {% if section.settings.need_help_text != blank %}
+        <div class="flex mt-6 justify-between align-end flex-100 md:flex-75 mx-auto">
+          <div class="flex-75 text-xxl">
+            {{ section.settings.need_help_text }}
+          </div>
+          {% if section.settings.need_help_icon != blank %}
+            <img
+              src="{{ section.settings.need_help_icon | image_url: width: 75 }}"
+              alt="{{ section.settings.need_help_icon.alt }}"
+              width="auto"
+              height="auto"
+            >
+          {% endif %}
+        </div>
+      {% endif %}
+      {% for block in section.blocks %}
+        <a
+          href=""
+          class="subscription-help_item flex mb-6 align-center px-6 py-6 gap-6 unstyled-link flex-100 md:flex-75 mx-auto justify-between color-{{ section.settings.color_scheme_block }}"
+        >
+          <img
+            src="{{ block.settings.icon | image_url: width: 64 }}"
+            alt="{{ block.settings.icon.alt }}"
+            width="auto"
+            height="auto"
+          >
+          <div class="flex-grow text-lg font-semibold">
+            {{ block.settings.content }}
+          </div>
+          <img
+            src="{{ 'left-arrow-circle-outline.svg' | asset_url }}"
+            alt="left-arrow-circle-outline"
+            width="32"
+            height="32"
+            style="transform: rotate(180deg);"
+          >
+        </a>
+        <a
+          href=""
+          class="subscription-pause flex mb-6 align-center px-6 py-6 gap-6 unstyled-link flex-100 md:flex-75 mx-auto justify-between color-{{ section.settings.color_scheme_block }} {% unless request.design_mode %}hidden{% endunless %}"
+        >
+          <img
+            src="{{ block.settings.icon | image_url: width: 64 }}"
+            alt="{{ block.settings.icon.alt }}"
+            width="auto"
+            height="auto"
+          >
+          <div class="flex-grow text-lg font-semibold">I want to pause my subscription</div>
+          <img
+            src="{{ 'left-arrow-circle-outline.svg' | asset_url }}"
+            alt="left-arrow-circle-outline"
+            width="32"
+            height="32"
+            style="transform: rotate(180deg);"
+          >
+        </a>
+        <a
+          href=""
+          class="subscription-resume flex mb-6 align-center px-6 py-6 gap-6 unstyled-link flex-100 md:flex-75 mx-auto justify-between color-{{ section.settings.color_scheme_block }} {% unless request.design_mode %}hidden{% endunless %}"
+        >
+          <img
+            src="{{ block.settings.icon | image_url: width: 64 }}"
+            alt="{{ block.settings.icon.alt }}"
+            width="auto"
+            height="auto"
+          >
+          <div class="flex-grow text-lg font-semibold">I want to resume my subscription</div>
+          <img
+            src="{{ 'left-arrow-circle-outline.svg' | asset_url }}"
+            alt="left-arrow-circle-outline"
+            width="32"
+            height="32"
+            style="transform: rotate(180deg);"
+          >
+        </a>
+      {% endfor %}
+      {% if section.settings.need_help_disclaimer != blank %}
+        <div class="text-xs flex flex-100 md:flex-75 mx-auto align-start md:align-center gap-2">
+          <img
+            src="{{ 'icon-attention.svg' | asset_url}}"
+            width="16"
+            height="auto"
+            alt="attention icon"
+            class="mt-2 md:mt-0"
+          >
+          {{ section.settings.need_help_disclaimer }}
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+
+<div id="subscription-modal" class="popup-modal color-{{ section.settings.color_scheme }}">
+  <div class="popup-modal__content">
+    <div class="popup-modal-overlay__content__header">
+      <div id="subscription-modal-title" class="text-lg font-semibold"></div>
+    </div>
+    <div class="py-4">
+      <p id="subscription-modal-message"></p>
+    </div>
+    <div class="flex flex-col-reverse md:flex-row justify-right align-center">
+      <div id="subscription-no" class="button button--primary button--cancel popup-modal__close mr-4 mt-6">
+        No, Keep Subscription
+      </div>
+      <button id="subscription-yes" class="button button--primary mt-6">
+        Yes, Confirm
+      </button>
+    </div>
+  </div>
+</div>
+ 
+
+
+
+{%- schema -%}
+{
+  "name": "Account Sub Details",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Subscription Details"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme_block",
+      "label": "Details/block color schemes",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "sub_details_header",
+      "label": "Sub Details Header",
+      "default": "My Subscription Details"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme_caption",
+      "label": "Caption and tag scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "sub_details_tags",
+      "label": "Sub Details Tags",
+      "info": "Comma separated",
+      "default": "Free Shipping"
+    },
+    {
+      "type": "text",
+      "id": "sub_details_caption",
+      "label": "Sub Details Caption Title",
+      "default": "You're on your way"
+    },
+    {
+      "type": "text",
+      "id": "sub_details_caption_text",
+      "label": "Sub Details Caption Text"
+    },
+    {
+      "type": "header",
+      "content": "Need Help"
+    },
+    {
+      "type": "paragraph",
+      "content": "'Need Help' type blocks will be displayed here"
+    },
+    {
+      "type": "image_picker",
+      "id": "need_help_icon",
+      "label": "Need Help Icon"
+    },
+    {
+      "type": "text",
+      "id": "need_help_text",
+      "label": "Need Help Title"
+    },
+    {
+      "type": "text",
+      "id": "need_help_disclaimer",
+      "label": "Need Help Disclaimer"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "default": 16,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "default": 16,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "need_help",
+      "name": "Need Help",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "These blocks will only send to the cancel flow until more direction is given for the others in the design."
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "content",
+          "label": "Content"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Account Sub Details"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["page"]
+  }
+}
+{%- endschema -%}
