@@ -295,7 +295,15 @@
                           <cart-remove-button
                             id="Remove-{{ item.index | plus: 1 }}"
                             data-index="{{ item.index | plus: 1 }}"
-                            data-upsell="{% if item.title contains 'Discount Upsell' %}true{% else %}false{% endif %}"
+                            {%- liquid 
+                              assign is_upsell = false
+                              for property in item.properties
+                                if property.first == "_upsell"
+                                  assign is_upsell = true
+                                endif 
+                              endfor
+                            -%}
+                            data-upsell="{{is_upsell}}"
                           >
                             <a
                               href="{{ item.url_to_remove }}"
