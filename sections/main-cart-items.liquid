@@ -116,7 +116,7 @@
                           assign url = item.url
                         endif
                       -%}
-                      <a href="{{ url }}" class="cart-item__name h4 break">{{ item.product.title | escape }}</a>
+                      <a href="{{ url }}" class="cart-item__name h4 break">{{ item.product.title | escape  | remove: ' — OTP'}}</a>
 
                       {%- if item.original_price != item.final_price -%}
                         <div class="cart-item__discounted-prices">
@@ -257,7 +257,7 @@
                             <quantity-input class="quantity cart-quantity">
                               <button class="quantity__button" name="minus" type="button">
                                 <span class="visually-hidden">
-                                  {{- 'products.product.quantity.decrease' | t: product: item.product.title | escape -}}
+                                  {{- 'products.product.quantity.decrease' | t: product: item.product.title | escape | remove: ' — OTP' -}}
                                 </span>
                                 <span class="svg-wrapper">
                                   {{- 'icon-minus.svg' | inline_asset_content -}}
