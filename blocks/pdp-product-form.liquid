@@ -16,7 +16,7 @@
     endif
   endfor
   for upsell in product.metafields.custom.associated_upsells.value
-    if forloop.first
+    if forloop.last
       assign upsell_product = upsell
       break
     endif
