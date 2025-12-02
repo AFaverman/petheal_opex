@@ -5,11 +5,9 @@
   for variant in product.variants
     assign sub_product = variant
     assign sub_selling_plan = sub_product.selling_plan_allocations.first.selling_plan
+     assign sub_percent = variant.compare_at_price | minus: sub_product.selling_plan_allocations.first.price | times: 100 | divided_by: variant.compare_at_price
     if sub_selling_plan
      assign has_subs = true
-    endif
-    if sub_selling_plan.price_adjustments.first.value_type == "percentage"
-      assign sub_percent = sub_selling_plan.price_adjustments.first.value | round
     endif
     if sub_percent > up_to_percent
       assign up_to_percent = sub_percent
@@ -72,7 +70,7 @@
                 </div>
                 <div>
                   <div class="subscription-price__compare lg:text-lg text-heading line-through">
-                    {{ product.selected_or_first_available_variant.price | money }}
+                    {{ product.selected_or_first_available_variant.compare_at_price | money }} - test
                   </div>
                   <div class="subscription-price text-lg lg:text-xl text-heading text-cta">
                     {{ product.selected_or_first_available_variant.selling_plan_allocations.first.price | money }}
@@ -88,7 +86,7 @@
                   assign sub_product = variant
                   assign sub_selling_plan = sub_product.selling_plan_allocations.first.selling_plan
                     if sub_selling_plan.price_adjustments.first.value_type == "percentage"
-                      assign sub_percent = sub_selling_plan.price_adjustments.first.value | round | append: "%"
+                      assign sub_percent = variant.compare_at_price | minus: sub_product.selling_plan_allocations.first.price | times: 100 | divided_by: variant.compare_at_price
                     endif
                     unless sub_selling_plan
                       continue
@@ -103,7 +101,7 @@
                     data-selling-plan-id="{{ sub_product.selling_plan_allocations.first.selling_plan.id }}"
                     class="subscription-radio pdp-radio-input"
                     data-price="{{ sub_product.selling_plan_allocations.first.price | money }}" 
-                    {% if sub_product.price > sub_product.selling_plan_allocations.first.price %}data-compare-price="{{ sub_product.price | money }}" {% endif%}
+                    {% if sub_product.compare_at_price > sub_product.selling_plan_allocations.first.price %}data-compare-price="{{ sub_product.compare_at_price | money }}" {% endif%}
                     {% if forloop.first %}checked{% endif %}
                   >
                   <label for="sub_quantity_{{forloop.index}}" class="variant-label subscription-label flex-100 flex-shrink md:px-4 px-1 text-sm">
@@ -115,7 +113,7 @@
                     <div class="product-qty">
                       {{ forloop.index }} {{ forloop.index | pluralize: 'Tub', 'Tubs' }}: {{ forloop.index | times: 30 }} Servings
                     </div>
-                    <div class="subscription-plan-savings">{{ sub_percent }} off</div>
+                    <div class="subscription-plan-savings">{{ sub_percent }}% off</div>
                     </div>
                   </label>
                 </div>
@@ -132,7 +130,7 @@
       <div class="pdp-otp__container pdp-variant__container py-6 px-6 mb-4">
         <details class="pdp-otp mb-4" {% unless has_subs %}open{% endunless %} id="otp_details">
           <summary class="pdp-otp-summary flex align-center gap-4">
-            <input type="radio" name="purchase_type" id="otp_option" value="otp" class="pdp-radio-input" autocomplete="off">
+            <input type="radio" name="purchase_type" id="otp_option" value="otp" class="pdp-radio-input"{% unless has_subs %} checked{% endunless %} autocomplete="off">
             <div class="icon-radio-filled">
               {{ 'radio-filled.svg' | inline_asset_content }}
             </div>
