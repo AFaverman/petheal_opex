@@ -39,7 +39,14 @@
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
-    {{ content_for_header }}
+    {% comment %} remove richpanel from content_for_header unless it's a specific page template; app itself does not allow this kind of filtering{% endcomment %}
+    {% capture header_content%}
+      {{ content_for_header }}
+    {% endcapture  %}
+    {% unless template.suffix contains "contact" %}
+      {% assign header_content = header_content | replace: '"https:\/\/cdn.richpanel.com\/js\/richpanel_shopify_script.js?appClientId=petheal1361\u0026tenantId=petheal136\u0026shop=petheal.myshopify.com\u0026shop=petheal.myshopify.com",', '' %}
+    {% endunless %}
+    {{ header_content }}
 
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
