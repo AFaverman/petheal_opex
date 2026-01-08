@@ -173,7 +173,7 @@
 
       window.getSubImage = async function(title) {
         const productName = title.split('—')[0].trim();
-        const searchQuery = `${productName} OTP`;
+        const searchQuery = `${productName}`;
         
         const response = await fetch(`/search/suggest.json?q=${encodeURIComponent(searchQuery)}&resources[type]=product&resources[limit]=1`);
         if (response.ok) {
