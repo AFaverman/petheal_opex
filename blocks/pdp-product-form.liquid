@@ -1,30 +1,20 @@
 {%- liquid
-  assign current_handle = product.handle
-  assign base_handle = current_handle | split: '-otp' | first
   assign product_form_id = 'product-form-' | append: section.id | append: block.id
-  for i in (1..3)
-    assign handle = base_handle | append: '-quantity-' | append: i
-    assign sub_product = all_products[handle]
-    if sub_product != blank
-      assign subscription_products = subscription_products | append: handle | append: ','
-    endif
-  endfor
-  assign subscription_products = subscription_products | split: ','
 
   assign up_to_percent = 0
-  for handle in subscription_products
-    assign sub = all_products[handle]
-    assign sub_product = sub.first_available_variant
+  for variant in product.variants
+    assign sub_product = variant
     assign sub_selling_plan = sub_product.selling_plan_allocations.first.selling_plan
-    if sub_selling_plan.price_adjustments.first.value_type == "percentage"
-      assign sub_percent = sub_selling_plan.price_adjustments.first.value | round
+     assign sub_percent = variant.compare_at_price | minus: sub_product.selling_plan_allocations.first.price | times: 100 | divided_by: variant.compare_at_price
+    if sub_selling_plan
+     assign has_subs = true
     endif
     if sub_percent > up_to_percent
       assign up_to_percent = sub_percent
     endif
   endfor
   for upsell in product.metafields.custom.associated_upsells.value
-    if forloop.first
+    if forloop.last
       assign upsell_product = upsell
       break
     endif
@@ -55,7 +45,7 @@
       </div>
 
       <!-- Subscriptions Section -->
-      {% if subscription_products.size > 0 %}
+      {% if has_subs %}
       <div class="pdp-subscriptions__container pdp-variant__container py-6 px-6 mb-4">
         <details class="pdp-subscriptions mb-4" open id="subscription_details">
           <summary class="pdp-subscriptions-summary flex align-center gap-4">
@@ -80,10 +70,10 @@
                 </div>
                 <div>
                   <div class="subscription-price__compare lg:text-lg text-heading line-through">
-                    {{ all_products[subscription_products.first].selected_or_first_available_variant.price | money }}
+                    {{ product.selected_or_first_available_variant.compare_at_price | money }} - test
                   </div>
                   <div class="subscription-price text-lg lg:text-xl text-heading text-cta">
-                    {{ all_products[subscription_products.first].selected_or_first_available_variant.selling_plan_allocations.first.price | money }}
+                    {{ product.selected_or_first_available_variant.selling_plan_allocations.first.price | money }}
                   </div>
                 </div>
               </div>
@@ -91,13 +81,12 @@
           </summary>
           <div class="pdp-subscriptions-form">
             <div class="subscription-options">
-              {%- for handle in subscription_products -%}
+              {%- for variant in product.variants -%}
                 {%- liquid
-                  assign sub = all_products[handle]
-                  assign sub_product = sub.first_available_variant
+                  assign sub_product = variant
                   assign sub_selling_plan = sub_product.selling_plan_allocations.first.selling_plan
                     if sub_selling_plan.price_adjustments.first.value_type == "percentage"
-                      assign sub_percent = sub_selling_plan.price_adjustments.first.value | round | append: "%"
+                      assign sub_percent = variant.compare_at_price | minus: sub_product.selling_plan_allocations.first.price | times: 100 | divided_by: variant.compare_at_price
                     endif
                     unless sub_selling_plan
                       continue
@@ -109,11 +98,10 @@
                     name="subscription_product" 
                     id="sub_quantity_{{forloop.index}}" 
                     value="{{ sub_product.id }}"
-                    data-product-handle="{{ sub.handle }}"
                     data-selling-plan-id="{{ sub_product.selling_plan_allocations.first.selling_plan.id }}"
                     class="subscription-radio pdp-radio-input"
                     data-price="{{ sub_product.selling_plan_allocations.first.price | money }}" 
-                    {% if sub_product.price > sub_product.selling_plan_allocations.first.price %}data-compare-price="{{ sub_product.price | money }}" {% endif%}
+                    {% if sub_product.compare_at_price > sub_product.selling_plan_allocations.first.price %}data-compare-price="{{ sub_product.compare_at_price | money }}" {% endif%}
                     {% if forloop.first %}checked{% endif %}
                   >
                   <label for="sub_quantity_{{forloop.index}}" class="variant-label subscription-label flex-100 flex-shrink md:px-4 px-1 text-sm">
@@ -125,7 +113,7 @@
                     <div class="product-qty">
                       {{ forloop.index }} {{ forloop.index | pluralize: 'Tub', 'Tubs' }}: {{ forloop.index | times: 30 }} Servings
                     </div>
-                    <div class="subscription-plan-savings">{{ sub_percent }} off</div>
+                    <div class="subscription-plan-savings">{{ sub_percent }}% off</div>
                     </div>
                   </label>
                 </div>
@@ -140,9 +128,9 @@
       {% endif %}
       <!-- One-Time Purchase Section -->
       <div class="pdp-otp__container pdp-variant__container py-6 px-6 mb-4">
-        <details class="pdp-otp mb-4" {% unless subscription_products.size > 0 %}open{% endunless %} id="otp_details">
+        <details class="pdp-otp mb-4" {% unless has_subs %}open{% endunless %} id="otp_details">
           <summary class="pdp-otp-summary flex align-center gap-4">
-            <input type="radio" name="purchase_type" id="otp_option" value="otp" class="pdp-radio-input" autocomplete="off">
+            <input type="radio" name="purchase_type" id="otp_option" value="otp" class="pdp-radio-input"{% unless has_subs %} checked{% endunless %} autocomplete="off">
             <div class="icon-radio-filled">
               {{ 'radio-filled.svg' | inline_asset_content }}
             </div>

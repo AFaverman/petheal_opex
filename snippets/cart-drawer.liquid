@@ -118,6 +118,14 @@
 
                   <tbody role="rowgroup">
                     {%- for item in cart.items -%}
+                      {%- liquid 
+                        assign is_upsell = false
+                        for property in item.properties
+                          if property.first == "_upsell"
+                            assign is_upsell = true
+                          endif 
+                        endfor
+                      -%}
                       <tr id="CartDrawer-Item-{{ item.index | plus: 1 }}" class="cart-item" role="row">
                         <td class="cart-item__media" role="cell" headers="CartDrawer-ColumnProductImage">
                           {% if item.image %}
@@ -149,7 +157,11 @@
                                 {{ 'products.product.price.regular_price' | t }}
                               </span>
                               <s class="cart-item__old-price product-option">
-                                {{- item.original_price | money -}}
+                                {% if item.product.compare_at_price > 0 and is_upsell %}
+                                  {{ item.product.compare_at_price | money }}
+                                {% else %}
+                                  {{- item.original_price | money -}}
+                                {% endif %}
                               </s>
                               <span class="visually-hidden">
                                 {{ 'products.product.price.sale_price' | t }}
@@ -231,7 +243,11 @@
                                   {{ 'products.product.price.regular_price' | t }}
                                 </span>
                                 <s class="cart-item__old-price price price--end">
-                                  {{ item.original_line_price | money }}
+                                  {% if item.product.compare_at_price > 0 and is_upsell %}
+                                    {{ item.product.compare_at_price | money }}
+                                  {% else %}
+                                    {{- item.original_price | money -}}
+                                  {% endif %}
                                 </s>
                                 <span class="visually-hidden">
                                   {{ 'products.product.price.sale_price' | t }}
@@ -330,7 +346,7 @@
                               <cart-remove-button
                                 id="CartDrawer-Remove-{{ item.index | plus: 1 }}"
                                 data-index="{{ item.index | plus: 1 }}"
-                                data-upsell="{% if item.title contains 'Discount Upsell' %}true{% else %}false{% endif %}"
+                                data-upsell="{{is_upsell}}"
                               >
                                 <button
                                   type="button"

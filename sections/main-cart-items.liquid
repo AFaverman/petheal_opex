@@ -85,6 +85,14 @@
 
               <tbody>
                 {%- for item in cart.items -%}
+                  {%- liquid 
+                    assign is_upsell = false
+                    for property in item.properties
+                      if property.first == "_upsell"
+                        assign is_upsell = true
+                      endif 
+                    endfor
+                  -%}
                   <tr class="cart-item" id="CartItem-{{ item.index | plus: 1 }}">
                     <td class="cart-item__media">
                       {% if item.image %}
@@ -116,7 +124,7 @@
                           assign url = item.url
                         endif
                       -%}
-                      <a href="{{ url }}" class="cart-item__name h4 break">{{ item.product.title | escape }}</a>
+                      <a href="{{ url }}" class="cart-item__name h4 break">{{ item.product.title | escape  | remove: ' — OTP'}}</a>
 
                       {%- if item.original_price != item.final_price -%}
                         <div class="cart-item__discounted-prices">
@@ -124,7 +132,11 @@
                             {{ 'products.product.price.regular_price' | t }}
                           </span>
                           <s class="cart-item__old-price product-option">
-                            {{- item.original_price | money -}}
+                            {% if item.product.compare_at_price > 0 and is_upsell %}
+                              {{ item.product.compare_at_price | money }}
+                            {% else %}
+                              {{- item.original_price | money -}}
+                            {% endif %}
                           </s>
                           <span class="visually-hidden">
                             {{ 'products.product.price.sale_price' | t }}
@@ -195,7 +207,11 @@
                             </dt>
                             <dd>
                               <s class="cart-item__old-price price price--end">
-                                {{ item.original_line_price | money }}
+                                {% if item.product.compare_at_price > 0 and is_upsell %}
+                                  {{ item.product.compare_at_price | money }}
+                                {% else %}
+                                  {{- item.original_price | money -}}
+                                {% endif %}
                               </s>
                             </dd>
                             <dt class="visually-hidden">
@@ -257,7 +273,7 @@
                             <quantity-input class="quantity cart-quantity">
                               <button class="quantity__button" name="minus" type="button">
                                 <span class="visually-hidden">
-                                  {{- 'products.product.quantity.decrease' | t: product: item.product.title | escape -}}
+                                  {{- 'products.product.quantity.decrease' | t: product: item.product.title | escape | remove: ' — OTP' -}}
                                 </span>
                                 <span class="svg-wrapper">
                                   {{- 'icon-minus.svg' | inline_asset_content -}}
@@ -295,7 +311,7 @@
                           <cart-remove-button
                             id="Remove-{{ item.index | plus: 1 }}"
                             data-index="{{ item.index | plus: 1 }}"
-                            data-upsell="{% if item.title contains 'Discount Upsell' %}true{% else %}false{% endif %}"
+                            data-upsell="{{is_upsell}}"
                           >
                             <a
                               href="{{ item.url_to_remove }}"
@@ -412,7 +428,11 @@
                             </dt>
                             <dd>
                               <s class="cart-item__old-price price price--end">
-                                {{ item.original_line_price | money }}
+                                {% if item.product.compare_at_price > 0 and is_upsell %}
+                                  {{ item.product.compare_at_price | money }}
+                                {% else %}
+                                  {{- item.original_price | money -}}
+                                {% endif %}
                               </s>
                             </dd>
                             <dt class="visually-hidden">
