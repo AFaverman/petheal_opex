@@ -1,0 +1,278 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "order": [
+    "main",
+    "related-products",
+    "image-with-text",
+    "multicolumn"
+  ],
+  "sections": {
+    "image-with-text": {
+      "block_order": [
+        "image-with-text-0",
+        "image-with-text-1"
+      ],
+      "blocks": {
+        "image-with-text-0": {
+          "settings": {
+            "heading": "Image with text",
+            "heading_size": "h1"
+          },
+          "type": "heading"
+        },
+        "image-with-text-1": {
+          "settings": {
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "text_size": "md",
+            "text_style": "body"
+          },
+          "type": "text"
+        }
+      },
+      "settings": {
+        "color_scheme": "background-2",
+        "color_scheme_application": "none",
+        "content_color_scheme": "",
+        "content_full_width": false,
+        "content_layout": "no-overlap",
+        "content_max_width": 500,
+        "desktop_content_alignment": "left",
+        "desktop_content_position": "top",
+        "desktop_image_width": "medium",
+        "full_width": false,
+        "height": "small",
+        "image_behavior": "none",
+        "image_max_width": 500,
+        "image_with_text_gap": 16,
+        "layout": "text_first",
+        "layout_direction": "row",
+        "mobile_content_alignment": "left",
+        "padding_bottom": 36,
+        "padding_top": 36
+      },
+      "type": "image-with-text"
+    },
+    "main": {
+      "block_order": [
+        "title",
+        "vendor",
+        "yotpo_product_reviews_star_rating_bFTkCd",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "description",
+        "collapsible-row-0",
+        "collapsible-row-1",
+        "collapsible-row-2",
+        "collapsible-row-3",
+        "share"
+      ],
+      "blocks": {
+        "buy_buttons": {
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": false
+          },
+          "type": "buy_buttons"
+        },
+        "collapsible-row-0": {
+          "settings": {
+            "content": "",
+            "heading": "Materials",
+            "icon": "leather",
+            "page": ""
+          },
+          "type": "collapsible_tab"
+        },
+        "collapsible-row-1": {
+          "settings": {
+            "content": "",
+            "heading": "Shipping & Returns",
+            "icon": "truck",
+            "page": ""
+          },
+          "type": "collapsible_tab"
+        },
+        "collapsible-row-2": {
+          "settings": {
+            "content": "",
+            "heading": "Dimensions",
+            "icon": "ruler",
+            "page": ""
+          },
+          "type": "collapsible_tab"
+        },
+        "collapsible-row-3": {
+          "settings": {
+            "content": "",
+            "heading": "Care Instructions",
+            "icon": "heart",
+            "page": ""
+          },
+          "type": "collapsible_tab"
+        },
+        "description": {
+          "settings": {},
+          "type": "description"
+        },
+        "price": {
+          "settings": {},
+          "type": "price"
+        },
+        "quantity_selector": {
+          "disabled": true,
+          "settings": {},
+          "type": "quantity_selector"
+        },
+        "share": {
+          "settings": {
+            "share_label": "Share"
+          },
+          "type": "share"
+        },
+        "title": {
+          "settings": {},
+          "type": "title"
+        },
+        "variant_picker": {
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          },
+          "type": "variant_picker"
+        },
+        "vendor": {
+          "name": "Product Details",
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "subtitle"
+          },
+          "type": "text"
+        },
+        "yotpo_product_reviews_star_rating_bFTkCd": {
+          "settings": {
+            "product": "{{product}}"
+          },
+          "type": "shopify://apps/yotpo-product-reviews/blocks/star-rating/eb7dfd7d-db44-4334-bc49-c893b51b36cf"
+        }
+      },
+      "settings": {
+        "color_scheme": "",
+        "constrain_to_viewport": true,
+        "enable_sticky_info": true,
+        "enable_video_looping": false,
+        "gallery_layout": "thumbnail_slider",
+        "hide_variants": true,
+        "image_zoom": "lightbox",
+        "media_fit": "contain",
+        "media_position": "left",
+        "media_size": "medium",
+        "mobile_thumbnails": "show",
+        "padding_bottom": 12,
+        "padding_top": 36
+      },
+      "type": "main-product"
+    },
+    "multicolumn": {
+      "block_order": [
+        "column-0",
+        "column-1"
+      ],
+      "blocks": {
+        "column-0": {
+          "settings": {
+            "border_style": "none",
+            "column_span": 1,
+            "font_style": "heading",
+            "image_max_width": 0,
+            "link": "",
+            "link_label": "",
+            "link_style": "link",
+            "max_width": 0,
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "text_size": "md",
+            "title": "Free Shipping",
+            "title_align": "left",
+            "title_size": "h1-5",
+            "title_style": "standard",
+            "use_image_as_background": false
+          },
+          "type": "column"
+        },
+        "column-1": {
+          "settings": {
+            "border_style": "none",
+            "column_span": 1,
+            "font_style": "heading",
+            "image_max_width": 0,
+            "link": "",
+            "link_label": "",
+            "link_style": "link",
+            "max_width": 0,
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "text_size": "md",
+            "title": "Hassle-Free Exchanges",
+            "title_align": "left",
+            "title_size": "h1-5",
+            "title_style": "standard",
+            "use_image_as_background": false
+          },
+          "type": "column"
+        }
+      },
+      "settings": {
+        "background_style": "none",
+        "border_radius": 0,
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "background-1",
+        "color_scheme_secondary": "",
+        "column_alignment": "left",
+        "column_h_padding": 0,
+        "column_v_padding": 0,
+        "columns_desktop": 2,
+        "columns_mobile": "1",
+        "heading_alignment": "left",
+        "heading_size": "h1",
+        "image_ratio": "adapt",
+        "image_width": "full",
+        "mobile_shrink": false,
+        "padding_bottom": 36,
+        "padding_top": 36,
+        "swipe_on_mobile": false,
+        "title": "",
+        "vertical_alignment": "center"
+      },
+      "type": "multicolumn"
+    },
+    "related-products": {
+      "settings": {
+        "button_style": "button--primary",
+        "buy_button": "",
+        "color_scheme": "scheme-1",
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "padding_bottom": 28,
+        "padding_top": 36,
+        "products_to_show": 4,
+        "show_rating": false,
+        "show_secondary_image": true,
+        "show_vendor": false
+      },
+      "type": "related-products"
+    }
+  }
+}

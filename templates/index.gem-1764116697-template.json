@@ -1,0 +1,1561 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "multicolumn_video_EbmJAT": {
+      "type": "multicolumn-video",
+      "blocks": {
+        "video_7JHMgj": {
+          "type": "video",
+          "settings": {
+            "video": "shopify:\/\/files\/videos\/0103 (4).mp4",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_9d081f9222ce40acb15b355879c9c96e.jpg",
+            "name": "Evan",
+            "message": "My senior dog is energetic again!",
+            "product": "immune-plus-canine-special-otp",
+            "thumbnail_width": 64,
+            "thumbnail_height": 64,
+            "thumbnail_circular": true,
+            "thumbnail_outline": true
+          }
+        },
+        "video_gyVwCR": {
+          "type": "video",
+          "settings": {
+            "video": "shopify:\/\/files\/videos\/0103 (3).mp4",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_c859237e4f204dceb96c551f2cdbeae9.jpg",
+            "name": "Amy",
+            "message": "My dog is happy and full of life!",
+            "product": "immune-plus-canine-special-otp",
+            "thumbnail_width": 64,
+            "thumbnail_height": 64,
+            "thumbnail_circular": true,
+            "thumbnail_outline": true
+          }
+        },
+        "video_UXgCAN": {
+          "type": "video",
+          "settings": {
+            "video": "shopify:\/\/files\/videos\/111.mp4",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_181824e9476a444abcefd0aa6b3265c5.jpg",
+            "name": "Robert",
+            "message": "Immune Plus has changed everything! I have my happy \/ healthy dog back.",
+            "product": "immune-plus-canine-special-otp",
+            "thumbnail_width": 64,
+            "thumbnail_height": 64,
+            "thumbnail_circular": true,
+            "thumbnail_outline": true
+          }
+        },
+        "video_LTUidP": {
+          "type": "video",
+          "settings": {
+            "video": "shopify:\/\/files\/videos\/IAN.mp4",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_28b1c34cad3f418db28edff0f408d36d.jpg",
+            "name": "Tracy",
+            "message": "I didn't know what to do! Immune Plus made the difference...",
+            "product": "immune-plus-canine-special-otp",
+            "thumbnail_width": 64,
+            "thumbnail_height": 64,
+            "thumbnail_circular": true,
+            "thumbnail_outline": true
+          }
+        },
+        "video_kYjpjF": {
+          "type": "video",
+          "settings": {
+            "video": "shopify:\/\/files\/videos\/Petheal Video.mp4",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_3c65f8110218456b9ed8cdb0302548cc.jpg",
+            "name": "John",
+            "message": "Immune Plus has made a big difference in my dog's health!",
+            "product": "immune-plus-canine-special-otp",
+            "thumbnail_width": 64,
+            "thumbnail_height": 64,
+            "thumbnail_circular": true,
+            "thumbnail_outline": true
+          }
+        },
+        "video_cEKdQm": {
+          "type": "video",
+          "settings": {
+            "video": "shopify:\/\/files\/videos\/Ian 1.mp4",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_82841c1f2e9e4b998ca8d6a47a5f043d_baf90d74-bfee-492b-ab7e-4d4b032b65aa.jpg",
+            "name": "Sarah",
+            "message": "Immune Plus is a game changer. I didn't expect something so simple to have such a big impact on our bond.",
+            "product": "immune-plus-canine-special-otp",
+            "thumbnail_width": 64,
+            "thumbnail_height": 64,
+            "thumbnail_circular": true,
+            "thumbnail_outline": true
+          }
+        }
+      },
+      "block_order": [
+        "video_7JHMgj",
+        "video_gyVwCR",
+        "video_UXgCAN",
+        "video_LTUidP",
+        "video_kYjpjF",
+        "video_cEKdQm"
+      ],
+      "name": "Video Multicolumn",
+      "settings": {
+        "title": "See what all the bark is about!",
+        "heading_alignment": "center",
+        "heading_size": "text-lg",
+        "show_title": true,
+        "full_width": false,
+        "columns_desktop": 6,
+        "column_alignment": "left",
+        "color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+        "color_scheme_secondary": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664",
+        "columns_mobile": 3,
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_left": 36,
+        "padding_right": 36
+      }
+    },
+    "image_with_text_NnUWH7": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_x4pA6Y": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Get |Huge| Discounts<\/strong>",
+            "heading_size": "h0"
+          }
+        },
+        "text_P8w4Uj": {
+          "type": "text",
+          "settings": {
+            "text": "<p>On Products That'll Help Your Dog Live Longer When You Subscribe. Save as much as 30% and get completely free shipping with every subscription.<\/p>",
+            "text_style": "standard",
+            "text_size": "md"
+          }
+        },
+        "button_gJhUM9": {
+          "type": "button",
+          "settings": {
+            "button_label": "browse products",
+            "button_link": "shopify:\/\/collections\/all-products",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_x4pA6Y",
+        "text_P8w4Uj",
+        "button_gJhUM9"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_d0e98a23d8b14fa1871eff40b3c7d57f.png",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "image_max_width": 0,
+        "full_width": true,
+        "layout": "text_first",
+        "mobile_layout": "text_first",
+        "layout_direction": "row",
+        "image_behavior": "none",
+        "image_with_text_gap": 16,
+        "content_full_width": false,
+        "content_max_width": 0,
+        "content_layout": "no-overlap",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "center",
+        "content_padding_top": 0,
+        "content_padding_bottom": 0,
+        "color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+        "full_colors": false,
+        "content_color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+        "color_scheme_application": "content",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "sliding_banner_Re6Xi7": {
+      "type": "sliding-banner",
+      "blocks": {
+        "marquee_BE3g3n": {
+          "type": "marquee",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/thousands-dogs.svg",
+            "content": ""
+          }
+        },
+        "marquee_ePaBgq": {
+          "type": "marquee",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/all-natural.svg",
+            "content": ""
+          }
+        },
+        "marquee_cFtMkb": {
+          "type": "marquee",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/free-shipping.svg",
+            "content": ""
+          }
+        },
+        "marquee_gkyNFt": {
+          "type": "marquee",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/made-in-usa.svg",
+            "content": ""
+          }
+        }
+      },
+      "block_order": [
+        "marquee_BE3g3n",
+        "marquee_ePaBgq",
+        "marquee_cFtMkb",
+        "marquee_gkyNFt"
+      ],
+      "name": "Sliding Marquee",
+      "settings": {
+        "color_scheme": "scheme-42389180-1830-4cc2-85c9-5038c8e4a0fd",
+        "play_speed": 60,
+        "direction": "normal",
+        "text_size": "md",
+        "max_height": 35,
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "image_with_text_7WfQa4": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_jc6rnB": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Immune Plus<\/strong>",
+            "heading_size": "h0"
+          }
+        },
+        "text_hcRUL8": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Boost Your Dog’s Immune System With Tasty Treats Your Pup Will Love<\/p><p>Did you know your dog’s immune system is the key to them living a long and happy life?<\/p><p>Unfortunately, cancer is the biggest killer of our dogs… and the number one way to fight it is with a strong immune system.<\/p><p>Immune Plus is vet-formulated to give your dog’s immune system the nutrients it needs for maximum health.<\/p>",
+            "text_style": "standard",
+            "text_size": "md"
+          }
+        },
+        "button_TxLhbR": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop Now",
+            "button_link": "shopify:\/\/products\/immune-plus-canine-special-otp",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_jc6rnB",
+        "text_hcRUL8",
+        "button_TxLhbR"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_f570af04772d473da43e08e6364e533c.png",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "image_max_width": 400,
+        "full_width": false,
+        "layout": "image_first",
+        "mobile_layout": "image_first",
+        "layout_direction": "row",
+        "image_behavior": "none",
+        "image_with_text_gap": 16,
+        "content_full_width": false,
+        "content_max_width": 640,
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "center",
+        "content_padding_top": 0,
+        "content_padding_bottom": 0,
+        "color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664",
+        "full_colors": false,
+        "content_color_scheme": "scheme-9f5c2595-985e-47bc-8af2-ac33e3491664",
+        "color_scheme_application": "content",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "icon_with_text_LwBUte": {
+      "type": "icon-with-text",
+      "name": "Icon with text",
+      "settings": {
+        "icon": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_cc51bf0dd11740b392fde6cbab2348c9.svg",
+        "icon_name": "paw-print",
+        "icon_width": 100,
+        "title": "",
+        "text": "",
+        "orientation": "column",
+        "icon_placement": "first",
+        "icon_alignment": "flex-end",
+        "alignment": "center",
+        "color_scheme": "scheme-ac2270cc-3926-4304-a7ec-d2d1494a5c63",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "multicolumn_R4WHVM": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_iJeL3k": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "small",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_15c27bb696f84ed78c8982f1f55f0d66.png",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_gCVeH3": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "Vet Reviewed",
+            "title_size": "h0",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "center",
+            "text": "<p>“I recommend Pet Heal products for all my furry patients. There’s no better way to give your dog the long-term health boost they deserve” <br\/><br\/>Vet Consultant to PetHeal<\/p>",
+            "text_size": "md",
+            "text_align": "center",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_MzUeHH": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "large-up",
+            "mobile_full_width": false,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_15c27bb696f84ed78c8982f1f55f0d66.png",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_Jqg94M": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": false,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_61cc9f6c75b445ab853d44deaf69bc51.png",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_iJeL3k",
+        "column_gCVeH3",
+        "column_MzUeHH",
+        "column_Jqg94M"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "heading_alignment": "left",
+        "heading_width": 0,
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "vertical_alignment": "center",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "column_h_padding": 0,
+        "column_v_padding": 0,
+        "border_radius": 0,
+        "color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+        "background_style": "none",
+        "color_scheme_secondary": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "show_slider_controls": true,
+        "mobile_shrink": false,
+        "section_padding_top": 0,
+        "section_padding_bottom": 0,
+        "padding_top": 40,
+        "padding_bottom": 0
+      }
+    },
+    "multicolumn_REUjUF": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_8hnH7F": {
+          "type": "column",
+          "settings": {
+            "column_span": 2,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "",
+            "title_size": "h2",
+            "font_style": "body",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>AS SEEN ON SPONSORED CONTENT<\/p>",
+            "text_size": "lg",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "button--secondary",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_BMr7RW": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": false,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_1e94b9a011c744dda200af48bcf5cdc3.svg",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 160,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_DNGh8D": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": false,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_74ffc12c54e949e18a817d2e4a1853a0.svg",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 160,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_VjR4jH": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": false,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_0a5c38ddad084381b3d4705a24732473.svg",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 160,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_8hnH7F",
+        "column_BMr7RW",
+        "column_DNGh8D",
+        "column_VjR4jH"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "heading_alignment": "left",
+        "heading_width": 0,
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "vertical_alignment": "center",
+        "columns_desktop": 5,
+        "column_alignment": "mr-auto",
+        "column_h_padding": 20,
+        "column_v_padding": 0,
+        "border_radius": 0,
+        "color_scheme": "scheme-42389180-1830-4cc2-85c9-5038c8e4a0fd",
+        "background_style": "none",
+        "color_scheme_secondary": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "show_slider_controls": true,
+        "mobile_shrink": true,
+        "section_padding_top": 0,
+        "section_padding_bottom": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_xXz9Ny": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_p99Ykf": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Help Your Dog Live Longer While You Grab Our |Giant Discounts|<\/strong>",
+            "heading_size": "h0"
+          }
+        },
+        "text_VjaQNB": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Subscribe today and save up to 30% while helping your dog fight cancer and other serious diseases.<\/p>",
+            "text_style": "standard",
+            "text_size": "md"
+          }
+        },
+        "button_YMt9Qk": {
+          "type": "button",
+          "settings": {
+            "button_label": "Click for subscription options",
+            "button_link": "shopify:\/\/collections\/all-products",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_p99Ykf",
+        "text_VjaQNB",
+        "button_YMt9Qk"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_d8bdfc27a15a40718fef16c62fa3d460.png",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "image_max_width": 400,
+        "full_width": true,
+        "layout": "text_first",
+        "mobile_layout": "text_first",
+        "layout_direction": "row",
+        "image_behavior": "none",
+        "image_with_text_gap": 16,
+        "content_full_width": false,
+        "content_max_width": 700,
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "center",
+        "content_padding_top": 80,
+        "content_padding_bottom": 80,
+        "color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+        "full_colors": false,
+        "content_color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+        "color_scheme_application": "content",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "multicolumn_ki3EKA": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_43KH9t": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_a301da40425c443787c88ea95cfeb605.png",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "Charles W.",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>Product: <a href=\"https:\/\/petheal.com\/products\/cancer-care?&rtkcid=undefined\"><strong>Cancer Care<\/strong><\/a><\/p>",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": true,
+            "quote_rating": 5,
+            "quote_text": "<p>Nice, dog getting more energetic and looking better. Definitely going to be part of regiment going forward. He is so much happier and this product works as described.<\/p>",
+            "quote_date": "11\/17\/24"
+          }
+        },
+        "column_Whpat6": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_7cd94830c93e49c1a9a0851488e15cef.png",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "Pamela R.",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>Product: <a href=\"https:\/\/petheal.com\/products\/immune-guard?&rtkcid=undefined\"><strong>Immune Guard<\/strong><\/a><\/p>",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": true,
+            "quote_rating": 5,
+            "quote_text": "<p>I use Cancer Care in conjunction with Immune Care. My Sophia has a tumor behind her pupil. Glaucoma now. I have no idea if tumor is Cancer. I give her this just in case. Also she has Cushings. All these remedies support her Immune system.<\/p>",
+            "quote_date": "8\/29\/24"
+          }
+        },
+        "column_UqiQyJ": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_4f9520262288452aa00327b9b715c0f3.png",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "RutheAnne R.",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>Product: <a href=\"https:\/\/petheal.com\/products\/flea-shield?&rtkcid=undefined\"><strong>Flea Shield<\/strong><\/a><\/p>",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": true,
+            "quote_rating": 5,
+            "quote_text": "<p>Flea Shield is aboslutely the best!!! I love this product! Thank you so much for making such a superior product!!<\/p>",
+            "quote_date": "10\/4\/24"
+          }
+        }
+      },
+      "block_order": [
+        "column_43KH9t",
+        "column_Whpat6",
+        "column_UqiQyJ"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "Over |1.5 million| happy healthy dogs and counting",
+        "heading_size": "h0",
+        "heading_alignment": "center",
+        "heading_width": 0,
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "vertical_alignment": "center",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "column_h_padding": 20,
+        "column_v_padding": 16,
+        "border_radius": 0,
+        "color_scheme": "scheme-42389180-1830-4cc2-85c9-5038c8e4a0fd",
+        "background_style": "color_scheme",
+        "color_scheme_secondary": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "show_slider_controls": true,
+        "mobile_shrink": false,
+        "section_padding_top": 0,
+        "section_padding_bottom": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "icon_with_text_ak8Bq7": {
+      "type": "icon-with-text",
+      "name": "Icon with text",
+      "settings": {
+        "icon": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_27f7b31f13b8407ea2490567f11dc9d0.svg",
+        "icon_name": "paw-print",
+        "icon_width": 100,
+        "title": "",
+        "text": "",
+        "orientation": "column",
+        "icon_placement": "first",
+        "icon_alignment": "flex-end",
+        "alignment": "center",
+        "color_scheme": "scheme-42389180-1830-4cc2-85c9-5038c8e4a0fd",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "testimonial_slider_kgfjN4": {
+      "type": "testimonial-slider",
+      "blocks": {
+        "testimonial_znQHGT": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "heading": "Immune Guard is a formula I recommend for preventing disease in our canine friends",
+            "text": "<p>\"My and my spouses canine has malignant cancer @ 12 years old. We are very sad! since I just lost my service canine in July. I am diversely able and after loosing my best friend, all of us including Koda has felt the terrible loss. Now our girl is on hospice care. She is happy and not in pain and I am attributing some of the favorable aspects to immune guard, along with my integrative functional approach to caring for our best friend. Thank you for the opportunity to share my story.\"<\/p>",
+            "author_name": "Tresa C",
+            "date": "11\/8\/24"
+          }
+        },
+        "testimonial_wDgwcr": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "heading": "So far, so good!",
+            "text": "<p>\"Thank you very much so far so good, she is enjoying her food and with much more energy for being an old dog. She is 14 years old will be 15 next year in February if God's willing. Thanks again, I will order Immune Guard again.\"<\/p>",
+            "author_name": "Mary M.",
+            "date": "10\/21\/24"
+          }
+        },
+        "testimonial_DBDALa": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "heading": "Amazing!",
+            "text": "<p>\"I had 2 things happening simultaneously with my Siberian Samoyeds. My 8 year old had a bump on his left lower cheek that was the size of a pea. I was @ to bring him in and have it excised and biopsied which would’ve cost me $500. My 8 month old puppy Samoyed had papaillimavirus. 4 different bumps on his lips and tongue. The day I brought them both into the vet to have them looked at is when I saw the add on Instagram. I decided to try this product first before anything. Both my sanities healed up within 3 days! Super unbelievable!!!\"<\/p>",
+            "author_name": "Tiffany S.",
+            "date": "9\/16\/24"
+          }
+        },
+        "testimonial_3UxmqB": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "heading": "Immune Guard",
+            "text": "<p>\"I have been giving my Labradoodle the Immune Guard chewables for several weeks now and I believe the bumps on her body are beginning to shrink in size.\"<\/p>",
+            "author_name": "Mary B.",
+            "date": "9\/7\/24"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_znQHGT",
+        "testimonial_wDgwcr",
+        "testimonial_DBDALa",
+        "testimonial_3UxmqB"
+      ],
+      "name": "Testimonial Slider",
+      "settings": {
+        "title": "<strong>Don't just take our word for it<\/strong>",
+        "heading_size": "h0",
+        "custom_star": "shopify:\/\/shop_images\/trust-pilot.png",
+        "static_title": "Excellent",
+        "rating": 5,
+        "static_text": "<p>Based on 23 reviews<\/p>",
+        "static_image": "shopify:\/\/shop_images\/trust-pilot-logo.png",
+        "columns_desktop": 3,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "color_scheme_secondary": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "multicolumn_gVwrfj": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_gUq9z4": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "How PetHeal Helps",
+            "title_size": "h0",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "",
+            "text_size": "lg",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_tFGPVi": {
+          "type": "column",
+          "settings": {
+            "column_span": 2,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>We use vet-formulated holistic products to give your pets the nutrients they need for tip top health at all times. <\/p><p>The average person doesn’t realize how the right nutrients can help your pet live a longer, happier life… and that’s our aim.<\/p>",
+            "text_size": "lg",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_gUq9z4",
+        "column_tFGPVi"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "heading_alignment": "left",
+        "heading_width": 0,
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "vertical_alignment": "center",
+        "columns_desktop": 3,
+        "column_alignment": "mr-auto",
+        "column_h_padding": 0,
+        "column_v_padding": 0,
+        "border_radius": 0,
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "background_style": "none",
+        "color_scheme_secondary": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "show_slider_controls": true,
+        "mobile_shrink": false,
+        "section_padding_top": 36,
+        "section_padding_bottom": 36,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "multicolumn_afU9mq": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_Hr3BrU": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_ea8a8bf477b547fe941689a54903bfac.svg",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 64,
+            "max_width": 100,
+            "image_heading_inline": false,
+            "title": "",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>Manufactured in the USA<\/p>",
+            "text_size": "sm",
+            "text_align": "center",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_Jeb8GH": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "left",
+            "border_display": "border-desktop-only",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_c9919d31678b41938226cd4984b18ca9.svg",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 64,
+            "max_width": 100,
+            "image_heading_inline": false,
+            "title": "",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>Free shipping<\/p>",
+            "text_size": "sm",
+            "text_align": "center",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_He8PDq": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "left",
+            "border_display": "border-desktop-only",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_d957fd650260402cbbf9dee2c39e40ab.svg",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 64,
+            "max_width": 100,
+            "image_heading_inline": false,
+            "title": "",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>High quality ingredients<\/p>",
+            "text_size": "sm",
+            "text_align": "center",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_7PqGPe": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "left",
+            "border_display": "border-desktop-only",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_faf11ad91a69459da744ab7dedd64ef4.svg",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 64,
+            "max_width": 100,
+            "image_heading_inline": false,
+            "title": "",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "<p>3500+ 5 star reviews<\/p>",
+            "text_size": "sm",
+            "text_align": "center",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_Hr3BrU",
+        "column_Jeb8GH",
+        "column_He8PDq",
+        "column_7PqGPe"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "heading_alignment": "left",
+        "heading_width": 0,
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "vertical_alignment": "center",
+        "columns_desktop": 4,
+        "column_alignment": "mx-auto",
+        "column_h_padding": 0,
+        "column_v_padding": 0,
+        "border_radius": 0,
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "background_style": "container_color_scheme",
+        "color_scheme_secondary": "scheme-42389180-1830-4cc2-85c9-5038c8e4a0fd",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "show_slider_controls": true,
+        "mobile_shrink": true,
+        "section_padding_top": 40,
+        "section_padding_bottom": 36,
+        "padding_top": 36,
+        "padding_bottom": 20
+      }
+    },
+    "image_banner_AGaeJn": {
+      "type": "image-banner",
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_7194729261e94a4993de3ce62ed0b65b.png",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": true,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_left": 0,
+        "margin_right": 0,
+        "text_box_opacity": 100,
+        "text_box_corner": 0,
+        "text_max_width": 480,
+        "text_box_padding": 16,
+        "color_scheme": "scheme-32c4cd9b-b219-4c6c-b265-38622213bac3",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true,
+        "mobile_opacity": 0
+      }
+    },
+    "rich_text_nVCyHx": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_fK7Ha4": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Have your dog featured<\/strong>",
+            "heading_size": "h0"
+          }
+        },
+        "text_RB6y4z": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Want your pup to feature on our website or social media? Tag us in your photos and leave us a review on Instagram using the hashtag #petheal<\/p>",
+            "text_style": "standard",
+            "text_size": "md"
+          }
+        },
+        "social_media_8G3wWj": {
+          "type": "social-media",
+          "settings": {
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_fK7Ha4",
+        "text_RB6y4z",
+        "social_media_8G3wWj"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+        "full_width": true,
+        "content_full_width": false,
+        "padding_top": 40,
+        "padding_bottom": 0
+      }
+    },
+    "multicolumn_JEydnE": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_qtjcca": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_c33d5f195c66492899200a690c43ac84.png",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_47bKJX": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_3b19516c2ff447d4a211d6f80c2a9662.png",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_3mMwbq": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_1af81d2f90a344be9eae7bfea4e76a0c.png",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        },
+        "column_3rXgQ3": {
+          "type": "column",
+          "settings": {
+            "column_span": 1,
+            "display_view": "none",
+            "mobile_full_width": true,
+            "border_style": "none",
+            "border_display": "border-both",
+            "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_eb31c59294ce430ca515fe35882eb0eb.png",
+            "use_image_as_background": false,
+            "image_overlay_tag": "",
+            "image_max_width": 0,
+            "max_width": 0,
+            "image_heading_inline": false,
+            "title": "",
+            "title_size": "h1-5",
+            "font_style": "heading",
+            "title_style": "standard",
+            "tag_style": "standard",
+            "title_align": "left",
+            "text": "",
+            "text_size": "md",
+            "text_align": "left",
+            "link_label": "",
+            "link_style": "link",
+            "link": "",
+            "enable_quote": false,
+            "quote_rating": 5,
+            "quote_text": "",
+            "quote_date": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_qtjcca",
+        "column_47bKJX",
+        "column_3mMwbq",
+        "column_3rXgQ3"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "heading_alignment": "left",
+        "heading_width": 0,
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "vertical_alignment": "center",
+        "columns_desktop": 4,
+        "column_alignment": "mr-auto",
+        "column_h_padding": 0,
+        "column_v_padding": 0,
+        "border_radius": 0,
+        "color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+        "background_style": "none",
+        "color_scheme_secondary": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "show_slider_controls": false,
+        "mobile_shrink": false,
+        "section_padding_top": 0,
+        "section_padding_bottom": 36,
+        "padding_top": 36,
+        "padding_bottom": 0
+      }
+    },
+    "icon_with_text_39bK6K": {
+      "type": "icon-with-text",
+      "name": "Icon with text",
+      "settings": {
+        "icon": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_cf3b8421ae4547458de6187590c0bdf3.svg",
+        "icon_name": "paw-print",
+        "icon_width": 100,
+        "title": "",
+        "text": "",
+        "orientation": "column",
+        "icon_placement": "first",
+        "icon_alignment": "flex-start",
+        "alignment": "center",
+        "color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "rich_text_gEPQQk": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_QkUa4m": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Why Subscribe?<\/strong>",
+            "heading_size": "h0"
+          }
+        }
+      },
+      "block_order": [
+        "heading_QkUa4m"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+        "full_width": true,
+        "content_full_width": false,
+        "padding_top": 36,
+        "padding_bottom": 0
+      }
+    },
+    "image_with_text_Xq7hyy": {
+      "type": "image-with-text",
+      "blocks": {
+        "list_item_BM9i6M": {
+          "type": "list-item",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_e9ade8e452724402a6e72a70a94174e3.svg",
+            "heading": "Subscribers save up to 30%",
+            "text": "<p>every month<\/p>"
+          }
+        },
+        "list_item_Cdaj9K": {
+          "type": "list-item",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_518195ccc759464b82eed40b9d2e6cf0.svg",
+            "heading": "All Subscribers get",
+            "text": "<p>FREE Delivery!<\/p>"
+          }
+        },
+        "list_item_kVamGN": {
+          "type": "list-item",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_26ef0db9852f44ef89b1e2ddd6ad6114.svg",
+            "heading": "Cancel at anytime",
+            "text": "<p>with 1 click<\/p>"
+          }
+        },
+        "list_item_3zwNbr": {
+          "type": "list-item",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_b250ff1dcd7240f3b5118e08d77a1c21.svg",
+            "heading": "Get low stock priority so",
+            "text": "<p>your dog always has their supply!<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "list_item_BM9i6M",
+        "list_item_Cdaj9K",
+        "list_item_kVamGN",
+        "list_item_3zwNbr"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify:\/\/shop_images\/assets_5c4ac7a0add34c76813af3764f810e32_f570af04772d473da43e08e6364e533c_be22dd44-16e8-4aa3-99dc-d9990902c414.png",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "image_max_width": 500,
+        "full_width": false,
+        "layout": "image_first",
+        "mobile_layout": "image_first",
+        "layout_direction": "row",
+        "image_behavior": "none",
+        "image_with_text_gap": 16,
+        "content_full_width": true,
+        "content_max_width": 600,
+        "content_layout": "no-overlap",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "content_padding_top": 0,
+        "content_padding_bottom": 0,
+        "color_scheme": "scheme-de21d0da-cab1-4e16-9557-3a437bd59ef2",
+        "full_colors": true,
+        "content_color_scheme": "scheme-1",
+        "color_scheme_application": "none",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "multicolumn_video_EbmJAT",
+    "image_with_text_NnUWH7",
+    "sliding_banner_Re6Xi7",
+    "image_with_text_7WfQa4",
+    "icon_with_text_LwBUte",
+    "multicolumn_R4WHVM",
+    "multicolumn_REUjUF",
+    "image_with_text_xXz9Ny",
+    "multicolumn_ki3EKA",
+    "icon_with_text_ak8Bq7",
+    "testimonial_slider_kgfjN4",
+    "multicolumn_gVwrfj",
+    "multicolumn_afU9mq",
+    "image_banner_AGaeJn",
+    "rich_text_nVCyHx",
+    "multicolumn_JEydnE",
+    "icon_with_text_39bK6K",
+    "rich_text_gEPQQk",
+    "image_with_text_Xq7hyy"
+  ]
+}
