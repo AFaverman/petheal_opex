@@ -63,6 +63,15 @@ if (!customElements.get('product-form')) {
             this.form.appendChild(upsellQuantityInput);
           }
           upsellQuantityInput.value = '1';
+
+          let upsellProperty = this.form.querySelector('input[name="items[1][properties][_upsell]"]');
+          if (!upsellProperty) {
+            upsellProperty = document.createElement('input');
+            upsellProperty.type = 'hidden';
+            upsellProperty.name = 'items[1][properties][_upsell]';
+            this.form.appendChild(upsellProperty);
+          }
+          upsellProperty.value = 'Discounted Add-on';
         } else {
           // Convert back to single item format
           mainVariantInput.name = 'id';
