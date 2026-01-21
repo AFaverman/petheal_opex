@@ -531,7 +531,7 @@
                           "name": "PDP Table Row",
                           "settings": {
                             "columns_count": 2,
-                            "c1_content": "<p>under 25 lbs</p>",
+                            "c1_content": "<p>Under 25 lbs</p>",
                             "c1_text_alignment": "left",
                             "c1_tag": false,
                             "c1_text_style": "standard",
@@ -1709,7 +1709,7 @@
         "text_XUUmYj": {
           "type": "text",
           "settings": {
-            "text": "<p>Here are just some of the benefits you’ll notice after feeding Immune Guard for 90 days.</p>",
+            "text": "<p>Here are just some of the benefits you’ll notice after feeding Immune Plus for 90 days.</p>",
             "text_style": "standard",
             "text_size": "md"
           }
